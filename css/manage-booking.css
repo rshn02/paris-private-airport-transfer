@@ -1,0 +1,607 @@
+/* ============================================================
+   Paris Private Airport Transfer — MANAGE BOOKING.CSS
+============================================================ */
+
+/* ---------- BASE FIX FOOTER ---------- */
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-dark);
+}
+
+footer {
+    width: 100%;
+    margin-top: auto;
+    display: block;
+}
+
+/* ---------- FIX COULEURS TEXTE ---------- */
+
+.main-content,
+.section-search,
+.section-booking,
+.booking-section,
+.booking-wrapper {
+    color: var(--text-dark);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label {
+    color: var(--text-dark);
+}
+
+.booking-wrapper span {
+    color: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9a9a9a;
+}
+
+.form-group label {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* ---------- MESSAGES ---------- */
+
+.error-message {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.error-message.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.error-message.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error-message.info {
+    display: block;
+    background: rgba(201, 169, 97, 0.12);
+    color: #8b7355;
+    border: 1px solid rgba(201, 169, 97, 0.35);
+}
+
+input.error,
+select.error,
+textarea.error {
+    border: 2px solid #dc3545 !important;
+    background: #fff5f5;
+}
+
+/* ---------- BOOKING STATUS ---------- */
+
+.booking-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.status {
+    display: inline-block;
+    background: rgba(201, 169, 97, 0.15);
+    color: #8b7355;
+    border: 1px solid rgba(201, 169, 97, 0.4);
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.status.pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #b8860b;
+    border-color: rgba(255, 193, 7, 0.35);
+}
+
+.status.confirmed {
+    background: rgba(76, 175, 80, 0.12);
+    color: #2e7d32;
+    border-color: rgba(76, 175, 80, 0.35);
+}
+
+.status.modified {
+    background: rgba(25, 118, 210, 0.12);
+    color: #1565c0;
+    border-color: rgba(25, 118, 210, 0.35);
+}
+
+.status.cancelled {
+    background: rgba(220, 53, 69, 0.12);
+    color: #dc3545;
+    border-color: rgba(220, 53, 69, 0.35);
+}
+
+#refDisplay {
+    font-weight: 700;
+    color: var(--secondary);
+    letter-spacing: 1px;
+}
+
+/* ---------- RÉSUMÉ BOOKING ---------- */
+
+.booking-details .booking-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.booking-item {
+    background: #fafaf9;
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 14px;
+    padding: 1rem;
+    color: var(--primary);
+    word-break: break-word;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+}
+
+.booking-item span {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8b7355;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+}
+
+.booking-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* ---------- FORMULAIRE MODIFY ---------- */
+
+.manage-modify-form .form-section {
+    background: var(--white);
+    border: 1px solid rgba(201, 169, 97, 0.18);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+}
+
+.manage-modify-form .form-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--primary);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.manage-modify-form input,
+.manage-modify-form select,
+.manage-modify-form textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 2px solid rgba(201, 169, 97, 0.2);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.25s ease;
+}
+
+.manage-modify-form input:focus,
+.manage-modify-form select:focus,
+.manage-modify-form textarea:focus {
+    border-color: var(--secondary);
+}
+
+.manage-modify-form label {
+    display: block;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.92rem;
+}
+
+.vehicle-hint {
+    display: none;
+    margin-top: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: rgba(201, 169, 97, 0.12);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 10px;
+    color: #8b7355;
+    font-size: 0.9rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.vehicle-hint.show {
+    display: flex;
+}
+
+.vehicle-hint i {
+    color: var(--secondary);
+}
+
+.manage-actions,
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* ---------- ROUND TRIP ---------- */
+
+.roundtrip-wrapper {
+    background: linear-gradient(135deg, rgba(201, 169, 97, 0.08), rgba(139, 115, 85, 0.05));
+    border: 2px solid rgba(201, 169, 97, 0.3);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.roundtrip-wrapper.checked {
+    border-color: var(--secondary);
+}
+
+.roundtrip-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.roundtrip-label input[type="checkbox"] {
+    display: none;
+}
+
+.rt-check {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid var(--secondary);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    color: transparent;
+    font-size: 0.8rem;
+}
+
+.rt-check.is-checked {
+    background: var(--secondary);
+    color: var(--white);
+}
+
+.rt-text strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--primary);
+    margin-bottom: 0.15rem;
+}
+
+.rt-text span {
+    font-size: 0.88rem;
+    color: var(--text-light);
+}
+
+.rt-badge {
+    margin-left: auto;
+    background: var(--secondary);
+    color: var(--white);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: all 0.25s ease;
+}
+
+.rt-badge.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ---------- OPTIONS SIÈGES ---------- */
+
+.seat-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.seat-option-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fafaf9;
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.seat-option-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(201, 169, 97, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.seat-option-info {
+    flex: 1;
+}
+
+.seat-option-info strong {
+    display: block;
+    color: var(--primary);
+    margin-bottom: 0.15rem;
+}
+
+.seat-option-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.manage-modify-form .seat-option-card input[type="number"] {
+    width: 80px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.seat-notice {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+/* ---------- PRICE SUMMARY ---------- */
+
+#managePriceSummary {
+    background: linear-gradient(135deg, var(--primary), #2c2c2c);
+    border-radius: 16px;
+    padding: 2rem;
+    margin: 2rem 0;
+    color: var(--white);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+}
+
+#managePriceSummary h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--secondary);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+#managePriceSummary .price-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.95rem;
+}
+
+#managePriceSummary .price-line:last-child {
+    border-bottom: none;
+}
+
+#managePriceSummary .price-line .label {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+#managePriceSummary .price-line .value {
+    font-weight: 600;
+    color: var(--white);
+}
+
+#managePriceSummary .price-line.night .value {
+    color: #ffd700;
+}
+
+#managePriceSummary .price-line.total {
+    margin-top: 0.75rem;
+    padding-top: 1rem;
+    border-top: 2px solid rgba(201, 169, 97, 0.4) !important;
+    border-bottom: none;
+}
+
+#managePriceSummary .price-line.total .label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+#managePriceSummary .price-line.total .value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--secondary);
+}
+
+/* ---------- MODAL CANCEL ---------- */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+}
+
+.modal[hidden] {
+    display: none;
+}
+
+.modal-box,
+.premium-modal {
+    background: #fff;
+    max-width: 430px;
+    width: 100%;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.modal-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+
+.modal-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+}
+
+.modal-box p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* ---------- BOUTONS ---------- */
+
+.btn-secondary,
+.btn-danger,
+.btn-ghost,
+.submit-btn {
+    font-family: 'Inter', sans-serif;
+    transition: all 0.25s ease;
+}
+
+.btn-secondary {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: var(--secondary);
+    color: var(--primary);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background: #bb2d3b;
+}
+
+.btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #333;
+    border-radius: 999px;
+    padding: 0.85rem 1.4rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-ghost:hover {
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+    .booking-details .booking-grid,
+    .seat-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-status,
+    .booking-actions,
+    .manage-actions,
+    .form-actions,
+    .modal-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-secondary,
+    .btn-danger,
+    .btn-ghost,
+    .submit-btn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Booking Confirmed – Paris Private Airport Transfer</title>
+
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+
+    <style>
+        .confirm-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .confirm-card {
+            background: #ffffff;
+            border-radius: 20px;
+            max-width: 580px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+        }
+
+        .confirm-header {
+            background: #1a1a1a;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #c9a961;
+        }
+
+        .confirm-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .confirm-logo span { color: #c9a961; }
+
+        /* Page states */
+        .state { display: none; padding: 2.5rem; text-align: center; }
+        .state.active { display: block; }
+
+        /* State: pending (before click) */
+        .state-pending .big-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .state-pending h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin: 0 0 0.75rem;
+        }
+
+        .state-pending p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+            margin: 0 0 1.5rem;
+        }
+
+        .booking-ref-display {
+            display: inline-block;
+            background: #fafaf9;
+            border: 2px solid #c9a961;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-ref-display .label {
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .booking-ref-display .ref {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: 2px;
+        }
+
+        .booking-summary-mini {
+            background: #fafaf9;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .summary-row:last-child { border-bottom: none; }
+        .summary-row .key { color: #888; font-weight: 500; }
+        .summary-row .val { color: #1a1a1a; font-weight: 600; text-align: right; max-width: 60%; }
+
+        .confirm-btn {
+            width: 100%;
+            background: #c9a961;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 1.1rem 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .confirm-btn:hover:not(:disabled) {
+            background: #8b7355;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201,169,97,0.4);
+        }
+
+        .confirm-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* State: loading */
+        .state-loading .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(201,169,97,0.2);
+            border-top-color: #c9a961;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .state-loading h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin: 0 0 0.5rem;
+        }
+
+        .state-loading p { font-size: 0.95rem; color: #888; margin: 0; }
+
+        /* State: success */
+        .state-success .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #c9a961, #8b7355);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #fff;
+            animation: popIn 0.5s ease;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0); opacity: 0; }
+            to   { transform: scale(1); opacity: 1; }
+        }
+
+        .state-success h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            margin: 0 0 0.75rem;
+        }
+
+        .state-success p {
+            font-size: 1rem;
+            color: #666;
+            line-height: 1.7;
+            margin: 0 0 1.5rem;
+        }
+
+        .state-success .check-items {
+            list-style: none;
+            text-align: left;
+            background: #fafaf9;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin: 0 0 2rem;
+        }
+
+        .state-success .check-items li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.4rem 0;
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .state-success .check-items li i {
+            color: #c9a961;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #c9a961;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: gap 0.2s ease;
+        }
+
+        .back-home:hover { gap: 0.75rem; }
+
+        /* State: error */
+        .state-error h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #1a1a1a;
+            margin: 0 0 0.75rem;
+        }
+
+        .state-error p { font-size: 0.95rem; color: #666; line-height: 1.7; margin: 0 0 1.5rem; }
+
+        .state-error .error-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            color: #c9a961;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* State: already confirmed */
+        .state-already h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #1a1a1a;
+            margin: 0 0 0.75rem;
+        }
+
+        .state-already p { font-size: 0.95rem; color: #666; line-height: 1.7; margin: 0 0 1.5rem; }
+    </style>
+</head>
+<body>
+
+<div class="confirm-page">
+    <div class="confirm-card">
+
+        <!-- Header -->
+        <div class="confirm-header">
+            <a href="index.html" class="confirm-logo">
+                Paris Private <span>Airport Transfer</span>
+            </a>
+        </div>
+
+        <!-- STATE 1: Waiting for confirmation -->
+        <div class="state state-pending" id="statePending">
+            <div class="big-icon">✈️</div>
+            <h1>Confirm Your Booking</h1>
+            <p>Please review your booking details below and click the button to confirm. Your chauffeur will be notified immediately.</p>
+
+            <div class="booking-ref-display">
+                <span class="label">Booking Reference</span>
+                <span class="ref" id="displayRef">—</span>
+            </div>
+
+            <div class="booking-summary-mini" id="summaryMini"></div>
+
+            <button class="confirm-btn" id="confirmBtn" onclick="confirmBooking()">
+                <i class="fa-solid fa-circle-check"></i>
+                Yes, Confirm My Booking
+            </button>
+        </div>
+
+        <!-- STATE 2: Loading -->
+        <div class="state state-loading" id="stateLoading">
+            <div class="spinner"></div>
+            <h2>Confirming your booking…</h2>
+            <p>Please wait, we are sending the confirmation emails.</p>
+        </div>
+
+        <!-- STATE 3: Success -->
+        <div class="state state-success" id="stateSuccess">
+            <div class="success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your booking is now confirmed. You will receive a confirmation email shortly with all the details.</p>
+
+            <ul class="check-items">
+                <li><i class="fa-solid fa-circle-check"></i> Your confirmation has been received</li>
+                <li><i class="fa-solid fa-circle-check"></i> We have been notified and will be ready for you</li>
+                <li><i class="fa-solid fa-circle-check"></i> Free cancellation up to 24h before</li>
+                <li><i class="fa-solid fa-circle-check"></i> Free modification up to 12h before</li>
+            </ul>
+
+            <a href="index.html" class="back-home">
+                <i class="fa-solid fa-arrow-left"></i> Back to home
+            </a>
+        </div>
+
+        <!-- STATE 4: Error -->
+        <div class="state state-error" id="stateError">
+            <div class="error-icon">⚠️</div>
+            <h2>Something went wrong</h2>
+            <p>
+                We couldn't process your confirmation. Please contact us directly and quote your booking reference <strong id="errorRef">—</strong>.
+            </p>
+            <p>
+                📞 <a href="tel:+33767737309" class="contact-link">+33 7 67 73 73 09</a><br>
+                ✉️ <a href="mailto:parisprivateairporttransfer@gmail.com" class="contact-link">parisprivateairporttransfer@gmail.com</a>
+            </p>
+            <a href="index.html" class="back-home">
+                <i class="fa-solid fa-arrow-left"></i> Back to home
+            </a>
+        </div>
+
+        <!-- STATE 5: Already confirmed -->
+        <div class="state state-already" id="stateAlready">
+            <div style="font-size:3.5rem;margin-bottom:1rem;">✅</div>
+            <h2>Already Confirmed</h2>
+            <p>This booking has already been confirmed. No further action is needed. Check your inbox for the confirmation email.</p>
+            <a href="index.html" class="back-home">
+                <i class="fa-solid fa-arrow-left"></i> Back to home
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function showState(id) {
+    document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
+    document.getElementById(id)?.classList.add('active');
+}
+
+function init() {
+    const token = new URLSearchParams(window.location.search).get('token');
+
+    if (!token) {
+        showState('stateError');
+        return;
+    }
+
+    document.getElementById('displayRef').textContent = 'Pending confirmation';
+    document.getElementById('errorRef').textContent = 'Unknown';
+
+    showState('statePending');
+}
+
+async function confirmBooking() {
+    const btn = document.getElementById('confirmBtn');
+    if (btn) btn.disabled = true;
+
+    showState('stateLoading');
+
+    const token = new URLSearchParams(window.location.search).get('token');
+
+    if (!token) {
+        showState('stateError');
+        return;
+    }
+
+    try {
+        const res = await fetch("https://paris-private-backend.onrender.com/api/confirm", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || "Confirmation failed");
+        }
+
+        showState('stateSuccess');
+
+    } catch (err) {
+        console.error(err);
+        showState('stateError');
+        if (btn) btn.disabled = false;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+</body>
+</html>

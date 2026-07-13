@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="keywords" content="manage booking Paris transfer, cancel airport transfer, modify VTC booking Paris, private chauffeur reservation">
+    <meta name="description" content="Easily manage your private airport transfer booking: view, modify or cancel your reservation in seconds.">
+    <meta name="robots" content="index, follow">
+
+    <title>Manage Booking – Private Chauffeur VTC | Paris Private Airport Transfer</title>
+
+    <link rel="canonical" href="https://www.parisprivateairporttransfer.com/manage-booking.html">
+
+    <meta property="og:title" content="Manage Your Booking – Paris Private Airport Transfer">
+    <meta property="og:description" content="Modify or cancel your airport transfer booking online.">
+    <meta property="og:url" content="https://www.parisprivateairporttransfer.com/manage-booking.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/manage-booking.css">
+</head>
+
+<body>
+
+<nav id="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <img src="images/Logo.svg" alt="Paris Private Airport Transfer">
+        </a>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="flotte.html">Our Fleet</a></li>
+            <li><a href="manage-booking.html" class="active">Manage Booking</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="reservation.html" class="cta-button">Book Now</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="page-header">
+    <div class="container">
+        <h1>Manage Your Booking</h1>
+        <p>View, modify or cancel your reservation in a few clicks</p>
+    </div>
+</section>
+
+<section class="booking-section">
+    <div class="container">
+        <div class="booking-wrapper">
+            <div class="booking-header">
+                <h2>Find Your Reservation</h2>
+                <p>Enter your email and booking reference to access your booking</p>
+            </div>
+
+            <form id="searchForm" class="booking-form" novalidate>
+                <div class="form-group">
+                    <label for="emailInput">Email Address *</label>
+                    <input type="email" id="emailInput" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="refInput">Booking Reference *</label>
+                    <input type="text" id="refInput" name="reference" placeholder="PPAT-XXXXXX" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Find My Booking</button>
+
+                <div id="searchError" class="error-message"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="booking-section" id="bookingSection" hidden>
+    <div class="container">
+        <div class="booking-wrapper">
+
+            <div class="booking-header">
+                <h2>Your Reservation</h2>
+                <p>Review your booking details below</p>
+            </div>
+
+            <div class="booking-card">
+                <div class="booking-status">
+                    <span id="statusBadge" class="status">Confirmed</span>
+                    <span id="refDisplay"></span>
+                </div>
+
+                <div id="bookingDetails" class="booking-details"></div>
+
+                <div class="booking-actions">
+                    <button id="modifyBtn" class="btn-secondary" type="button">
+                        <i class="fa-solid fa-pen"></i> Modify
+                    </button>
+
+                    <button id="cancelBtn" class="btn-danger" type="button">
+                        <i class="fa-solid fa-xmark"></i> Cancel
+                    </button>
+                </div>
+            </div>
+
+            <div id="modifySection" hidden>
+                <div class="booking-header">
+                    <h2>Modify Booking</h2>
+                    <p>You can update your trip details. Contact details cannot be changed online.</p>
+                </div>
+
+                <form id="modifyForm" class="booking-form manage-modify-form">
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-route" style="color:var(--secondary);"></i>
+                            Service & Trip
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="modService">Service Type</label>
+                            <select id="modService">
+                                <option value="">Select a service</option>
+
+                                <optgroup label="Airports → Paris">
+                                    <option value="cdg-paris">CDG → Paris</option>
+                                    <option value="orly-paris">Orly → Paris</option>
+                                    <option value="beauvais-paris">Beauvais → Paris</option>
+                                </optgroup>
+
+                                <optgroup label="Paris → Airports">
+                                    <option value="cdg-paris">Paris → CDG</option>
+                                    <option value="orly-paris">Paris → Orly</option>
+                                    <option value="beauvais-paris">Paris → Beauvais</option>
+                                </optgroup>
+
+                                <optgroup label="Airports → Disneyland">
+                                    <option value="cdg-disney">CDG → Disneyland</option>
+                                    <option value="orly-disney">Orly → Disneyland</option>
+                                    <option value="beauvais-disney">Beauvais → Disneyland</option>
+                                    <option value="paris-disney">Paris → Disneyland</option>
+                                </optgroup>
+
+                                <optgroup label="Disneyland → Airports">
+                                    <option value="cdg-disney">Disneyland → CDG</option>
+                                    <option value="orly-disney">Disneyland → Orly</option>
+                                    <option value="beauvais-disney">Disneyland → Beauvais</option>
+                                    <option value="paris-disney">Disneyland → Paris</option>
+                                </optgroup>
+
+                                <optgroup label="Airport ↔ Train Stations">
+                                    <option value="cdg-orly">CDG → Orly</option>
+                                    <option value="cdg-beauvais">CDG → Beauvais</option>
+                                    <option value="beauvais-orly">Beauvais → Orly</option>
+                                    <option value="paris-gares">Paris → Train Stations</option>
+                                </optgroup>
+
+                                <optgroup label="Hourly Service">
+                                    <option value="dispo-4h">Hourly Service – 4h</option>
+                                    <option value="dispo-8h">Hourly Service – 8h</option>
+                                    <option value="dispo-10h">Hourly Service – 10h</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modPickup">Pickup Address</label>
+                                <input type="text" id="modPickup" placeholder="12 Rue de Rivoli, 75001 Paris">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modDestination">Destination</label>
+                                <input type="text" id="modDestination" placeholder="CDG Airport Terminal 2E">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modDate">Transfer Date</label>
+                                <input type="date" id="modDate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modTime">Pickup Time</label>
+                                <input type="time" id="modTime">
+                            </div>
+                        </div>
+
+                        <div class="roundtrip-wrapper" id="modRoundtripWrapper">
+                            <label class="roundtrip-label" for="modRoundtrip">
+                                <input type="checkbox" id="modRoundtrip">
+                                <div class="rt-check" id="modRtCheck">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="rt-text">
+                                    <strong>
+                                        <i class="fa-solid fa-arrows-rotate" style="color:var(--secondary); margin-right:0.4rem;"></i>
+                                        Round Trip
+                                    </strong>
+                                    <span>Enable return transfer details</span>
+                                </div>
+                                <div class="rt-badge" id="modRtBadge">Return</div>
+                            </label>
+                        </div>
+
+                        <div class="form-row" id="modReturnRow" style="display:none; margin-top:1rem;">
+                            <div class="form-group">
+                                <label for="modReturnDate">Return Date</label>
+                                <input type="date" id="modReturnDate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modReturnTime">Return Time</label>
+                                <input type="time" id="modReturnTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-users" style="color:var(--secondary);"></i>
+                            Passengers & Luggage
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modPassengers">Number of adults</label>
+                                <select id="modPassengers">
+                                    <option value="">Select</option>
+                                    <option value="1">1 adult</option>
+                                    <option value="2">2 adults</option>
+                                    <option value="3">3 adults</option>
+                                    <option value="4">4 adults</option>
+                                    <option value="5">5 adults</option>
+                                    <option value="6">6 adults</option>
+                                    <option value="7">7 adults</option>
+                                    <option value="8">8 adults</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modChildren">Number of children</label>
+                                <select id="modChildren">
+                                    <option value="0">No children</option>
+                                    <option value="1">1 child</option>
+                                    <option value="2">2 children</option>
+                                    <option value="3">3 children</option>
+                                    <option value="4">4 children</option>
+                                    <option value="5">5 children</option>
+                                    <option value="6">6 children</option>
+                                    <option value="7">7 children</option>
+                                    <option value="8">8 children</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modLuggage">Number of bags</label>
+                                <select id="modLuggage">
+                                    <option value="">Select</option>
+                                    <option value="0">No bags</option>
+                                    <option value="1">1 bag</option>
+                                    <option value="2">2 bags</option>
+                                    <option value="3">3 bags</option>
+                                    <option value="4">4 bags</option>
+                                    <option value="5">5+ bags</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-car-side" style="color:var(--secondary);"></i>
+                            Vehicle Selection
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="modVehicle">Vehicle Type</label>
+                            <select id="modVehicle">
+                                <option value="">Select a vehicle</option>
+                                <option value="Premium Sedan">Premium Sedan (1-2 people)</option>
+                                <option value="Luxury Van 7 seats">Luxury Van 7 seats (3-6 people)</option>
+                            </select>
+                            <div class="vehicle-hint" id="modVehicleHint">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span id="modVehicleHintText"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-plane" style="color:var(--secondary);"></i>
+                            Flight Information
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="modFlight">Flight Number</label>
+                                <input type="text" id="modFlight" placeholder="Ex: AF1234">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modTerminal">Terminal</label>
+                                <input type="text" id="modTerminal" placeholder="Ex: Terminal 2E">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-star" style="color:var(--secondary);"></i>
+                            Additional Options
+                        </h3>
+
+                        <div class="seat-options-grid">
+                            <div class="seat-option-card">
+                                <div class="seat-option-icon">
+                                    <i class="fa-solid fa-baby" style="color:var(--secondary)"></i>
+                                </div>
+                                <div class="seat-option-info">
+                                    <strong>Baby Seat</strong>
+                                    <p>1 month – 2 years</p>
+                                </div>
+                                <input type="number" id="modBabySeats" min="0" max="4" value="0">
+                            </div>
+
+                            <div class="seat-option-card">
+                                <div class="seat-option-icon">
+                                    <i class="fa-solid fa-child" style="color:var(--secondary)"></i>
+                                </div>
+                                <div class="seat-option-info">
+                                    <strong>Child Seat / Booster</strong>
+                                    <p>3 years – 6 years</p>
+                                </div>
+                                <input type="number" id="modChildSeats" min="0" max="4" value="0">
+                            </div>
+                        </div>
+
+                        <p class="seat-notice">Maximum 4 per type · Included in your vehicle at no extra charge</p>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="form-section-title">
+                            <i class="fa-solid fa-comment" style="color:var(--secondary);"></i>
+                            Special Requests
+                        </h3>
+
+                        <div class="form-group">
+                            <label for="modNotes">Additional Information</label>
+                            <textarea id="modNotes" rows="4" placeholder="Example: wheelchair assistance, large luggage, child ages…"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="price-summary" id="managePriceSummary">
+                        <h4><i class="fa-solid fa-receipt"></i> Updated Price Summary</h4>
+
+                        <div class="price-line">
+                            <span class="label">Base fare</span>
+                            <span class="value" id="manageSummaryBase">—</span>
+                        </div>
+
+                        <div class="price-line" id="manageSummaryPassengersRow" style="display:none;">
+                            <span class="label">
+                                <i class="fa-solid fa-users" style="margin-right:0.4rem;color:rgba(255,255,255,0.5);font-size:0.8rem;"></i>Number of passengers
+                            </span>
+                            <span class="value" id="manageSummaryPassengers">—</span>
+                        </div>
+
+                        <div class="price-line" id="manageSummaryRoundtripRow" style="display:none;">
+                            <span class="label">Round Trip (×2)</span>
+                            <span class="value" id="manageSummaryRoundtrip">—</span>
+                        </div>
+
+                        <div class="price-line night" id="manageSummaryNightRow" style="display:none;">
+                            <span class="label">
+                                <i class="fa-solid fa-moon"></i> Night surcharge
+                            </span>
+                            <span class="value" id="manageSummaryNight">+10€</span>
+                        </div>
+
+                        <div class="price-line total">
+                            <span class="label">New total</span>
+                            <span class="value" id="manageSummaryTotal">—</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions manage-actions">
+                        <button type="button" class="btn-ghost" id="cancelModifyBtn">Cancel</button>
+                        <button type="submit" class="submit-btn">Save Changes</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div id="cancelModal" class="modal" hidden>
+    <div class="modal-box premium-modal">
+        <div class="modal-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h3>Cancel Reservation?</h3>
+        <p>
+            Are you sure you want to cancel this booking?
+            You and our team will receive a cancellation email.
+        </p>
+
+        <div class="modal-actions">
+            <button id="modalKeepBtn" class="btn-ghost" type="button">Keep Booking</button>
+            <button id="modalConfirmBtn" class="btn-danger" type="button">Yes, Cancel Booking</button>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>&copy; 2026 Paris Private Airport Transfer. All rights reserved.</p>
+                <p>Your trusted partner for premium, personalized transport in Île-de-France and beyond.</p>
+                <p style="margin-top:1rem;">Available 24/7</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="services.html#aeroports">Airport Transfers</a>
+                <a href="services.html#longue-distance">Long Distance</a>
+                <a href="services.html#mise-a-disposition">Hourly Service</a>
+                <a href="flotte.html">Our Fleet</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Information</h3>
+                <a href="contact.html">Contact</a>
+                <a href="pages/cgv.html">Terms and Conditions</a>
+                <a href="pages/confidentialite.html">Privacy</a>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+33767737309">+33 7 67 73 73 09</a></p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:parisprivateairporttransfer@gmail.com">parisprivateairporttransfer@gmail.com</a></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Paris Private Airport Transfer. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/manage-booking.js"></script>
+
+</body>
+</html>

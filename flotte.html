@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Luxury chauffeur service in Paris with Mercedes Classe S, BMW 5 Series, Tesla Model Y and Mercedes V-Class. Private airport transfers, long-distance journeys and premium VTC.">    <meta name="keywords" content="Mercedes Classe E chauffeur, BMW 5 Series VTC, Mercedes ClasseV luxury van, premium VTC fleet, high-end vehicle chauffeur">
+    <meta name="robots" content="index, follow">
+    <title>Luxury Fleet – Mercedes Classe S, V-Class & BMW Chauffeur Service | Paris Private Airport Transfer</title>
+
+    <link rel="canonical" href="https://www.parisprivateairporttransfer.com/flotte.html">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link rel="alternate icon" href="images/favicon.ico">
+
+    <!-- Open Graph -->
+     <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Our Premium Fleet – Paris Private Airport Transfer">
+    <meta property="og:description" content="Mercedes Classe E & V, BMW 5 Series, Tesla Model Y. High-end vehicles for your VTC transfers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.parisprivateairporttransfer.com/flotte.html">
+    <meta property="og:image" content="https://www.parisprivateairporttransfer.com/images/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .vehicle-carousel {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+        }
+        .carousel-slide img,
+        .carousel-slide svg {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        .vehicle-name {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26,26,26,0.9);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            white-space: nowrap;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(201,169,97,0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-btn:hover {
+            background: rgba(139,115,85,1);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .dot.active {
+            background: var(--secondary);
+            width: 30px;
+            border-radius: 6px;
+        }
+        .dot:hover { background: var(--accent); }
+        @media (max-width: 768px) {
+            .carousel-container { height: 280px; }
+            .carousel-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+            .vehicle-name { font-size: 0.95rem; padding: 0.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="images/Logo.svg" alt="Paris Private Airport Transfer">
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="flotte.html" class="active">Our Fleet</a></li>
+                <li><a href="manage-booking.html">Manage Booking</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="reservation.html" class="cta-button">Book</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Our Premium Fleet</h1>
+            <p>High-end vehicles carefully selected for your comfort</p>
+        </div>
+    </section>
+
+    <!-- Fleet Section -->
+    <section class="fleet-section">
+        <div class="container">
+
+            <!-- BERLINE CLASSE AFFAIRES -->
+            <article class="fleet-detail" id="berline-affaires">
+                <div class="fleet-header">
+                    <div class="fleet-icon"><i class="fa-solid fa-car" style="color:var(--secondary);font-size:3rem;"></i></div>
+                    <div class="fleet-title">
+                        <h2>Business Class Sedan</h2>
+                    </div>
+                </div>
+
+                <div class="fleet-content">
+                    <div class="vehicle-carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slides" id="carousel1">
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/mercedes-classe-e.svg"
+                                         alt="Mercedes Classe E – Premium black sedan for VTC transfer"
+                                         loading="lazy">
+                                    <div class="vehicle-name">Mercedes Classe E</div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/bmw-serie-5.svg"
+                                         alt="BMW 5 Series – High-end sedan for private chauffeur"
+                                         loading="lazy">
+                                    <div class="vehicle-name">BMW 5 Series</div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/tesla-model-y.svg"
+                                         alt="Tesla Model Y – Premium electric sedan"
+                                         loading="lazy">
+                                    <div class="vehicle-name">Tesla Model Y</div>
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="moveSlide('carousel1', -1)" aria-label="Previous">‹</button>
+                            <button class="carousel-btn next" onclick="moveSlide('carousel1', 1)" aria-label="Next">›</button>
+                        </div>
+                        <div class="carousel-dots" id="dots1"></div>
+                    </div>
+
+                    <div class="fleet-info">
+                        <p class="fleet-description">
+                            <strong>The choice of elegance.</strong> Our business class sedans offer exceptional comfort for your professional or personal trips. Leather interior, air conditioning.
+                        </p>
+
+                        <div class="fleet-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-users"></i>
+                                <p>2 passengers</p>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-suitcase"></i>
+                                <p>2 large suitcases</p>
+                            </div>
+                        </div>
+
+                        <h3>Included Equipment</h3>
+                        <ul class="fleet-features">
+                            <li>✓ Leather seats</li>
+                            <li>✓ Automatic air conditioning</li>
+                            <li>✓ Universal phone charger</li>
+                        </ul>
+
+                        <div class="fleet-pricing">
+                            <p class="price-label">CDG - Paris transfer rate</p>
+                            <p class="price-value">80€</p>
+                            <a href="reservation.html" class="btn-primary">Book this Sedan</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- VAN LUXE -->
+            <article class="fleet-detail" id="van-luxe">
+                <div class="fleet-header">
+                    <div class="fleet-icon"><i class="fa-solid fa-van-shuttle" style="color:var(--secondary);font-size:3rem;"></i></div>
+                    <div class="fleet-title">
+                        <h2>Luxury Van – Our Specialty</h2>
+                        <p class="fleet-subtitle">Mercedes</p>
+                    </div>
+                </div>
+
+                <div class="fleet-content">
+                    <div class="vehicle-carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slides" id="carousel2">
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/mercedes-classe-v.svg"
+                                         alt="Mercedes Classe V – Luxury 6-seater van for groups"
+                                         loading="lazy">
+                                    <div class="vehicle-name">Mercedes Classe V</div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/mercedes-vito.svg"
+                                         alt="Mercedes Vito – Luxury van for group transfers"
+                                         loading="lazy">
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="moveSlide('carousel2', -1)" aria-label="Previous">‹</button>
+                            <button class="carousel-btn next" onclick="moveSlide('carousel2', 1)" aria-label="Next">›</button>
+                        </div>
+                        <div class="carousel-dots" id="dots2"></div>
+                    </div>
+
+                    <div class="fleet-info">
+                        <p class="fleet-description">
+                            <strong>Our specialty.</strong> The luxury van par excellence, with individual captain leather seats. Modular configuration for families, groups or XXL luggage. Ideal for long journeys.
+                        </p>
+
+                        <div class="fleet-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-users"></i>
+                                <p>6 VIP passengers</p>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-suitcase"></i>
+                                <p>8 large suitcases</p>
+                            </div>
+                        </div>
+
+                        <h3>Our Specialty</h3>
+                        <ul class="fleet-features">
+                            <li>✓ Electric sliding doors</li>
+                            <li>✓ Dual-zone air conditioning</li>
+                            <li>✓ Multiple child seats available</li>
+                            <li>✓ Modular XXL trunk</li>
+                            <li>✓ On-board entertainment</li>
+                        </ul>
+
+                        <div class="fleet-pricing">
+                            <p class="price-label">CDG - Paris transfer rate</p>
+                            <p class="price-value">90€</p>
+                            <a href="reservation.html" class="btn-primary">Book our Van</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="fleet-detail" id="berline-luxe">
+                <div class="fleet-header">
+                    <div class="fleet-icon"><i class="fa-solid fa-car" style="color:var(--secondary);font-size:3rem;"></i></div>
+                    <div class="fleet-title">
+                        <h2>Luxury Sedan</h2>
+                        <p class="fleet-subtitle">Mercedes Classe S</p>
+                    </div>
+                </div>
+
+                <div class="fleet-content">
+                    <div class="vehicle-carousel">
+                        <div class="carousel-container">
+                            <div class="carousel-slides" id="carousel3">
+                                <div class="carousel-slide">
+                                    <img src="images/fleet/mercedes-classe-s.svg"
+                                         alt="Mercedes Classe S – Luxury sedan"
+                                         loading="lazy">
+                                    <div class="vehicle-name">Mercedes Classe S</div>
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev" onclick="moveSlide('carousel3', -1)" aria-label="Previous">‹</button>
+                            <button class="carousel-btn next" onclick="moveSlide('carousel3', 1)" aria-label="Next">›</button>
+                        </div>
+                        <div class="carousel-dots" id="dots3"></div>
+                    </div>
+
+                    <div class="fleet-info">
+                        <p class="fleet-description">
+                            The luxury sedan par excellence, with premium comfort leather seats. Ideal for long journeys and for your professional or personal trips.
+                        </p>
+
+                        <div class="fleet-specs">
+                            <div class="spec-item">
+                                <i class="fa-solid fa-users"></i>
+                                <p>2 VIP passengers</p>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fa-solid fa-suitcase"></i>
+                                <p>2 large suitcases</p>
+                            </div>
+                        </div>
+
+                        <h3>Premium Features</h3>
+                        <ul class="fleet-features">
+                            <li>✓ Premium comfort seat</li>
+                            <li>✓ Dual-zone air conditioning</li>
+                        </ul>
+
+                        <div class="fleet-pricing">
+                            <a href="contact.html" class="btn-primary">Request a Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Travel in Comfort?</h2>
+                <p>Choose your vehicle and book in a few clicks</p>
+                <a href="reservation.html" class="btn-primary btn-large">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <p>&copy; 2026 Paris Private Airport Transfer. All rights reserved.</p>
+                    <p>Your trusted partner for premium transport in Île-de-France.</p>
+                    <p style="margin-top:1rem;">24/7 service</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <a href="services.html#aeroports">Airport Transfers</a>
+                    <a href="services.html#longue-distance">Long Distance</a>
+                    <a href="services.html#mise-a-disposition">Hourly Hire</a>
+                    <a href="flotte.html">Our Fleet</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <a href="contact.html">Contact</a>
+                    <a href="pages/cgv.html">Terms and Conditions</a>
+                    <a href="pages/confidentialite.html">Privacy</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+33767737309">+33 7 67 73 73 09</a></p>
+                    <p><i class="fa-solid fa-envelope"></i> <a href="mailto:parisprivateairporttransfer@gmail.com">parisprivateairporttransfer@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Paris Private Airport Transfer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        class Carousel {
+            constructor(carouselId, dotsId, autoPlayInterval = 4000) {
+                this.carousel = document.getElementById(carouselId);
+                this.dotsContainer = document.getElementById(dotsId);
+                this.slides = this.carousel.querySelectorAll('.carousel-slide');
+                this.currentIndex = 0;
+                this.autoPlayTimer = null;
+                this.interval = autoPlayInterval;
+                this.init();
+            }
+            init() {
+                this.createDots();
+                this.updateDots();
+                this.startAutoPlay();
+                const wrapper = this.carousel.parentElement.parentElement;
+                wrapper.addEventListener('mouseenter', () => this.stopAutoPlay());
+                wrapper.addEventListener('mouseleave', () => this.startAutoPlay());
+            }
+            createDots() {
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    this.dotsContainer.appendChild(dot);
+                });
+            }
+            updateDots() {
+                this.dotsContainer.querySelectorAll('.dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === this.currentIndex);
+                });
+            }
+            goToSlide(index) {
+                this.currentIndex = index;
+                this.carousel.style.transform = `translateX(${-this.currentIndex * 100}%)`;
+                this.updateDots();
+            }
+            next() { this.goToSlide((this.currentIndex + 1) % this.slides.length); }
+            prev() { this.goToSlide((this.currentIndex - 1 + this.slides.length) % this.slides.length); }
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.autoPlayTimer = setInterval(() => this.next(), this.interval);
+            }
+            stopAutoPlay() {
+                if (this.autoPlayTimer) { clearInterval(this.autoPlayTimer); this.autoPlayTimer = null; }
+            }
+        }
+
+        const carousels = {};
+        document.addEventListener('DOMContentLoaded', function() {
+            carousels.carousel1 = new Carousel('carousel1', 'dots1', 4000);
+            carousels.carousel2 = new Carousel('carousel2', 'dots2', 4500);
+            carousels.carousel3 = new Carousel('carousel3', 'dots3', 5000);
+        });
+        function moveSlide(id, dir) {
+            const c = carousels[id];
+            dir > 0 ? c.next() : c.prev();
+            c.startAutoPlay();
+        }
+    </script>
+</body>
+</html>
