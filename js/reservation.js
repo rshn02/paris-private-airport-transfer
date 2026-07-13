@@ -640,7 +640,14 @@ async function handleFormSubmit(e) {
             body: JSON.stringify(bookingData)
         });
 
-        const data = await res.json();
+        const raw = await res.text();
+        let data = {};
+
+        try {
+            data = JSON.parse(raw);
+        } catch {
+            throw new Error(raw || "Server error");
+        }
 
         if (!res.ok || !data.success) {
             throw new Error(data.message || "Server error");
@@ -669,7 +676,7 @@ async function handleFormSubmit(e) {
 
     } catch (err) {
         console.error(err);
-        alert("Error while sending the booking.");
+        alert(err.message || "Error while sending the booking.");
     } finally {
         if (btn) {
             btn.disabled = false;
