@@ -2268,8 +2268,8 @@ textarea {
     }
 
     .logo img {
-        height: 92px;
-        transform: scale(1.08);
+        height: 74px;
+        transform: none;
     }
 
     /* HERO */
