@@ -83,18 +83,13 @@ nav.scrolled {
 .logo {
     display: flex;
     align-items: center;
-    height: 88px;
-    overflow: hidden;
+    height: 92px;
 }
 
 .logo img {
-    height: 108px;
+    height: 74px;
     width: auto;
     display: block;
-    transform: scale(1.04);
-    transform-origin: left center;
-    margin-left: 0;
-    margin-top: 0;
 }
 
 .nav-links {
@@ -2270,10 +2265,7 @@ textarea {
     }
 
     .logo img {
-        height: 80px;
-        transform: scale(1.02);
-        margin-left: -2px;
-        margin-top: 3px;
+        height: 56px;
     }
 
     /* HERO */
