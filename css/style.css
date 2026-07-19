@@ -83,11 +83,11 @@ nav.scrolled {
 .logo {
     display: flex;
     align-items: center;
-    height: 100px;
+    height: 110px;
 }
 
 .logo img {
-    height: 84px;
+    height: 96px;
     width: auto;
     display: block;
 }
@@ -2261,11 +2261,11 @@ textarea {
     }
 
     .logo {
-        height: 74px;
+        height: 82px;
     }
 
     .logo img {
-        height: 64px;
+        height: 72px;
     }
 
     /* HERO */
