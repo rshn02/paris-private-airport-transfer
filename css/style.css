@@ -74,7 +74,7 @@ nav.scrolled {
 .nav-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 1.2rem 2rem;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -83,15 +83,15 @@ nav.scrolled {
 .logo {
     display: flex;
     align-items: center;
-    height: 88px;
+    height: 76px;
     overflow: hidden;
 }
 
 .logo img {
-    height: 112px;
+    height: 122px;
     width: auto;
     display: block;
-    transform: scale(1.08);
+    transform: scale(1.12);
     transform-origin: center center;
 }
 
@@ -2264,12 +2264,12 @@ textarea {
     }
 
     .logo {
-        height: 68px;
+        height: 58px;
     }
 
     .logo img {
-        height: 86px;
-        transform: scale(1.05);
+        height: 92px;
+        transform: scale(1.08);
     }
 
     /* HERO */
