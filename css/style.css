@@ -684,52 +684,16 @@ footer {
 }
 
 .disney-showcase-card {
-    background: linear-gradient(145deg, #111111 0%, #1b1b1b 100%);
-    color: var(--white);
-    border-radius: 18px;
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
-}
-
-.disney-showcase-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 20% 20%, rgba(201, 169, 97, 0.22), transparent 34%),
-        radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.08), transparent 24%),
-        radial-gradient(circle at 65% 75%, rgba(201, 169, 97, 0.18), transparent 30%);
-    pointer-events: none;
-}
-
-.disney-showcase-card > * {
-    position: relative;
-    z-index: 1;
-}
-
-.disney-showcase-badge {
-    display: inline-block;
-    margin-bottom: 1rem;
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
-    background: rgba(201, 169, 97, 0.18);
-    border: 1px solid rgba(201, 169, 97, 0.4);
-    color: #f0d79d;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    padding: 0.5rem 0;
 }
 
 .disney-showcase-card h3 {
-    color: var(--white);
+    color: var(--primary);
     margin: 0 0 1rem;
 }
 
 .disney-showcase-card p {
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--text-light);
     line-height: 1.8;
 }
 
@@ -739,8 +703,7 @@ footer {
 }
 
 .disney-features li {
-    color: rgba(255, 255, 255, 0.92);
-    border-bottom-color: rgba(255, 255, 255, 0.08);
+    border-bottom-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Destinations Grid */
