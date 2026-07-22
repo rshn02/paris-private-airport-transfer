@@ -678,7 +678,7 @@ footer {
     height: 100%;
     min-height: 420px;
     object-fit: cover;
-    object-position: center center;
+    object-position: 58% center;
     border-radius: 18px;
     display: block;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
@@ -2173,8 +2173,8 @@ textarea {
     }
 
     .disney-showcase-image img {
-        min-height: 280px;
-        object-position: center top;
+        min-height: 300px;
+        object-position: 60% top;
     }
 }
 
