@@ -179,7 +179,8 @@ nav.scrolled {
     .hero {
         padding: 120px 1rem 60px;
         text-align: center;
-        background-position: 62% center;
+        background-size: auto 100%;
+        background-position: center bottom;
     }
 }
 
