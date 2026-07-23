@@ -514,7 +514,7 @@ footer {
 .services-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/etretat_bg.svg');
+        url('../images/bg/etretat_bg.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -523,7 +523,7 @@ footer {
 .fleet-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/chambord_bg.svg');
+        url('../images/bg/chambord_bg.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -532,7 +532,7 @@ footer {
 .booking-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/paris_bg.svg');
+        url('../images/bg/paris_bg.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -541,7 +541,7 @@ footer {
 .manage-booking-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/giverny_bg.svg');
+        url('../images/bg/giverny_bg.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -550,7 +550,7 @@ footer {
 .contact-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/american_cemetry.svg');
+        url('../images/bg/american_cemetry.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
