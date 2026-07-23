@@ -511,6 +511,51 @@ footer {
     margin: 0 auto;
 }
 
+.services-page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+        url('../images/bg/etretat_bg.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.fleet-page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+        url('../images/bg/chambord_bg.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.booking-page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+        url('../images/bg/paris_bg.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.manage-booking-page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+        url('../images/bg/giverny_bg.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.contact-page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+        url('../images/bg/american_cemetry.svg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 /* ====================================
    SERVICES DETAIL PAGE
    ==================================== */
