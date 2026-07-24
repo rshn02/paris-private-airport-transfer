@@ -164,7 +164,7 @@ nav.scrolled {
     min-height: 100vh;
     background:
         linear-gradient(rgba(10, 10, 10, 0.48), rgba(10, 10, 10, 0.58)),
-        url('../images/BG.png');
+        url('../images/BG.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -264,6 +264,10 @@ nav.scrolled {
 
 .btn-primary, .cta-button {
     text-transform: uppercase;
+}
+
+.no-pulse {
+    animation: none;
 }
 
 .btn-primary:hover {
@@ -405,6 +409,24 @@ section {
 .value-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+}
+
+.home-glyph {
+    display: inline-block;
+    color: var(--secondary);
+    line-height: 1;
+    font-size: 4.4rem;
+}
+
+.home-glyph.small {
+    font-size: 2.4rem;
+}
+
+.footer-inline-glyph {
+    color: var(--secondary);
+    display: inline-block;
+    width: 14px;
+    margin-right: 8px;
 }
 
 .value-item h3 {
