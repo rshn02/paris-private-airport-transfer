@@ -16,14 +16,30 @@
     <meta property="og:description" content="Modify or cancel your airport transfer booking online.">
     <meta property="og:url" content="https://www.parisprivateairporttransfer.com/manage-booking.html">
 
+    <link rel="preload" as="image" href="images/bg/giverny_bg.webp" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/manage-booking.css">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preload" as="font" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2" type="font/woff2" crossorigin>
+    <style>
+        @font-face {
+            font-family: "Font Awesome 6 Free";
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2") format("woff2");
+        }
+    </style>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="css/manage-booking.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/manage-booking.css">
+    </noscript>
 </head>
 
 <body>
@@ -31,7 +47,7 @@
 <nav id="navbar">
     <div class="nav-container">
         <a href="index.html" class="logo">
-            <img src="images/Logo.svg" alt="Paris Private Airport Transfer">
+            <img src="images/Logo.svg" alt="Paris Private Airport Transfer" width="1536" height="1024">
         </a>
 
         <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
@@ -47,6 +63,7 @@
     </div>
 </nav>
 
+<main>
 <section class="page-header manage-booking-page-header">
     <div class="container">
         <h1>Manage Your Booking</h1>
@@ -403,6 +420,7 @@
         </div>
     </div>
 </section>
+</main>
 
 <div id="cancelModal" class="modal" hidden>
     <div class="modal-box premium-modal">
@@ -460,9 +478,9 @@
     </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/pricing.js"></script>
-<script src="js/manage-booking.js"></script>
+<script src="js/main.js" defer></script>
+<script src="js/pricing.js" defer></script>
+<script src="js/manage-booking.js" defer></script>
 
 </body>
 </html>
