@@ -591,6 +591,17 @@ footer {
     background-repeat: no-repeat;
 }
 
+@media (min-width: 769px) {
+    .manage-booking-page .manage-booking-page-header {
+        background:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+            url('../images/bg/giverny_bg-desktop.webp');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}
+
 /* ====================================
    SERVICES DETAIL PAGE
    ==================================== */
