@@ -88,11 +88,12 @@ nav.scrolled {
 }
 
 .logo img {
-    height: 122px;
+    height: 128px;
     width: auto;
     display: block;
     transform: scale(1.12);
     transform-origin: center center;
+    filter: contrast(1.08) saturate(1.08) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
 }
 
 .nav-links {
@@ -2438,8 +2439,9 @@ textarea {
     }
 
     .logo img {
-        height: 82px;
+        height: 88px;
         transform: none;
+        filter: contrast(1.08) saturate(1.08) drop-shadow(0 1px 1px rgba(0, 0, 0, 0.18));
     }
 
     /* HERO */
