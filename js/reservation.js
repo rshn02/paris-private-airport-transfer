@@ -383,11 +383,11 @@ function autoSelectVehicle() {
     if (!vehEl || total === 0) { updatePriceSummary(); return; }
 
     if (total <= 2) {
-        vehEl.value = 'Berline Premium';
-        if (hintTxt) hintTxt.textContent = `${total} personne${total > 1 ? 's' : ''} — Berline Premium sélectionnée.`;
+        vehEl.value = 'Premium Sedan';
+        if (hintTxt) hintTxt.textContent = `${total} passenger${total > 1 ? 's' : ''} — Premium Sedan selected.`;
     } else {
-        vehEl.value = 'Van Luxe 7 places';
-        if (hintTxt) hintTxt.textContent = `${total} personnes — Van Luxe sélectionné automatiquement.`;
+        vehEl.value = 'Luxury Van 7 seats';
+        if (hintTxt) hintTxt.textContent = `${total} passengers — Luxury Van 7 seats selected automatically.`;
     }
     hintEl?.classList.add('show');
     updatePriceSummary();
