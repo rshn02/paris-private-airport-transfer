@@ -28,10 +28,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     </noscript>
     <link rel="stylesheet" href="css/style.css">
 
@@ -72,7 +70,7 @@
 
             <!-- Airport Transfers -->
             <article id="aeroports" class="service-detail">
-                <div class="service-detail-icon"><i class="fa-solid fa-plane-departure"></i></div>
+                <div class="service-detail-icon"><span class="service-detail-glyph" aria-hidden="true">✈</span></div>
                 <div class="service-detail-content">
                     <h2>Airport Transfers</h2>
 
@@ -115,7 +113,7 @@
 
             <!-- Disneyland Transfers -->
             <article id="disneyland" class="service-detail">
-                <div class="service-detail-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="service-detail-icon"><span class="service-detail-glyph" aria-hidden="true">♛</span></div>
                 <div class="service-detail-content">
                     <h2>Disneyland Experience</h2>
 
@@ -126,7 +124,7 @@
 
                     <div class="disney-showcase">
                         <div class="disney-showcase-image">
-                            <img src="images/destinations/disneyland.webp" alt="Disneyland Paris Castle" loading="lazy">
+                            <img src="images/destinations/disneyland.webp" alt="Disneyland Paris Castle" loading="lazy" width="851" height="768">
                         </div>
 
                         <div class="disney-showcase-card">
@@ -151,7 +149,7 @@
 
             <!-- Long Distance -->
             <article id="longue-distance" class="service-detail">
-                <div class="service-detail-icon"><i class="fa-solid fa-earth-europe"></i></div>
+                <div class="service-detail-icon"><span class="service-detail-glyph" aria-hidden="true">🌍</span></div>
                 <div class="service-detail-content">
                     <h2>Long Distance Transfers</h2>
                     <p class="service-intro">Travel comfortably across France and Europe with our premium chauffeur service.</p>
@@ -166,19 +164,19 @@
                             <div class="dest-slide">
         
                                 <img src="images/destinations/normandie.webp" alt="Normandie" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Normandie - American Cemetery</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Normandie - American Cemetery</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/bayeux.webp" alt="Bayeux" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Normandie - Bayeux</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Normandie - Bayeux</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/rouen.webp" alt="Rouen" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Rouen</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Rouen</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/havre.webp" alt="Le Havre" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Le Havre</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Le Havre</div>
                             </div>
                         </div>
                         <button class="dest-btn prev" onclick="destMove('dest-fr',-1)" aria-label="Image Précédente">‹</button>
@@ -197,15 +195,15 @@
                         <div class="dest-slides" id="dest-be">
                             <div class="dest-slide">
                                 <img src="images/destinations/versaille.webp" alt="Versailles" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Château de Versailles</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Château de Versailles</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/chambord.webp" alt="Chambord" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Chateau de Chambord</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Chateau de Chambord</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/loire.webp" alt="Loire" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Chateau de la Loire</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Chateau de la Loire</div>
                             </div>
                         </div>
                         <button class="dest-btn prev" onclick="destMove('dest-be',-1)" aria-label="Image Précédente">‹</button>
@@ -224,11 +222,11 @@
                         <div class="dest-slides" id="dest-lu">
                             <div class="dest-slide">
                                 <img src="images/destinations/londres.webp" alt="Londres" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Londres</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Londres</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/manchester.webp" alt="Manchester" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Manchester</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Manchester</div>
                             </div>
                         </div>
                         <button class="dest-btn prev" onclick="destMove('dest-lu',-1)" aria-label="Image Précédente">‹</button>
@@ -247,15 +245,15 @@
                         <div class="dest-slides" id="dest-ch">
                             <div class="dest-slide">
                                 <img src="images/destinations/belgique.webp" alt="Belgium" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Belgium</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Belgium</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/luxembourg.webp" alt="Luxembourg" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Luxembourg</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Luxembourg</div>
                             </div>
                             <div class="dest-slide">
                                 <img src="images/destinations/suisse.webp" alt="Switzerland" loading="lazy"> 
-                                <div class="dest-caption"><i class="fa-solid fa-location-dot dest-caption-icon"></i>Switzerland</div>
+                                <div class="dest-caption"><span class="dest-caption-glyph" aria-hidden="true">•</span>Switzerland</div>
                             </div>
                         </div>
                         <button class="dest-btn prev" onclick="destMove('dest-ch',-1)" aria-label="Image Précédent">‹</button>
@@ -286,7 +284,7 @@
 
             <!-- Hourly Service -->
             <article id="mise-a-disposition" class="service-detail">
-                <div class="service-detail-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="service-detail-icon"><span class="service-detail-glyph" aria-hidden="true">⏱</span></div>
                 <div class="service-detail-content">
                     <h2>Hourly Service</h2>
                     <p class="service-intro">A dedicated private chauffeur exclusively at your disposal for the duration of your choice.</p>
@@ -367,8 +365,8 @@
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+33767737309">+33 7 67 73 73 09</a></p>
-                    <p><i class="fa-solid fa-envelope"></i> <a href="mailto:parisprivateairporttransfer@gmail.com">parisprivateairporttransfer@gmail.com</a></p>
+                    <p><span class="contact-inline-glyph" aria-hidden="true">☎</span><a href="tel:+33767737309">+33 7 67 73 73 09</a></p>
+                    <p><span class="contact-inline-glyph" aria-hidden="true">✉</span><a href="mailto:parisprivateairporttransfer@gmail.com">parisprivateairporttransfer@gmail.com</a></p>
                 </div>
             </div>
             <div class="footer-bottom">

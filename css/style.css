@@ -579,6 +579,13 @@ footer {
     margin-bottom: 2rem;
 }
 
+.service-detail-glyph {
+    display: inline-block;
+    color: var(--secondary);
+    font-size: 5rem;
+    line-height: 1;
+}
+
 .service-detail-content h2 {
     font-size: 2.8rem;
     margin-bottom: 1.5rem;
@@ -2414,25 +2421,17 @@ textarea {
 /* ====================================
    FONT AWESOME ICONS
    ==================================== */
-.service-detail-icon i {
-    color: var(--secondary);
-    font-size: 5rem;
-}
-
 .service-features li i {
     color: var(--secondary);
     margin-right: 10px;
     width: 16px;
 }
 
-.footer-section i {
+.contact-inline-glyph {
     color: var(--secondary);
-    margin-right: 8px;
+    display: inline-block;
     width: 14px;
-}
-
-.fa-solid, .fa-brands {
-    color: var(--secondary);
+    margin-right: 8px;
 }
 
 /* =========================================================
@@ -2657,10 +2656,11 @@ textarea {
     align-items: flex-end;
 }
 
-.dest-caption-icon {
+.dest-caption-glyph {
     color: var(--secondary);
     margin-right: 0.4rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
+    line-height: 1;
 }
 
 .dest-btn {
