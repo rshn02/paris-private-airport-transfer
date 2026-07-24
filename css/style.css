@@ -164,7 +164,7 @@ nav.scrolled {
     min-height: 100vh;
     background:
         linear-gradient(rgba(10, 10, 10, 0.48), rgba(10, 10, 10, 0.58)),
-        url('../images/BG.jpg');
+        url('../images/BG-optimized.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -427,6 +427,15 @@ section {
     display: inline-block;
     width: 14px;
     margin-right: 8px;
+}
+
+@media (min-width: 769px) {
+    .home-page .hero h1,
+    .home-page .hero-subtitle,
+    .home-page .hero p,
+    .home-page .hero-buttons {
+        animation: none;
+    }
 }
 
 .value-item h3 {
