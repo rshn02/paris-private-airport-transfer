@@ -19,10 +19,16 @@
     <meta property="og:url" content="https://www.parisprivateairporttransfer.com/flotte.html">
     <meta property="og:image" content="https://www.parisprivateairporttransfer.com/images/og-image.jpg">
 
+    <link rel="preload" as="image" href="images/bg/chambord_bg.webp" fetchpriority="high">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </noscript>
     <link rel="stylesheet" href="css/style.css">
 
     <style>
@@ -128,12 +134,12 @@
         }
     </style>
 </head>
-<body>
+<body class="fleet-page">
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="images/Logo.svg" alt="Paris Private Airport Transfer">
+                <img src="images/Logo.svg" alt="Paris Private Airport Transfer" width="1536" height="1024">
             </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
             <ul class="nav-links" id="navLinks">
@@ -147,6 +153,7 @@
         </div>
     </nav>
 
+    <main>
     <!-- Page Header -->
     <section class="page-header fleet-page-header">
         <div class="container">
@@ -223,7 +230,7 @@
                         <div class="fleet-pricing">
                             <p class="price-label">CDG - Paris transfer rate</p>
                             <p class="price-value">80€</p>
-                            <a href="reservation.html" class="btn-primary">Book this Sedan</a>
+                            <a href="reservation.html" class="btn-primary no-pulse">Book this Sedan</a>
                         </div>
                     </div>
                 </div>
@@ -289,7 +296,7 @@
                         <div class="fleet-pricing">
                             <p class="price-label">CDG - Paris transfer rate</p>
                             <p class="price-value">90€</p>
-                            <a href="reservation.html" class="btn-primary">Book our Van</a>
+                            <a href="reservation.html" class="btn-primary no-pulse">Book our Van</a>
                         </div>
                     </div>
                 </div>
@@ -343,7 +350,7 @@
                         </ul>
 
                         <div class="fleet-pricing">
-                            <a href="contact.html" class="btn-primary">Request a Quote</a>
+                            <a href="contact.html" class="btn-primary no-pulse">Request a Quote</a>
                         </div>
                     </div>
                 </div>
@@ -359,10 +366,11 @@
             <div class="cta-content">
                 <h2>Ready to Travel in Comfort?</h2>
                 <p>Choose your vehicle and book in a few clicks</p>
-                <a href="reservation.html" class="btn-primary btn-large">Book Now</a>
+                <a href="reservation.html" class="btn-primary btn-large no-pulse">Book Now</a>
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
