@@ -78,7 +78,10 @@
     </noscript>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="preload" as="style" href="css/style.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="css/style.css">
+    </noscript>
 </head>
 
 <body>
