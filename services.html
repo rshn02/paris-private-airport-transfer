@@ -22,11 +22,17 @@
     <meta property="og:image" content="https://www.parisprivateairporttransfer.com/images/og-image.jpg">
     <meta property="og:description" content="Book your premium private chauffeur in Paris. Airport transfers, Disneyland, long-distance and hourly services.">
 
+    <link rel="preload" as="image" href="images/bg/etretat_bg.webp" fetchpriority="high">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </noscript>
     <link rel="stylesheet" href="css/style.css">
 
 
@@ -37,7 +43,7 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="images/Logo.svg" alt="Paris Private Airport Transfer">
+                <img src="images/Logo.svg" alt="Paris Private Airport Transfer" width="1536" height="1024">
             </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
             <ul class="nav-links" id="navLinks">
@@ -59,6 +65,7 @@
         </div>
     </section>
 
+    <main>
     <!-- Services Section -->
     <section class="services-detail-section">
         <div class="container">
@@ -333,6 +340,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
