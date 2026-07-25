@@ -367,6 +367,35 @@ section {
     margin-bottom: 1.5rem;
 }
 
+.mickey-glyph {
+    position: relative;
+    display: inline-block;
+    width: 62px;
+    height: 62px;
+    background: var(--secondary);
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(201, 169, 97, 0.22);
+}
+
+.mickey-glyph::before,
+.mickey-glyph::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: var(--secondary);
+    border-radius: 50%;
+    top: -10px;
+}
+
+.mickey-glyph::before {
+    left: -8px;
+}
+
+.mickey-glyph::after {
+    right: -8px;
+}
+
 .service-price {
     font-size: 0.95rem;
     color: var(--secondary);
