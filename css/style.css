@@ -335,6 +335,12 @@ section {
     gap: 2.5rem;
 }
 
+@media (min-width: 1280px) {
+    .home-page .services-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
 .service-card {
     background: var(--white);
     border-radius: 16px;
