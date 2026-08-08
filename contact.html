@@ -178,14 +178,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="contact-phone">Phone *</label>
+                        <div class="form-group" id="contact-fg-phone">
+                            <label>Phone *</label>
                             <div class="phone-input-wrapper" id="contactPhoneWrapper">
                                 <div class="country-select-wrapper">
                                     <div class="country-flag-display" id="contactCountryFlagDisplay">
-                                        <span id="contactSelectedFlag">🇫🇷</span>
-                                        <span id="contactSelectedDial">+33</span>
-                                        <span>▾</span>
+                                        <span class="flag" id="contactSelectedFlag">🇫🇷</span>
+                                        <span class="dial" id="contactSelectedDial">+33</span>
+                                        <i class="fa-solid fa-chevron-down chevron"></i>
                                     </div>
                                     <div class="country-dropdown" id="contactCountryDropdown">
                                         <div class="country-list" id="contactCountryList"></div>
@@ -194,6 +194,9 @@
                                 <input type="tel" id="contact-phone" name="phone" required placeholder="6 12 34 56 78" autocomplete="tel-national">
                             </div>
                             <input type="hidden" id="contact-phone-full" name="phone_full">
+                            <div class="field-error" id="contactPhoneError">
+                                <i class="fa-solid fa-circle-exclamation"></i> Invalid phone number
+                            </div>
                         </div>
 
                         <div class="form-group">
