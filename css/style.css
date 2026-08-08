@@ -2138,6 +2138,24 @@ textarea {
     min-width: 0;
 }
 
+.field-error {
+    display: none;
+    color: #dc3545;
+    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    font-weight: 500;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.field-error.show {
+    display: flex;
+}
+
+.field-error i {
+    font-size: 0.75rem;
+}
+
 /* Reassurance Section */
 .reassurance-section {
     background: var(--white);
