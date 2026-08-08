@@ -180,7 +180,20 @@
 
                         <div class="form-group">
                             <label for="contact-phone">Phone *</label>
-                            <input type="tel" id="contact-phone" name="phone" required placeholder="+33 6 12 34 56 78">
+                            <div class="phone-input-wrapper" id="contactPhoneWrapper">
+                                <div class="country-select-wrapper">
+                                    <div class="country-flag-display" id="contactCountryFlagDisplay">
+                                        <span id="contactSelectedFlag">🇫🇷</span>
+                                        <span id="contactSelectedDial">+33</span>
+                                        <span>▾</span>
+                                    </div>
+                                    <div class="country-dropdown" id="contactCountryDropdown">
+                                        <div class="country-list" id="contactCountryList"></div>
+                                    </div>
+                                </div>
+                                <input type="tel" id="contact-phone" name="phone" required placeholder="6 12 34 56 78" autocomplete="tel-national">
+                            </div>
+                            <input type="hidden" id="contact-phone-full" name="phone_full">
                         </div>
 
                         <div class="form-group">
