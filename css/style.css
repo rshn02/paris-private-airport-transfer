@@ -595,7 +595,7 @@ footer {
     display: flex;
     align-items: center;
     gap: 1.1rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .footer-contact-section .footer-contact-items p {
@@ -2733,6 +2733,7 @@ textarea {
     .footer-contact-section .footer-contact-items {
         justify-content: center;
         gap: 0.9rem;
+        flex-wrap: wrap;
     }
 
     .payment-options-footer {
