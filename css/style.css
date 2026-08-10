@@ -591,6 +591,20 @@ footer {
     margin-bottom: 0;
 }
 
+.footer-contact-section .footer-contact-items {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    flex-wrap: wrap;
+}
+
+.footer-contact-section .footer-contact-items p {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
 .footer-bottom {
     padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -2714,6 +2728,11 @@ textarea {
     .payment-footer-section {
         align-items: center;
         text-align: center;
+    }
+
+    .footer-contact-section .footer-contact-items {
+        justify-content: center;
+        gap: 0.9rem;
     }
 
     .payment-options-footer {
