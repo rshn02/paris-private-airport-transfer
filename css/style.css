@@ -603,6 +603,16 @@ footer {
     align-items: center;
     margin-bottom: 0;
     white-space: nowrap;
+    line-height: 1.2;
+}
+
+.footer-contact-section .footer-contact-items i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    width: 14px;
+    line-height: 1;
 }
 
 .footer-bottom {
