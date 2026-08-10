@@ -1,10 +1,9 @@
 <svg width="96" height="32" viewBox="0 0 96 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="visaTitle">
   <title id="visaTitle">Visa</title>
   <rect x="0.5" y="0.5" width="95" height="31" rx="7.5" fill="#ffffff" stroke="#E7D8B3"/>
-  <path d="M24.6 22L27.9 10H32.1L28.8 22H24.6Z" fill="#1434CB"/>
-  <path d="M41.7 10.4L38.4 22H34.2L37.5 10.4H41.7Z" fill="#1434CB"/>
-  <path d="M43.9 10.4H47.7L50.1 18L51.5 10.4H55.2L52.9 22H49.2L46.7 14.1L45.3 22H41.6L43.9 10.4Z" fill="#1434CB"/>
-  <path d="M58.2 10.4H71.7L71.1 13.3H62.7L62.2 15.5H70.2L69.6 18.2H61.6L61 22H57L58.2 10.4Z" fill="#1434CB"/>
-  <path d="M20.8 10.4L16.6 22H11.9L13.7 13.3L12.2 14.1L8.6 12.2L9.1 10.4H20.8Z" fill="#1434CB"/>
-  <path d="M18.7 10.4H12.2L11.7 12.2C13.3 12.8 14.7 13.6 15.8 14.5L18.7 10.4Z" fill="#F7B600"/>
+  <path d="M24.5 22.3L28.1 10H32.9L29.3 22.3H24.5Z" fill="#1434CB"/>
+  <path d="M33.9 10H38.7L41.7 18.5L42.1 16.5L44.5 10H49.4L42.9 22.3H38.1L35 13.7L34.5 15.9L32.6 22.3H27.9L33.9 10Z" fill="#1434CB"/>
+  <path d="M49.2 22.3L52.8 10H57.6L54 22.3H49.2Z" fill="#1434CB"/>
+  <path d="M58.7 10H72.2L71.3 13.5H62.7L62 15.8H70.1L69.3 19H61.1L60.2 22.3H55.6L58.7 10Z" fill="#1434CB"/>
+  <path d="M23 10H15L14.2 12.8C16.6 13.5 18.7 14.7 20.2 16.2L23 10Z" fill="#F7B600"/>
 </svg>
