@@ -68,6 +68,94 @@
     
 
 <style>
+    /* Footer alignment with the shared site footer used on the homepage and other public pages */
+    .payment-options-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+        margin-bottom: 0.9rem;
+    }
+
+    .payment-footer-section {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .payment-option-item {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 56px;
+        height: 32px;
+    }
+
+    .payment-option-item img {
+        display: block;
+        max-width: 100%;
+        height: 32px;
+        width: auto;
+    }
+
+    .payment-option-item.cash img {
+        height: 30px;
+    }
+
+    .payment-footer-note {
+        font-size: 0.92rem;
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.62);
+    }
+
+    .footer-contact-section .footer-contact-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+
+    .footer-contact-section .footer-contact-items p {
+        margin-bottom: 0;
+    }
+
+    .footer-contact-section .footer-contact-items i {
+        color: var(--secondary);
+        margin-right: 8px;
+        width: 14px;
+    }
+
+    @media (max-width: 768px) {
+        .payment-footer-section {
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-contact-section .footer-contact-items {
+            justify-content: center;
+            gap: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-options-footer {
+            justify-content: center;
+            gap: 0.65rem;
+            flex-wrap: nowrap;
+        }
+
+        .payment-option-item {
+            min-width: 48px;
+            height: 28px;
+        }
+
+        .payment-option-item img {
+            height: 28px;
+        }
+
+        .payment-option-item.cash img {
+            height: 25px;
+        }
+    }
+
     /* ── SEAT OPTIONS ── */
     .seat-options-grid {
         display: grid;
