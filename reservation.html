@@ -110,18 +110,27 @@
 
     .footer-contact-section .footer-contact-items {
         display: flex;
-        flex-direction: column;
-        gap: 0.65rem;
+        align-items: center;
+        gap: 1.1rem;
+        flex-wrap: nowrap;
     }
 
     .footer-contact-section .footer-contact-items p {
+        display: inline-flex;
+        align-items: center;
         margin-bottom: 0;
+        white-space: nowrap;
+        line-height: 1.2;
     }
 
     .footer-contact-section .footer-contact-items i {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         color: var(--secondary);
         margin-right: 8px;
         width: 14px;
+        line-height: 1;
     }
 
     @media (max-width: 768px) {
