@@ -26,9 +26,48 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function() {
                 navLinks.classList.remove('active');
                 mobileMenuBtn.textContent = '☰';
+                navLinks.querySelectorAll('.nav-dropdown.open').forEach(function(dropdown) {
+                    dropdown.classList.remove('open');
+                    const button = dropdown.querySelector('.nav-dropdown-btn');
+                    if (button) button.setAttribute('aria-expanded', 'false');
+                });
             });
         });
     }
+
+    // Services dropdown in the shared navigation.
+    const navDropdowns = document.querySelectorAll('.nav-dropdown');
+    navDropdowns.forEach(function(dropdown) {
+        const toggleBtn = dropdown.querySelector('.nav-dropdown-btn');
+        if (!toggleBtn) return;
+
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const isOpen = dropdown.classList.contains('open');
+            navDropdowns.forEach(function(item) {
+                item.classList.remove('open');
+                const button = item.querySelector('.nav-dropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+                dropdown.classList.add('open');
+                toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        navDropdowns.forEach(function(dropdown) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+                const button = dropdown.querySelector('.nav-dropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
 
     // Add a compact navbar style after a small scroll offset.
     const navbar = document.getElementById('navbar');

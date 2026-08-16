@@ -198,7 +198,21 @@
 
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="services.html">Services</a></li>
+                <li class="nav-dropdown">
+                    <div class="nav-dropdown-toggle">
+                        <a href="services.html">Services</a>
+                        <button type="button" class="nav-dropdown-btn" aria-label="Open service pages" aria-expanded="false">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <ul class="nav-dropdown-menu">
+                        <li><a href="services.html">All Services</a></li>
+                        <li><a href="airport-transfer.html">Airport Transfer</a></li>
+                        <li><a href="disneyland-transfer.html">Disneyland Experience</a></li>
+                        <li><a href="long-distance-transfer.html">Long Distance</a></li>
+                        <li><a href="hourly-service.html">Hourly Service</a></li>
+                    </ul>
+                </li>
                 <li><a href="flotte.html">Our Fleet</a></li>
                 <li><a href="manage-booking.html">Manage Booking</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -278,7 +292,7 @@
                     </p>
 
                     <p class="service-price">
-                        From 89€
+                        From 80€
                     </p>
 
                     <a href="services.html#aeroports" class="service-link">
@@ -342,7 +356,7 @@
                         <i class="fa-solid fa-clock"></i>
                     </div>
 
-                    <h3>Hourly Chauffeur Service</h3>
+                    <h3>Hourly Service</h3>
 
                     <p>
                         Private chauffeur available for the day
@@ -354,7 +368,7 @@
                         Starting from €280 / 4h
                     </p>
 
-                    <a href="services.html#mise-a-disposition" class="service-link">
+                    <a href="hourly-service.html" class="service-link">
                         Learn More →
                     </a>
 
@@ -522,7 +536,7 @@
                         Long Distance
                     </a>
 
-                    <a href="services.html#mise-a-disposition">
+                    <a href="hourly-service.html">
                         Hourly Service
                     </a>
 
