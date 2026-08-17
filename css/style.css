@@ -3194,10 +3194,26 @@ textarea {
 .airport-transfer-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/airport.webp');
+        url('../images/bg/airport-1280.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+@media (max-width: 1024px) {
+    .airport-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+            url('../images/bg/airport-768.webp');
+    }
+}
+
+@media (max-width: 480px) {
+    .airport-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+            url('../images/bg/airport-480.webp');
+    }
 }
 
 .airport-transfer-intro-section {
