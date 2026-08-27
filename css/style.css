@@ -678,15 +678,15 @@ footer {
     display: flex;
     align-items: center;
     gap: 1.1rem;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .footer-contact-section .footer-contact-items p {
     display: inline-flex;
     align-items: center;
     margin-bottom: 0;
-    white-space: nowrap;
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .footer-contact-section .footer-contact-items i {
