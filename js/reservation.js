@@ -3,6 +3,10 @@
 // ============================================================================
 
 const NIGHT_SURCHARGE = 10;
+const ANALYTICS_FORM_VERSION = 'reservation_main_v1';
+
+let bookingFormStartedTracked = false;
+let bookingSubmitSuccessTracked = false;
 
 let state = {
     isRoundTrip : false,
@@ -13,6 +17,42 @@ let state = {
     promoType   : 'fixed',
     promoLabel  : '',
 };
+
+function trackAnalyticsEvent(name, params = {}) {
+    if (typeof gtag !== 'function') return;
+
+    gtag('event', name, params);
+}
+
+function trackBookingPageView() {
+    trackAnalyticsEvent('booking_page_view', {
+        page_path: window.location.pathname,
+        form_version: ANALYTICS_FORM_VERSION
+    });
+}
+
+function trackBookingFormStart() {
+    if (bookingFormStartedTracked) return;
+
+    bookingFormStartedTracked = true;
+    trackAnalyticsEvent('booking_form_start', {
+        page_path: window.location.pathname,
+        form_version: ANALYTICS_FORM_VERSION
+    });
+}
+
+function trackBookingSubmitSuccess(serviceType, tripType) {
+    if (bookingSubmitSuccessTracked) return;
+
+    bookingSubmitSuccessTracked = true;
+    trackAnalyticsEvent('booking_submit_success', {
+        page_path: window.location.pathname,
+        form_version: ANALYTICS_FORM_VERSION,
+        service_type: serviceType || 'unknown',
+        trip_type: tripType || 'unknown',
+        success: true
+    });
+}
 
 
 // Pricing grid keyed by service and passenger count.
@@ -665,6 +705,7 @@ async function handleFormSubmit(e) {
             throw new Error(data.message || "Server error");
         }
 
+        trackBookingSubmitSuccess(bookingData.service_type, bookingData.trip_type);
         document.getElementById('bookingSuccessRef').textContent = data.booking_number;
 
         const ok = document.getElementById('bookingSuccess');
@@ -729,6 +770,21 @@ function changeSeat(type, change) {
 
 // Initialize the reservation page without relying on inline event handlers.
 document.addEventListener('DOMContentLoaded', () => {
+    trackBookingPageView();
+
+    const bookingForm = document.getElementById('bookingForm');
+
+    bookingForm?.addEventListener('focusin', () => {
+        trackBookingFormStart();
+    });
+
+    bookingForm?.addEventListener('input', () => {
+        trackBookingFormStart();
+    });
+
+    bookingForm?.addEventListener('change', () => {
+        trackBookingFormStart();
+    });
 
     // Prevent selecting past dates.
     const today = new Date().toISOString().split('T')[0];
@@ -788,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
     bindLiveValidation();
 
     // Booking form submission.
-    document.getElementById('bookingForm')?.addEventListener('submit', handleFormSubmit);
+    bookingForm?.addEventListener('submit', handleFormSubmit);
 
     // Admin mode entry point.
     document.getElementById('adminToggleBtn')?.addEventListener('click', toggleAdminMode);

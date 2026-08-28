@@ -16,10 +16,32 @@
 
       gtag('config', 'AW-18332939576');
 
+      let googleAdsConversionTracked = false;
+      let bookingConfirmedTracked = false;
+      let confirmRequestInFlight = false;
+
+      function trackAnalyticsEvent(name, params) {
+        if (typeof gtag !== 'function') return;
+        gtag('event', name, params || {});
+      }
+
       function trackGoogleAdsConversion(transactionId) {
+        if (googleAdsConversionTracked || typeof gtag !== 'function') return;
+
+        googleAdsConversionTracked = true;
         gtag('event', 'conversion', {
           'send_to': 'AW-18332939576/uo0DCI3f59YcELjq6aVE',
           'transaction_id': transactionId || ''
+        });
+      }
+
+      function trackBookingConfirmed() {
+        if (bookingConfirmedTracked) return;
+
+        bookingConfirmedTracked = true;
+        trackAnalyticsEvent('booking_confirmed', {
+          page_path: window.location.pathname,
+          success: true
         });
       }
     </script>
@@ -407,8 +429,11 @@ function init() {
 }
 
 async function confirmBooking() {
+    if (confirmRequestInFlight) return;
+
     const btn = document.getElementById('confirmBtn');
     if (btn) btn.disabled = true;
+    confirmRequestInFlight = true;
 
     showState('stateLoading');
 
@@ -416,6 +441,8 @@ async function confirmBooking() {
 
     if (!token) {
         showState('stateError');
+        confirmRequestInFlight = false;
+        if (btn) btn.disabled = false;
         return;
     }
 
@@ -434,6 +461,7 @@ async function confirmBooking() {
             throw new Error(data.message || "Confirmation failed");
         }
 
+        trackBookingConfirmed();
         trackGoogleAdsConversion(data.booking_number || '');
         showState('stateSuccess');
 
@@ -441,6 +469,8 @@ async function confirmBooking() {
         console.error(err);
         showState('stateError');
         if (btn) btn.disabled = false;
+    } finally {
+        confirmRequestInFlight = false;
     }
 }
 
