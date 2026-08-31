@@ -1,0 +1,42 @@
+{
+  "redirects": [
+    {
+      "source": "/airport-transfer.html",
+      "destination": "/airport",
+      "permanent": true
+    },
+    {
+      "source": "/disneyland-transfer.html",
+      "destination": "/disneyland",
+      "permanent": true
+    },
+    {
+      "source": "/long-distance-transfer.html",
+      "destination": "/long-distance",
+      "permanent": true
+    },
+    {
+      "source": "/hourly-service.html",
+      "destination": "/hourly",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/airport",
+      "destination": "/airport-transfer.html"
+    },
+    {
+      "source": "/disneyland",
+      "destination": "/disneyland-transfer.html"
+    },
+    {
+      "source": "/long-distance",
+      "destination": "/long-distance-transfer.html"
+    },
+    {
+      "source": "/hourly",
+      "destination": "/hourly-service.html"
+    }
+  ]
+}
