@@ -19,6 +19,11 @@
       "source": "/hourly-service.html",
       "destination": "/hourly",
       "permanent": true
+    },
+    {
+      "source": "/links.html",
+      "destination": "/links",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -37,6 +42,10 @@
     {
       "source": "/hourly",
       "destination": "/hourly-service.html"
+    },
+    {
+      "source": "/links",
+      "destination": "/links.html"
     }
   ]
 }
