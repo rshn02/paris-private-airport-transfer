@@ -3194,7 +3194,7 @@ textarea {
 .airport-transfer-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-        url('../images/bg/airport-1280.webp');
+        url('../images/bg/airport-1376.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -3204,7 +3204,15 @@ textarea {
     .airport-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-            url('../images/bg/airport-768.webp');
+            url('../images/bg/airport-1280.webp');
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .airport-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+            url('../images/bg/airport-1376.webp');
     }
 }
 
@@ -3212,7 +3220,15 @@ textarea {
     .airport-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
-            url('../images/bg/airport-480.webp');
+            url('../images/bg/airport-768.webp');
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .airport-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+            url('../images/bg/airport-1280.webp');
     }
 }
 
@@ -3373,7 +3389,7 @@ textarea {
 .disneyland-transfer-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-        url('../images/services/disney/disney_castle-1280.webp');
+        url('../images/services/disney/disney_castle-1376.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -3383,7 +3399,15 @@ textarea {
     .disneyland-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-            url('../images/services/disney/disney_castle-768.webp');
+            url('../images/services/disney/disney_castle-1280.webp');
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .disneyland-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
+            url('../images/services/disney/disney_castle-1376.webp');
     }
 }
 
@@ -3391,7 +3415,15 @@ textarea {
     .disneyland-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-            url('../images/services/disney/disney_castle-480.webp');
+            url('../images/services/disney/disney_castle-768.webp');
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .disneyland-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
+            url('../images/services/disney/disney_castle-1280.webp');
     }
 }
 
@@ -3564,7 +3596,7 @@ textarea {
 .long-distance-transfer-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.58)),
-        url('../images/bg/longue-distance-1280.webp');
+        url('../images/bg/longue-distance-1376.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -3574,7 +3606,15 @@ textarea {
     .long-distance-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.58)),
-            url('../images/bg/longue-distance-768.webp');
+            url('../images/bg/longue-distance-1280.webp');
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .long-distance-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.58)),
+            url('../images/bg/longue-distance-1376.webp');
     }
 }
 
@@ -3582,7 +3622,15 @@ textarea {
     .long-distance-transfer-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.58)),
-            url('../images/bg/longue-distance-480.webp');
+            url('../images/bg/longue-distance-768.webp');
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .long-distance-transfer-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.4), rgba(10, 10, 10, 0.58)),
+            url('../images/bg/longue-distance-1280.webp');
     }
 }
 
@@ -3700,7 +3748,7 @@ textarea {
 .hourly-service-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-        url('../images/bg/hourly-service-1280.webp');
+        url('../images/bg/hourly-service-1376.webp');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -3710,7 +3758,15 @@ textarea {
     .hourly-service-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-            url('../images/bg/hourly-service-768.webp');
+            url('../images/bg/hourly-service-1280.webp');
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .hourly-service-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
+            url('../images/bg/hourly-service-1376.webp');
     }
 }
 
@@ -3718,7 +3774,15 @@ textarea {
     .hourly-service-page-header {
         background-image:
             linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
-            url('../images/bg/hourly-service-480.webp');
+            url('../images/bg/hourly-service-768.webp');
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .hourly-service-page-header {
+        background-image:
+            linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.58)),
+            url('../images/bg/hourly-service-1280.webp');
     }
 }
 
