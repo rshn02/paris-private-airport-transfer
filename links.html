@@ -51,7 +51,12 @@
     <style>
         body.links-page {
             min-height: 100vh;
-            background: linear-gradient(180deg, #fffdf8 0%, #f4f0e8 100%);
+            background:
+                linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
+                url('images/bg/paris_bg.webp');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: var(--text-dark);
         }
 
@@ -69,7 +74,7 @@
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at top, rgba(201, 169, 97, 0.16), transparent 42%);
+            background: transparent;
             z-index: -1;
         }
 
