@@ -402,16 +402,6 @@
 </head>
 <body>
 
-    <!-- ── ADMIN BUTTON (bottom right corner) ── -->
-    <button type="button" class="admin-toggle-btn" id="adminToggleBtn" title="Admin Mode">
-        <i class="fa-solid fa-shield-halved"></i> Admin
-    </button>
-    <div class="admin-bar" id="adminBar">
-        <span class="admin-badge">ADMIN</span>
-        <span class="admin-bar-label">ADMIN MODE ACTIVE</span>
-        <span class="admin-bar-note">Prices can be updated manually</span>
-    </div>
-
     <!-- ════════════════════════════════════
         NAVIGATION
     ════════════════════════════════════ -->
@@ -583,6 +573,10 @@
                             <div class="admin-field">
                                 <label>Internal reference</label>
                                 <input type="text" id="adminRef" placeholder="Ex: REF-2026-042">
+                            </div>
+                            <div class="admin-field">
+                                <label>Override reason</label>
+                                <input type="text" id="adminOverrideReason" placeholder="Ex: Courtesy adjustment">
                             </div>
                         </div>
 

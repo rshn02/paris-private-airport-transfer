@@ -46,6 +46,10 @@
     {
       "source": "/links",
       "destination": "/links.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
     }
   ]
 }

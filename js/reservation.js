@@ -256,16 +256,25 @@ function updatePhoneFull() {
 }
 
 
-// Admin helpers stay global because the template triggers them directly.
+function requireAdminUi() {
+    if (state.adminMode) return true;
+    alert('Please sign in as an administrator first.');
+    return false;
+}
+
+// These values are only local estimates. The server authorizes and recalculates
+// all admin overrides before they are saved.
 function applyAdminPrice() {
-    const val = parseInt(document.getElementById('adminCustomPrice')?.value);
+    if (!requireAdminUi()) return;
+    const val = parseInt(document.getElementById('adminCustomPrice')?.value, 10);
     if (!val || val <= 0) { alert('Entrez un prix valide supérieur à 0€'); return; }
     state.customPrice = val;
-    showAdminNotice(`Prix manuel : ${val}€ (calcul automatique ignoré)`);
+    showAdminNotice(`Prix manuel : ${val}€ (pending server validation)`);
     updatePriceSummary();
 }
 
 function resetAdminPrice() {
+    if (!requireAdminUi()) return;
     state.customPrice = null;
     const input = document.getElementById('adminCustomPrice');
     if (input) input.value = '';
@@ -274,14 +283,16 @@ function resetAdminPrice() {
 }
 
 function applyPromo() {
+    if (!requireAdminUi()) return;
     const amount = parseFloat(document.getElementById('adminPromoAmount')?.value);
     const type   = document.getElementById('adminPromoType')?.value;
     const label  = document.getElementById('adminPromoLabel')?.value.trim();
     if (!amount || amount <= 0) { alert('Enter a valid discount value'); return; }
+    if (type === 'percent' && amount > 100) { alert('Percentage discount cannot exceed 100%.'); return; }
     state.promoAmount = amount;
     state.promoType   = type;
     state.promoLabel  = label || (type === 'percent' ? `Discount ${amount}%` : `Discount ${amount}€`);
-    showAdminNotice(`Promotion applied: ${state.promoLabel}`);
+    showAdminNotice(`Promotion applied: ${state.promoLabel} (pending server validation)`);
     updatePriceSummary();
 }
 
@@ -525,16 +536,14 @@ function bindLiveValidation() {
 }
 
 
-// Admin login/logout toggle for manual pricing overrides.
-async function toggleAdminMode() {
+// Legacy password flow retained as a no-op during the transition to Supabase Auth.
+async function legacyAdminPromptRemoved() {
+    return;
 
     // Already authenticated: log out and reset the admin UI.
     if (state.adminMode) {
 
-        await fetch("https://paris-private-backend.onrender.com/logout", {
-            method: "POST",
-            credentials: "include"
-        });
+        await Promise.resolve();
 
         state.adminMode = false;
 
@@ -554,18 +563,7 @@ async function toggleAdminMode() {
 
     try {
 
-        const res = await fetch("https://paris-private-backend.onrender.com/login", {
-
-            method: "POST",
-
-            credentials: "include",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({ password })
-        });
+        const res = { json: async () => ({ success: false }) };
 
         const data = await res.json();
 
@@ -598,13 +596,57 @@ document.addEventListener("DOMContentLoaded", () => {
     const bar = document.getElementById("adminBar");
     const panel = document.getElementById("adminPanel");
 
-    if (btn) {
-        btn.addEventListener("click", () => {
-            bar.classList.toggle("visible");
-            panel.classList.toggle("open");
-        });
-    }
+    // The panel is opened only after the backend verifies a Supabase session.
 });
+
+const API_URL = 'https://paris-private-backend.onrender.com';
+
+function setAdminUi(enabled) {
+    state.adminMode = enabled;
+    document.getElementById('adminPanel')?.classList.toggle('open', enabled);
+    document.getElementById('adminBar')?.classList.toggle('visible', enabled);
+    const button = document.getElementById('adminToggleBtn');
+    if (button) {
+        button.innerHTML = enabled
+            ? '<i class="fa-solid fa-shield-halved"></i> Sign out Admin'
+            : '<i class="fa-solid fa-shield-halved"></i> Admin';
+    }
+}
+
+async function getVerifiedAdminToken() {
+    if (!window.ppatSupabase) return null;
+    const { data: { session } } = await window.ppatSupabase.auth.getSession();
+    if (!session?.access_token) return null;
+
+    const response = await fetch(`${API_URL}/api/admin/session`, {
+        headers: { Authorization: `Bearer ${session.access_token}` }
+    });
+    return response.ok ? session.access_token : null;
+}
+
+async function syncAdminUi() {
+    try {
+        setAdminUi(Boolean(await getVerifiedAdminToken()));
+    } catch (error) {
+        console.error('Admin session check failed:', error);
+        setAdminUi(false);
+    }
+}
+
+// This declaration replaces the legacy password prompt above.
+async function toggleAdminMode() {
+    if (!state.adminMode) {
+        window.location.assign('/admin?returnTo=/reservation.html');
+        return;
+    }
+
+    await window.ppatSupabase?.auth.signOut();
+    state.customPrice = null;
+    state.promoAmount = 0;
+    state.promoLabel = '';
+    setAdminUi(false);
+    updatePriceSummary();
+}
 
 
 // Send the booking payload to the backend and reset the UI on success.
@@ -618,22 +660,6 @@ async function handleFormSubmit(e) {
         btn.disabled = true;
         btn.innerHTML = '<span>⏳ Sending...</span>';
     }
-
-    const p = getTotalPrice();
-
-    const outboundNightSurcharge = isNightTime(document.getElementById('time')?.value)
-        ? NIGHT_SURCHARGE
-        : 0;
-
-    const returnNightSurcharge =
-        state.isRoundTrip && isNightTime(document.getElementById('return-time')?.value)
-            ? NIGHT_SURCHARGE
-            : 0;
-
-    const totalNightSurcharge = outboundNightSurcharge + returnNightSurcharge;
-    const subtotalBeforeDiscount =
-        (state.isRoundTrip ? p.base * 2 : p.base) + totalNightSurcharge;
-    const discountAmount = calcDiscount(subtotalBeforeDiscount);
 
     const bookingData = {
         customer_name: document.getElementById('name')?.value.trim(),
@@ -666,17 +692,7 @@ async function handleFormSubmit(e) {
         terminal: document.getElementById('terminal')?.value.trim() || null,
         notes: document.getElementById('notes')?.value.trim() || null,
 
-        price: p.total,
-        original_price: p.base,
-
         service_type: document.getElementById('service')?.value || null,
-        outbound_night_surcharge: outboundNightSurcharge,
-        return_night_surcharge: returnNightSurcharge,
-        night_surcharge: totalNightSurcharge,
-        discount_amount: discountAmount,
-
-        promo_code: state.promoLabel || null,
-
         payment_method: document.querySelector('input[name="payment"]:checked')?.value || null,
 
         trip_type: state.isRoundTrip ? "round_trip" : "one_way",
@@ -684,10 +700,30 @@ async function handleFormSubmit(e) {
     };
 
     try {
-        const res = await fetch("https://paris-private-backend.onrender.com/api/bookings", {
+        const token = state.adminMode ? await getVerifiedAdminToken() : null;
+        if (state.adminMode && !token) {
+            setAdminUi(false);
+            throw new Error('Your admin session has expired. Please sign in again.');
+        }
+        if (token) {
+            bookingData.admin_override = {
+                custom_price: state.customPrice,
+                discount: state.promoAmount > 0 ? {
+                    amount: state.promoAmount,
+                    type: state.promoType,
+                    label: state.promoLabel
+                } : undefined,
+                reason: document.getElementById('adminOverrideReason')?.value.trim() || null
+            };
+            bookingData.internal_note = document.getElementById('adminClientNote')?.value.trim() || null;
+            bookingData.internal_reference = document.getElementById('adminRef')?.value.trim() || null;
+        }
+
+        const res = await fetch(`${API_URL}/api/bookings${token ? '/admin' : ''}`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...(token ? { Authorization: `Bearer ${token}` } : {})
             },
             body: JSON.stringify(bookingData)
         });
