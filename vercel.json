@@ -24,6 +24,56 @@
       "source": "/links.html",
       "destination": "/links",
       "permanent": true
+    },
+    {
+      "source": "/paris-to-normandy.html",
+      "destination": "/paris-to-normandy",
+      "permanent": true
+    },
+    {
+      "source": "/paris-to-champagne.html",
+      "destination": "/paris-to-champagne",
+      "permanent": true
+    },
+    {
+      "source": "/paris-to-loire-valley.html",
+      "destination": "/paris-to-loire-valley",
+      "permanent": true
+    },
+    {
+      "source": "/cdg-to-disneyland.html",
+      "destination": "/cdg-to-disneyland",
+      "permanent": true
+    },
+    {
+      "source": "/cdg-to-paris.html",
+      "destination": "/cdg-to-paris",
+      "permanent": true
+    },
+    {
+      "source": "/orly-to-paris.html",
+      "destination": "/orly-to-paris",
+      "permanent": true
+    },
+    {
+      "source": "/beauvais-to-paris.html",
+      "destination": "/beauvais-to-paris",
+      "permanent": true
+    },
+    {
+      "source": "/orly-to-disneyland.html",
+      "destination": "/orly-to-disneyland",
+      "permanent": true
+    },
+    {
+      "source": "/beauvais-to-disneyland.html",
+      "destination": "/beauvais-to-disneyland",
+      "permanent": true
+    },
+    {
+      "source": "/paris-to-disneyland.html",
+      "destination": "/paris-to-disneyland",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -46,6 +96,50 @@
     {
       "source": "/links",
       "destination": "/links.html"
+    },
+    {
+      "source": "/paris-to-normandy",
+      "destination": "/paris-to-normandy.html"
+    },
+    {
+      "source": "/paris-to-champagne",
+      "destination": "/paris-to-champagne.html"
+    },
+    {
+      "source": "/paris-to-loire-valley",
+      "destination": "/paris-to-loire-valley.html"
+    },
+    {
+      "source": "/cdg-to-disneyland",
+      "destination": "/cdg-to-disneyland.html"
+    },
+    {
+      "source": "/cdg-to-paris",
+      "destination": "/cdg-to-paris.html"
+    },
+    {
+      "source": "/orly-to-paris",
+      "destination": "/orly-to-paris.html"
+    },
+    {
+      "source": "/beauvais-to-paris",
+      "destination": "/beauvais-to-paris.html"
+    },
+    {
+      "source": "/orly-to-disneyland",
+      "destination": "/orly-to-disneyland.html"
+    },
+    {
+      "source": "/beauvais-to-disneyland",
+      "destination": "/beauvais-to-disneyland.html"
+    },
+    {
+      "source": "/paris-to-disneyland",
+      "destination": "/paris-to-disneyland.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
     },
     {
       "source": "/admin",

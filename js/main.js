@@ -8,6 +8,62 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.getElementById('navLinks');
 
+    // Build the Airport Transfer route submenu from the shared navigation link.
+    // Keeping this in the shared script applies the same hierarchy to every public page.
+    if (navLinks) {
+        const airportLink = navLinks.querySelector('.nav-dropdown-menu > li > a[href$="airport-transfer.html"]');
+
+        if (airportLink) {
+            const airportItem = airportLink.parentElement;
+            const airportToggle = document.createElement('div');
+            const airportButton = document.createElement('button');
+            const airportMenu = document.createElement('ul');
+            const cdgParisItem = document.createElement('li');
+            const cdgParisLink = document.createElement('a');
+            const orlyParisItem = document.createElement('li');
+            const orlyParisLink = document.createElement('a');
+            const beauvaisParisItem = document.createElement('li');
+            const beauvaisParisLink = document.createElement('a');
+
+            airportItem.classList.add('nav-subdropdown');
+            airportToggle.className = 'nav-subdropdown-toggle';
+            airportButton.type = 'button';
+            airportButton.className = 'nav-subdropdown-btn';
+            airportButton.setAttribute('aria-label', 'Open Airport Transfer pages');
+            airportButton.setAttribute('aria-expanded', 'false');
+            airportButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
+            airportMenu.className = 'nav-subdropdown-menu';
+            const airportHref = airportLink.getAttribute('href');
+            const pathPrefix = airportHref.slice(0, -'airport-transfer.html'.length);
+            cdgParisLink.href = pathPrefix + 'cdg-to-paris.html';
+            cdgParisLink.textContent = 'CDG to Paris';
+            orlyParisLink.href = pathPrefix + 'orly-to-paris.html';
+            orlyParisLink.textContent = 'Orly to Paris';
+            beauvaisParisLink.href = pathPrefix + 'beauvais-to-paris.html';
+            beauvaisParisLink.textContent = 'Beauvais to Paris';
+
+            if (document.body.classList.contains('cdg-paris-page')) {
+                cdgParisLink.classList.add('active');
+            }
+
+            if (document.body.classList.contains('orly-paris-page')) {
+                orlyParisLink.classList.add('active');
+            }
+
+            if (document.body.classList.contains('beauvais-paris-page')) {
+                beauvaisParisLink.classList.add('active');
+            }
+
+            airportItem.insertBefore(airportToggle, airportLink);
+            airportToggle.append(airportLink, airportButton);
+            cdgParisItem.append(cdgParisLink);
+            orlyParisItem.append(orlyParisLink);
+            beauvaisParisItem.append(beauvaisParisLink);
+            airportMenu.append(cdgParisItem, orlyParisItem, beauvaisParisItem);
+            airportItem.append(airportMenu);
+        }
+    }
+
     if (mobileMenuBtn && navLinks) {
         mobileMenuBtn.addEventListener('click', function() {
             navLinks.classList.toggle('active');
@@ -31,6 +87,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const button = dropdown.querySelector('.nav-dropdown-btn');
                     if (button) button.setAttribute('aria-expanded', 'false');
                 });
+                navLinks.querySelectorAll('.nav-subdropdown.open').forEach(function(subdropdown) {
+                    subdropdown.classList.remove('open');
+                    const button = subdropdown.querySelector('.nav-subdropdown-btn');
+                    if (button) button.setAttribute('aria-expanded', 'false');
+                });
             });
         });
     }
@@ -52,6 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (button) button.setAttribute('aria-expanded', 'false');
             });
 
+            document.querySelectorAll('.nav-subdropdown.open').forEach(function(item) {
+                item.classList.remove('open');
+                const button = item.querySelector('.nav-subdropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            });
+
             if (!isOpen) {
                 dropdown.classList.add('open');
                 toggleBtn.setAttribute('aria-expanded', 'true');
@@ -59,11 +126,46 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Nested service pages under Airport Transfer, Disneyland and Long Distance.
+    const navSubdropdowns = document.querySelectorAll('.nav-subdropdown');
+    if (navLinks) {
+        navLinks.addEventListener('click', function(e) {
+            const toggleBtn = e.target.closest('.nav-subdropdown-btn');
+            if (!toggleBtn || !navLinks.contains(toggleBtn)) return;
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            const subdropdown = toggleBtn.closest('.nav-subdropdown');
+            if (!subdropdown) return;
+
+            const isOpen = subdropdown.classList.contains('open');
+            navSubdropdowns.forEach(function(item) {
+                item.classList.remove('open');
+                const button = item.querySelector('.nav-subdropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            });
+
+            if (!isOpen) {
+                subdropdown.classList.add('open');
+                toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+
     document.addEventListener('click', function(e) {
         navDropdowns.forEach(function(dropdown) {
             if (!dropdown.contains(e.target)) {
                 dropdown.classList.remove('open');
                 const button = dropdown.querySelector('.nav-dropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        navSubdropdowns.forEach(function(subdropdown) {
+            if (!subdropdown.contains(e.target)) {
+                subdropdown.classList.remove('open');
+                const button = subdropdown.querySelector('.nav-subdropdown-btn');
                 if (button) button.setAttribute('aria-expanded', 'false');
             }
         });

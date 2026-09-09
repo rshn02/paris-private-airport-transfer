@@ -209,6 +209,78 @@ nav.scrolled {
     display: none;
 }
 
+.nav-subdropdown {
+    position: relative;
+}
+
+.nav-subdropdown-toggle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-subdropdown-toggle > a {
+    flex: 1;
+}
+
+.nav-subdropdown-btn {
+    display: inline-flex;
+    flex: 0 0 38px;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-right: 0.4rem;
+    border: 0;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.nav-subdropdown-btn i {
+    font-size: 0.72rem;
+    transition: transform 0.25s ease;
+}
+
+.nav-subdropdown:hover > .nav-subdropdown-toggle .nav-subdropdown-btn,
+.nav-subdropdown.open > .nav-subdropdown-toggle .nav-subdropdown-btn {
+    color: var(--secondary);
+}
+
+.nav-subdropdown.open > .nav-subdropdown-toggle .nav-subdropdown-btn i {
+    transform: rotate(90deg);
+}
+
+.nav-subdropdown-menu {
+    position: absolute;
+    top: -0.85rem;
+    left: calc(100% - 0.35rem);
+    min-width: 190px;
+    padding: 0.7rem 0;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid rgba(201, 169, 97, 0.18);
+    border-radius: 14px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    z-index: 1006;
+}
+
+.nav-subdropdown:hover > .nav-subdropdown-menu,
+.nav-subdropdown:focus-within > .nav-subdropdown-menu,
+.nav-subdropdown.open > .nav-subdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.nav-subdropdown-menu a {
+    white-space: nowrap;
+}
+
 .cta-button {
     background: var(--secondary);
     color: var(--white) !important;
@@ -2767,6 +2839,48 @@ textarea {
         padding: 0.8rem 1rem;
     }
 
+    .nav-subdropdown-toggle {
+        justify-content: center;
+    }
+
+    .nav-subdropdown-toggle > a {
+        flex: 0 1 auto;
+        padding-left: 2.4rem;
+    }
+
+    .nav-subdropdown-btn {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        margin-right: 0;
+    }
+
+    .nav-subdropdown-menu {
+        position: static;
+        display: none;
+        min-width: 0;
+        width: calc(100% - 2rem);
+        margin: 0.15rem 1rem 0.5rem;
+        padding: 0.25rem 0;
+        background: var(--white);
+        border: 0;
+        border-left: 2px solid rgba(201, 169, 97, 0.35);
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .nav-subdropdown.open > .nav-subdropdown-menu {
+        display: block;
+    }
+
+    .nav-subdropdown-menu a {
+        padding: 0.7rem 1rem;
+        font-size: 0.88rem;
+    }
+
     .nav-links.active {
         left: 0;
     }
@@ -3740,6 +3854,3447 @@ textarea {
 
 .long-distance-transfer-fleet-specs {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ====================================
+   PARIS TO NORMANDY LANDING PAGE
+   ==================================== */
+.normandy-page-header {
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(10, 10, 10, 0.76) 0%, rgba(10, 10, 10, 0.55) 48%, rgba(10, 10, 10, 0.28) 100%),
+        url('../images/services/normandy/normandy-private-chauffeur-1376.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.normandy-hero-content {
+    width: 100%;
+    text-align: left;
+}
+
+.normandy-page-header h1,
+.normandy-page-header > .container > p {
+    max-width: 820px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.normandy-page-header h1 {
+    font-size: clamp(2.75rem, 5.2vw, 5rem);
+}
+
+.normandy-page-header > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.25rem;
+    line-height: 1.75;
+}
+
+.normandy-page-header .normandy-eyebrow,
+.normandy-kicker {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.normandy-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.normandy-hero-actions {
+    margin-top: 2rem;
+}
+
+.normandy-hero-actions .btn-primary,
+.normandy-hero-actions .btn-secondary {
+    min-width: 210px;
+    text-align: center;
+}
+
+.normandy-reassurance {
+    padding: 2.25rem 0;
+    color: var(--white);
+    background: var(--primary);
+}
+
+.normandy-tagline {
+    margin-bottom: 1.25rem;
+    color: var(--secondary);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    text-align: center;
+}
+
+.normandy-reassurance-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.normandy-reassurance-grid span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+.normandy-reassurance-grid i,
+.normandy-card-icon {
+    color: var(--secondary);
+}
+
+.normandy-experiences-section,
+.normandy-comfort-section,
+.normandy-quote-section {
+    background: var(--bg-light);
+}
+
+.normandy-page main > section:not(.page-header):not(.normandy-reassurance) {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.normandy-page .section-header {
+    margin-bottom: 2.75rem;
+}
+
+.normandy-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+}
+
+.normandy-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.normandy-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 2rem 2.25rem 2.25rem;
+}
+
+.normandy-card-media,
+.normandy-card-symbol {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    background: #e9e5dc;
+}
+
+.normandy-card-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.normandy-card:hover .normandy-card-media img {
+    transform: scale(1.025);
+}
+
+.normandy-card-symbol {
+    display: grid;
+    place-items: center;
+    color: var(--secondary);
+    font-size: 3rem;
+    background:
+        radial-gradient(circle at 72% 25%, rgba(201, 169, 97, 0.22), transparent 34%),
+        linear-gradient(135deg, #181818, #2a2926);
+}
+
+.normandy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.1);
+}
+
+.normandy-card-icon {
+    margin-bottom: 1.25rem;
+    font-size: 2rem;
+}
+
+.normandy-card h3 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+    font-size: 1.65rem;
+}
+
+.normandy-card p {
+    flex: 1;
+    margin-bottom: 1.75rem;
+    color: var(--text-light);
+    line-height: 1.75;
+}
+
+.normandy-card .btn-primary {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.86rem;
+}
+
+.normandy-faq {
+    max-width: 920px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.normandy-faq-item {
+    background: var(--white);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.12);
+}
+
+.normandy-faq-item h3 {
+    margin: 0;
+}
+
+.normandy-faq-item button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.45rem 1.5rem;
+    color: var(--primary);
+    font: inherit;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.22rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.normandy-faq-item button:hover,
+.normandy-faq-item button:focus-visible {
+    color: var(--accent);
+}
+
+.normandy-faq-item button:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: -3px;
+}
+
+.normandy-faq-item button i {
+    flex: 0 0 auto;
+    color: var(--secondary);
+    font-size: 0.9rem;
+    transition: transform 0.25s ease;
+}
+
+.normandy-faq-item.is-open button i {
+    transform: rotate(45deg);
+}
+
+.normandy-faq-answer {
+    padding: 0 4rem 1.5rem 1.5rem;
+}
+
+.normandy-faq-answer p {
+    color: var(--text-light);
+    line-height: 1.75;
+}
+
+.normandy-split {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+    gap: 4rem;
+}
+
+.normandy-split-reverse {
+    grid-template-columns: 1.05fr 1fr;
+}
+
+.normandy-visual img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+}
+
+.normandy-copy h2 {
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    font-size: 2.7rem;
+}
+
+.normandy-copy > p:not(.normandy-kicker):not(.normandy-note) {
+    margin-bottom: 1.25rem;
+    color: var(--text-light);
+    font-size: 1.08rem;
+    line-height: 1.85;
+}
+
+.normandy-note {
+    margin: 1.5rem 0;
+    padding: 1rem 1.15rem;
+    color: var(--text-light);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    background: var(--bg-light);
+    border-left: 3px solid var(--secondary);
+}
+
+.normandy-note i {
+    margin-right: 0.4rem;
+    color: var(--secondary);
+}
+
+.normandy-secondary {
+    color: var(--primary);
+    border-color: rgba(26, 26, 26, 0.32);
+}
+
+.normandy-secondary:hover {
+    color: var(--white);
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.normandy-formats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.normandy-formats-grid .value-item {
+    min-width: 0;
+}
+
+.normandy-formats-grid a,
+.normandy-copy a:not(.btn-primary) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.normandy-steps {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.normandy-step {
+    position: relative;
+    padding: 5rem 1.75rem 2rem;
+    background: var(--white);
+    border-radius: 16px;
+    border-top: 3px solid var(--secondary);
+}
+
+.normandy-step span {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.75rem;
+    color: rgba(201, 169, 97, 0.32);
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.normandy-step h3 {
+    margin-bottom: 0.75rem;
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.normandy-step p {
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.normandy-centered-actions {
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.normandy-quote-section .normandy-secondary {
+    background: var(--white);
+}
+
+.normandy-quote-section .normandy-secondary:hover {
+    background: var(--primary);
+}
+
+@media (max-width: 1024px) {
+    .normandy-page-header {
+        min-height: 590px;
+        background-position: 58% center;
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.58) 52%, rgba(10, 10, 10, 0.3) 100%),
+            url('../images/services/normandy/normandy-private-chauffeur-800.webp');
+    }
+
+    .normandy-reassurance-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .normandy-formats-grid,
+    .normandy-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .normandy-split,
+    .normandy-split-reverse {
+        gap: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .normandy-page-header {
+        min-height: 610px;
+        background-position: 40% center;
+    }
+
+    .normandy-page-header h1 {
+        font-size: 2.65rem;
+    }
+
+    .normandy-page-header > .container > p:not(.normandy-eyebrow) {
+        font-size: 1.05rem;
+    }
+
+    .normandy-actions,
+    .normandy-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .normandy-actions .btn-primary,
+    .normandy-actions .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .normandy-reassurance-grid,
+    .normandy-card-grid,
+    .normandy-split,
+    .normandy-split-reverse,
+    .normandy-formats-grid,
+    .normandy-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .normandy-reassurance-grid {
+        gap: 0.25rem;
+    }
+
+    .normandy-reassurance-grid span {
+        justify-content: flex-start;
+        padding-left: calc(50% - 92px);
+    }
+
+    .normandy-card {
+        padding: 0;
+    }
+
+    .normandy-card-content {
+        padding: 1.75rem 1.5rem 2rem;
+    }
+
+    .normandy-card-media,
+    .normandy-card-symbol {
+        aspect-ratio: 16 / 8;
+    }
+
+    .normandy-copy h2 {
+        font-size: 2rem;
+    }
+
+    .normandy-comfort-section .normandy-copy {
+        order: 2;
+    }
+
+    .normandy-comfort-section .normandy-visual {
+        order: 1;
+    }
+
+    .normandy-page main > section:not(.page-header):not(.normandy-reassurance) {
+        padding-top: 3.75rem;
+        padding-bottom: 3.75rem;
+    }
+
+    .normandy-page .section-header {
+        margin-bottom: 2.25rem;
+    }
+
+    .normandy-faq-item button {
+        gap: 1rem;
+        padding: 1.25rem 1rem;
+        font-size: 1.08rem;
+    }
+
+    .normandy-faq-answer {
+        padding: 0 1rem 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .normandy-page-header {
+        min-height: 640px;
+        padding-top: 7.5rem;
+        background-position: 66% center;
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.84) 0%, rgba(10, 10, 10, 0.63) 68%, rgba(10, 10, 10, 0.38) 100%),
+            url('../images/services/normandy/normandy-private-chauffeur-480.webp');
+    }
+
+    .normandy-page-header h1 {
+        font-size: 2.25rem;
+    }
+
+    .normandy-page-header .normandy-eyebrow {
+        font-size: 0.75rem;
+    }
+
+    .normandy-card .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ====================================
+   PARIS TO CHAMPAGNE LANDING PAGE
+   ==================================== */
+.champagne-page-header {
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    background:
+        linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.58) 50%, rgba(10, 10, 10, 0.25) 100%),
+        url('../images/services/champagne/champagne-private-chauffeur-1376.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.champagne-page-header h1,
+.champagne-page-header > .container > p {
+    max-width: 850px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.champagne-page-header h1 {
+    font-size: clamp(2.75rem, 5.2vw, 5rem);
+}
+
+.champagne-page-header > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.25rem;
+    line-height: 1.75;
+}
+
+.champagne-page-header .normandy-eyebrow {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.champagne-route-section {
+    background: var(--white);
+}
+
+.champagne-route-image img {
+    aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 1024px) {
+    .champagne-page-header {
+        min-height: 590px;
+        background-position: 54% center;
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.6) 55%, rgba(10, 10, 10, 0.28) 100%),
+            url('../images/services/champagne/champagne-private-chauffeur-800.webp');
+    }
+
+}
+
+@media (max-width: 768px) {
+    .champagne-page-header {
+        min-height: 610px;
+        background-position: 58% center;
+    }
+
+    .champagne-page-header h1 {
+        font-size: 2.65rem;
+    }
+
+    .champagne-page-header > .container > p:not(.normandy-eyebrow) {
+        font-size: 1.05rem;
+    }
+
+    .champagne-route-image {
+        order: 1;
+    }
+
+    .champagne-route-section .normandy-copy {
+        order: 2;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .champagne-page-header {
+        min-height: 660px;
+        padding-top: 7.5rem;
+        background-position: 62% center;
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0%, rgba(10, 10, 10, 0.66) 72%, rgba(10, 10, 10, 0.38) 100%),
+            url('../images/services/champagne/champagne-private-chauffeur-480.webp');
+    }
+
+    .champagne-page-header h1 {
+        font-size: 2.25rem;
+    }
+
+}
+
+/* ====================================
+   PARIS TO LOIRE VALLEY LANDING PAGE
+   ==================================== */
+.loire-page {
+    --loire-green: #243a32;
+    --loire-sage: #718477;
+    --loire-cream: #f5f1e7;
+}
+
+.loire-page-header {
+    position: relative;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(8, 8, 8, 0.74) 0%, rgba(8, 8, 8, 0.5) 53%, rgba(8, 8, 8, 0.16) 100%),
+        url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.loire-page-header::after {
+    content: '';
+    position: absolute;
+    right: -8%;
+    bottom: -40%;
+    width: 58%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+    box-shadow: 0 0 0 70px rgba(255, 255, 255, 0.025), 0 0 0 140px rgba(255, 255, 255, 0.02);
+}
+
+.loire-page-header .normandy-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.loire-page-header h1,
+.loire-page-header > .container > p {
+    max-width: 880px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.loire-page-header h1 {
+    font-size: clamp(2.75rem, 5.1vw, 5rem);
+}
+
+.loire-page-header > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.22rem;
+    line-height: 1.75;
+}
+
+.loire-page-header .normandy-eyebrow {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.loire-experiences-section {
+    background: var(--loire-cream);
+}
+
+.loire-card {
+    border-color: rgba(36, 58, 50, 0.12);
+}
+
+.loire-commercial-section,
+.loire-route-section {
+    background: var(--white);
+}
+
+.loire-route-image img {
+    aspect-ratio: 16 / 9;
+}
+
+@media (max-width: 1024px) {
+    .loire-page-header {
+        min-height: 590px;
+        background-image:
+            linear-gradient(90deg, rgba(8, 8, 8, 0.76) 0%, rgba(8, 8, 8, 0.54) 60%, rgba(8, 8, 8, 0.2) 100%),
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-800.webp');
+    }
+}
+
+@media (max-width: 768px) {
+    .loire-page-header {
+        min-height: 650px;
+    }
+
+    .loire-page-header h1 {
+        font-size: 2.55rem;
+    }
+
+    .loire-page-header > .container > p:not(.normandy-eyebrow) {
+        font-size: 1.04rem;
+    }
+
+    .loire-route-section .loire-route-image {
+        order: 1;
+    }
+
+    .loire-commercial-section .normandy-copy,
+    .loire-route-section .normandy-copy,
+    .normandy-comfort-section .normandy-copy {
+        order: 2;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .loire-page-header {
+        min-height: 690px;
+        padding-top: 7.5rem;
+        background-position: 60% center;
+        background-image:
+            linear-gradient(90deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.58) 72%, rgba(8, 8, 8, 0.24) 100%),
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-480.webp');
+    }
+
+    .loire-page-header h1 {
+        font-size: 2.15rem;
+    }
+
+    .loire-page-header .normandy-eyebrow {
+        font-size: 0.72rem;
+    }
+
+}
+
+/* ====================================
+   CDG TO DISNEYLAND LANDING PAGE
+   ==================================== */
+.cdg-disneyland-page {
+    --cdg-midnight: #151326;
+    --cdg-indigo: #292345;
+    --cdg-lilac: #756b9b;
+    --cdg-cream: #f8f5ef;
+}
+
+.cdg-disneyland-hero {
+    position: relative;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--cdg-midnight);
+}
+
+.cdg-disneyland-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(90deg, rgba(10, 9, 20, 0.88) 0%, rgba(10, 9, 20, 0.72) 48%, rgba(10, 9, 20, 0.2) 100%);
+}
+
+.cdg-disneyland-hero::after {
+    content: '';
+    position: absolute;
+    top: 9rem;
+    right: 18%;
+    z-index: 1;
+    width: 7rem;
+    height: 7rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 32%, rgba(255, 255, 255, 0.42), rgba(201, 169, 97, 0.09) 34%, transparent 68%);
+    box-shadow: 0 0 4rem rgba(201, 169, 97, 0.14);
+}
+
+.cdg-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.cdg-disneyland-hero .normandy-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cdg-disneyland-hero h1,
+.cdg-disneyland-hero > .container > p {
+    max-width: 850px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.cdg-disneyland-hero h1 {
+    font-size: clamp(2.8rem, 5.1vw, 5rem);
+}
+
+.cdg-disneyland-hero > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.2rem;
+    line-height: 1.75;
+}
+
+.cdg-magic-sky {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cdg-magic-sky i {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: var(--secondary);
+    border-radius: 50%;
+    box-shadow: 0 0 13px rgba(201, 169, 97, 0.9);
+}
+
+.cdg-magic-sky i:nth-child(1) { top: 23%; right: 31%; }
+.cdg-magic-sky i:nth-child(2) { top: 38%; right: 12%; width: 3px; height: 3px; }
+.cdg-magic-sky i:nth-child(3) { top: 67%; right: 36%; width: 4px; height: 4px; }
+.cdg-magic-sky i:nth-child(4) { top: 19%; right: 7%; width: 2px; height: 2px; }
+.cdg-magic-sky i:nth-child(5) { top: 78%; right: 17%; width: 3px; height: 3px; }
+
+.cdg-reassurance {
+    padding-top: 1.45rem;
+    padding-bottom: 1.45rem;
+    background: var(--cdg-midnight);
+}
+
+.cdg-glance-section,
+.cdg-pickup-section,
+.cdg-booking-section {
+    background: var(--white);
+}
+
+.cdg-arrival-section,
+.cdg-why-section,
+.cdg-family-section {
+    background: var(--cdg-cream);
+}
+
+.cdg-experience-section,
+.cdg-dropoff-section {
+    background: #f1eef6;
+}
+
+.cdg-section-label {
+    margin-bottom: 0.65rem;
+    color: var(--secondary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.cdg-glance-layout {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.cdg-route-image {
+    margin: 0 0 1.5rem;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(21, 19, 38, 0.13);
+}
+
+.cdg-route-image img,
+.cdg-section-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.cdg-section-image {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(21, 19, 38, 0.16);
+}
+
+.cdg-route-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding: 1.4rem 1.5rem;
+    color: var(--white);
+    background: var(--cdg-midnight);
+    border-radius: 16px;
+}
+
+.cdg-route-line span {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 600;
+}
+
+.cdg-route-line i {
+    color: var(--secondary);
+}
+
+.cdg-route-line > i {
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.cdg-facts {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.cdg-facts article {
+    display: flex;
+    min-height: 168px;
+    padding: 1.6rem 1.15rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--cdg-cream);
+    border: 1px solid rgba(41, 35, 69, 0.08);
+    border-radius: 15px;
+}
+
+.cdg-facts article > i {
+    margin-bottom: 0.8rem;
+    color: var(--secondary);
+    font-size: 1.55rem;
+}
+
+.cdg-facts strong {
+    color: var(--primary);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.08rem;
+    line-height: 1.35;
+}
+
+.cdg-facts span {
+    margin-top: 0.35rem;
+    color: var(--text-light);
+    font-size: 0.82rem;
+}
+
+.cdg-time-note {
+    margin-top: 1rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.cdg-arrival-steps .normandy-step {
+    border-top-color: var(--cdg-lilac);
+}
+
+.cdg-image-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 380px;
+    aspect-ratio: 4 / 3;
+    place-content: center;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    background:
+        radial-gradient(circle at 75% 20%, rgba(201, 169, 97, 0.34), transparent 20%),
+        radial-gradient(circle at 25% 80%, rgba(117, 107, 155, 0.52), transparent 33%),
+        linear-gradient(135deg, var(--cdg-midnight), var(--cdg-indigo));
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(21, 19, 38, 0.18);
+}
+
+.cdg-image-placeholder::before,
+.cdg-image-placeholder::after {
+    content: '';
+    position: absolute;
+    width: 13rem;
+    height: 13rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+}
+
+.cdg-image-placeholder::before {
+    top: -5rem;
+    right: -4rem;
+}
+
+.cdg-image-placeholder::after {
+    bottom: -7rem;
+    left: -4rem;
+    box-shadow: 0 0 0 3rem rgba(255, 255, 255, 0.015);
+}
+
+.cdg-image-placeholder > i,
+.cdg-experience-visual > div {
+    position: relative;
+    z-index: 1;
+    color: var(--secondary);
+    font-size: 2.75rem;
+}
+
+.cdg-experience-visual > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.cdg-experience-visual > div i:nth-child(1),
+.cdg-experience-visual > div i:nth-child(3) {
+    font-size: 1.3rem;
+}
+
+.cdg-image-placeholder > span {
+    position: relative;
+    z-index: 1;
+    max-width: 320px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+}
+
+.cdg-benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+.cdg-benefit-grid span {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-height: 88px;
+    padding: 1.25rem 1.35rem;
+    color: var(--primary);
+    font-weight: 600;
+    background: var(--white);
+    border-radius: 13px;
+    box-shadow: 0 8px 25px rgba(21, 19, 38, 0.06);
+}
+
+.cdg-benefit-grid i {
+    flex: 0 0 28px;
+    color: var(--secondary);
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.cdg-terminal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.cdg-terminal-grid span {
+    padding: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-align: center;
+    background: var(--cdg-cream);
+    border: 1px solid rgba(201, 169, 97, 0.28);
+    border-radius: 10px;
+}
+
+.cdg-hotel-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem 1rem;
+    margin: 1.4rem 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cdg-hotel-list li {
+    position: relative;
+    padding-left: 1.35rem;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.cdg-hotel-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: 700;
+}
+
+.disneyland-route-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.disneyland-route-link::after {
+    content: '\2192';
+    transition: transform 0.2s ease;
+}
+
+.disneyland-route-link:hover::after {
+    transform: translateX(4px);
+}
+
+@media (max-width: 1024px) {
+    .cdg-disneyland-hero {
+        min-height: 600px;
+    }
+
+    .cdg-facts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cdg-facts article:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .cdg-benefit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .cdg-disneyland-hero {
+        min-height: 660px;
+        padding-top: 7.5rem;
+    }
+
+    .cdg-disneyland-hero h1 {
+        font-size: 2.55rem;
+    }
+
+    .cdg-disneyland-hero > .container > p:not(.normandy-eyebrow) {
+        font-size: 1.03rem;
+    }
+
+    .cdg-hero-image {
+        object-position: 62% center;
+    }
+
+    .cdg-reassurance .normandy-reassurance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem 0.75rem;
+    }
+
+    .cdg-reassurance .normandy-reassurance-grid span {
+        min-height: 40px;
+        justify-content: flex-start;
+        padding-left: 0;
+        font-size: 0.82rem;
+    }
+
+    .cdg-route-line {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .cdg-route-line > i {
+        transform: rotate(90deg);
+    }
+
+    .cdg-benefit-grid,
+    .cdg-hotel-list {
+        grid-template-columns: 1fr;
+    }
+
+    .cdg-pickup-section .normandy-copy,
+    .cdg-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .cdg-pickup-section .cdg-image-placeholder,
+    .cdg-family-section .cdg-image-placeholder,
+    .cdg-pickup-section .cdg-section-image,
+    .cdg-family-section .cdg-section-image {
+        order: 1;
+    }
+
+    .cdg-image-placeholder {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cdg-disneyland-hero {
+        min-height: 690px;
+        padding-top: 7rem;
+    }
+
+    .cdg-disneyland-hero h1 {
+        font-size: 2.15rem;
+    }
+
+    .cdg-disneyland-hero .normandy-eyebrow {
+        font-size: 0.72rem;
+    }
+
+    .cdg-facts {
+        grid-template-columns: 1fr;
+    }
+
+    .cdg-facts article:last-child {
+        grid-column: auto;
+    }
+
+    .cdg-facts article {
+        min-height: 130px;
+    }
+
+    .cdg-terminal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cdg-image-placeholder {
+        min-height: 260px;
+    }
+}
+
+/* ====================================
+   ORLY TO DISNEYLAND LANDING PAGE
+   ==================================== */
+.orly-disneyland-page {
+    --orly-navy: #102830;
+    --orly-teal: #27535a;
+    --orly-copper: #c38b63;
+    --orly-sand: #f7f1e9;
+}
+
+.orly-disneyland-hero {
+    background:
+        radial-gradient(circle at 77% 28%, rgba(195, 139, 99, 0.4), transparent 18%),
+        radial-gradient(circle at 72% 76%, rgba(74, 130, 136, 0.42), transparent 34%),
+        linear-gradient(120deg, #0b1d24 0%, #17363e 57%, #35636a 100%);
+}
+
+.orly-disneyland-hero::before {
+    background: linear-gradient(90deg, rgba(7, 21, 27, 0.82) 0%, rgba(7, 21, 27, 0.58) 55%, rgba(7, 21, 27, 0.16) 100%);
+}
+
+.orly-disneyland-hero::after {
+    top: auto;
+    right: -7rem;
+    bottom: -15rem;
+    width: 34rem;
+    height: 34rem;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 5rem rgba(255, 255, 255, 0.018), 0 0 0 10rem rgba(255, 255, 255, 0.012);
+}
+
+.orly-reassurance {
+    background: var(--orly-navy);
+}
+
+.orly-glance-section,
+.orly-pickup-section,
+.orly-booking-section {
+    background: var(--white);
+}
+
+.orly-arrival-section,
+.orly-direct-section,
+.orly-family-section {
+    background: var(--orly-sand);
+}
+
+.orly-experience-section,
+.orly-dropoff-section {
+    background: #edf3f2;
+}
+
+.orly-route-placeholder {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 300px;
+    margin-bottom: 1.5rem;
+    padding: 2.5rem 3rem;
+    overflow: hidden;
+    color: var(--white);
+    background:
+        radial-gradient(circle at 15% 30%, rgba(195, 139, 99, 0.26), transparent 25%),
+        linear-gradient(135deg, var(--orly-navy), var(--orly-teal));
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(16, 40, 48, 0.16);
+}
+
+.orly-route-placeholder > div {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.orly-route-placeholder > div i {
+    color: var(--secondary);
+    font-size: 2.3rem;
+}
+
+.orly-route-placeholder > div span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.orly-route-track {
+    position: relative;
+    height: 2px;
+    border-top: 2px dashed rgba(255, 255, 255, 0.38);
+}
+
+.orly-route-track::before,
+.orly-route-track::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--orly-copper);
+    border-radius: 50%;
+}
+
+.orly-route-track::before { left: 0; }
+.orly-route-track::after { right: 0; }
+
+.orly-route-track i {
+    position: absolute;
+    top: -1.4rem;
+    left: 48%;
+    color: var(--secondary);
+    font-size: 1.55rem;
+}
+
+.orly-image-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 340px;
+    aspect-ratio: 16 / 10;
+    place-content: center;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 2rem;
+    color: var(--white);
+    text-align: center;
+    background:
+        radial-gradient(circle at 78% 20%, rgba(195, 139, 99, 0.34), transparent 22%),
+        linear-gradient(140deg, var(--orly-navy), var(--orly-teal));
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(16, 40, 48, 0.17);
+}
+
+.orly-image-placeholder::before,
+.orly-image-placeholder::after {
+    content: '';
+    position: absolute;
+    width: 12rem;
+    height: 12rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+}
+
+.orly-image-placeholder::before {
+    top: -5rem;
+    right: -4rem;
+}
+
+.orly-image-placeholder::after {
+    bottom: -7rem;
+    left: -4rem;
+    box-shadow: 0 0 0 3rem rgba(255, 255, 255, 0.018);
+}
+
+.orly-image-placeholder > i,
+.orly-experience-visual > div {
+    position: relative;
+    z-index: 1;
+    color: var(--secondary);
+    font-size: 2.6rem;
+}
+
+.orly-experience-visual > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.orly-experience-visual > div i:first-child,
+.orly-experience-visual > div i:last-child {
+    font-size: 1.2rem;
+}
+
+.orly-image-placeholder > span {
+    position: relative;
+    z-index: 1;
+    max-width: 330px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+}
+
+.orly-terminal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin: 1.5rem 0;
+}
+
+.orly-terminal-grid span {
+    padding: 0.85rem 0.45rem;
+    color: var(--orly-navy);
+    font-weight: 600;
+    text-align: center;
+    background: var(--orly-sand);
+    border: 1px solid rgba(195, 139, 99, 0.28);
+    border-radius: 10px;
+}
+
+.orly-meet-greet {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 1.5rem;
+    padding: 0.7rem 0.95rem;
+    color: var(--orly-navy);
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: var(--orly-sand);
+    border-left: 3px solid var(--orly-copper);
+}
+
+.orly-other-transfer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 700px;
+    margin: 2.25rem auto 0;
+    padding: 1rem 1.25rem;
+    color: var(--text-light);
+    background: var(--orly-sand);
+    border-radius: 12px;
+}
+
+.orly-other-transfer a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.orly-other-transfer a i {
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.orly-final-cta {
+    background: linear-gradient(135deg, #0b1d24, #17363e);
+}
+
+@media (max-width: 768px) {
+    .orly-route-placeholder {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        min-height: 380px;
+        padding: 2rem 1.5rem;
+    }
+
+    .orly-route-track {
+        width: 2px;
+        height: 72px;
+        justify-self: center;
+        border-top: 0;
+        border-left: 2px dashed rgba(255, 255, 255, 0.38);
+    }
+
+    .orly-route-track::before,
+    .orly-route-track::after {
+        left: -6px;
+    }
+
+    .orly-route-track::before { top: 0; }
+    .orly-route-track::after { top: auto; right: auto; bottom: 0; }
+
+    .orly-route-track i {
+        top: 40%;
+        left: -0.8rem;
+        transform: rotate(90deg);
+    }
+
+    .orly-terminal-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .orly-pickup-section .normandy-copy,
+    .orly-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .orly-pickup-section .orly-image-placeholder,
+    .orly-family-section .orly-image-placeholder {
+        order: 1;
+    }
+
+    .orly-image-placeholder {
+        min-height: 280px;
+    }
+
+    .orly-other-transfer {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .orly-disneyland-hero {
+        min-height: 690px;
+    }
+
+    .orly-image-placeholder {
+        min-height: 240px;
+    }
+
+    .orly-terminal-grid {
+        gap: 0.5rem;
+    }
+}
+
+/* ====================================
+   BEAUVAIS TO DISNEYLAND LANDING PAGE
+   ==================================== */
+.beauvais-disneyland-page {
+    --cdg-midnight: #202833;
+    --cdg-indigo: #334451;
+    --cdg-lilac: #a46f58;
+    --cdg-cream: #f6f2ec;
+    --beauvais-ink: #202833;
+    --beauvais-blue: #425d69;
+    --beauvais-rust: #b9785d;
+    --beauvais-mist: #eef1f0;
+}
+
+.beauvais-disneyland-hero {
+    background:
+        radial-gradient(circle at 78% 24%, rgba(185, 120, 93, 0.34), transparent 19%),
+        radial-gradient(circle at 83% 78%, rgba(109, 141, 149, 0.3), transparent 32%),
+        linear-gradient(120deg, #19222b 0%, #2d414b 56%, #657b82 100%);
+}
+
+.beauvais-disneyland-hero::before {
+    background: linear-gradient(90deg, rgba(18, 24, 31, 0.9) 0%, rgba(18, 24, 31, 0.67) 56%, rgba(18, 24, 31, 0.16) 100%);
+}
+
+.beauvais-disneyland-hero::after {
+    top: auto;
+    right: -5rem;
+    bottom: -13rem;
+    width: 32rem;
+    height: 32rem;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 0 5rem rgba(255, 255, 255, 0.018), 0 0 0 10rem rgba(255, 255, 255, 0.012);
+}
+
+.beauvais-reassurance,
+.beauvais-route-line {
+    background: var(--beauvais-ink);
+}
+
+.beauvais-glance-section,
+.beauvais-pickup-section,
+.beauvais-booking-section {
+    background: var(--white);
+}
+
+.beauvais-family-section {
+    background: var(--cdg-cream);
+}
+
+.beauvais-arrival-section,
+.beauvais-why-section {
+    background: var(--beauvais-mist);
+}
+
+.beauvais-experience-section,
+.beauvais-dropoff-section {
+    background: #f3eeea;
+}
+
+.beauvais-route-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 2.4fr 1fr;
+    align-items: center;
+    gap: 1.25rem;
+    min-height: 300px;
+    margin-bottom: 1.5rem;
+    padding: 2.5rem 3rem;
+    overflow: hidden;
+    color: var(--white);
+    background:
+        linear-gradient(rgba(32, 40, 51, 0.2), rgba(32, 40, 51, 0.2)),
+        repeating-linear-gradient(115deg, transparent 0 34px, rgba(255, 255, 255, 0.025) 35px 36px),
+        linear-gradient(135deg, var(--beauvais-ink), var(--beauvais-blue));
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(32, 40, 51, 0.16);
+}
+
+.beauvais-route-placeholder > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: center;
+}
+
+.beauvais-route-placeholder > div i {
+    color: var(--secondary);
+    font-size: 2.2rem;
+}
+
+.beauvais-route-placeholder > div span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.beauvais-route-track {
+    position: relative;
+    height: 3px;
+    border-top: 2px dashed rgba(255, 255, 255, 0.38);
+}
+
+.beauvais-route-track::before,
+.beauvais-route-track::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--beauvais-rust);
+    border-radius: 50%;
+}
+
+.beauvais-route-track::before { left: 0; }
+.beauvais-route-track::after { right: 0; }
+
+.beauvais-route-track i {
+    position: absolute;
+    top: -1.45rem;
+    left: 48%;
+    color: var(--secondary);
+    font-size: 1.5rem;
+}
+
+.beauvais-image-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 340px;
+    aspect-ratio: 16 / 10;
+    padding: 2rem;
+    overflow: hidden;
+    color: var(--white);
+    text-align: center;
+    background:
+        linear-gradient(155deg, transparent 0 58%, rgba(185, 120, 93, 0.24) 58% 59%, transparent 59%),
+        radial-gradient(circle at 77% 22%, rgba(185, 120, 93, 0.35), transparent 23%),
+        linear-gradient(140deg, var(--beauvais-ink), var(--beauvais-blue));
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(32, 40, 51, 0.17);
+    place-content: center;
+    gap: 1rem;
+}
+
+.beauvais-image-placeholder > i,
+.beauvais-experience-visual > div {
+    position: relative;
+    z-index: 1;
+    color: var(--secondary);
+    font-size: 2.6rem;
+}
+
+.beauvais-experience-visual > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.beauvais-experience-visual > div i:first-child,
+.beauvais-experience-visual > div i:last-child {
+    font-size: 1.15rem;
+}
+
+.beauvais-image-placeholder > span {
+    position: relative;
+    z-index: 1;
+    max-width: 330px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+}
+
+.beauvais-benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.25rem;
+}
+
+.beauvais-benefit-grid article {
+    padding: 1.5rem 1.2rem;
+    background: var(--white);
+    border-top: 3px solid var(--beauvais-rust);
+    border-radius: 13px;
+}
+
+.beauvais-benefit-grid article > i {
+    margin-bottom: 0.85rem;
+    color: var(--beauvais-rust);
+    font-size: 1.55rem;
+}
+
+.beauvais-benefit-grid h3 {
+    margin-bottom: 0.65rem;
+    color: var(--beauvais-ink);
+    font-size: 1.08rem;
+}
+
+.beauvais-benefit-grid p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.beauvais-other-transfers {
+    max-width: 720px;
+    margin: 2.25rem auto 0;
+    padding: 1.15rem 1.3rem;
+    text-align: center;
+    background: var(--cdg-cream);
+    border-radius: 13px;
+}
+
+.beauvais-other-transfers > span {
+    display: block;
+    margin-bottom: 0.7rem;
+    color: var(--beauvais-ink);
+    font-weight: 600;
+}
+
+.beauvais-other-transfers > div {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+}
+
+.beauvais-other-transfers a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.beauvais-final-cta {
+    background: linear-gradient(135deg, #19222b, #354b55);
+}
+
+@media (max-width: 1024px) {
+    .beauvais-benefit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .beauvais-benefit-grid article:last-child {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .beauvais-route-placeholder {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+        min-height: 390px;
+        padding: 2rem 1.5rem;
+    }
+
+    .beauvais-route-track {
+        width: 2px;
+        height: 76px;
+        justify-self: center;
+        border-top: 0;
+        border-left: 2px dashed rgba(255, 255, 255, 0.38);
+    }
+
+    .beauvais-route-track::before,
+    .beauvais-route-track::after {
+        left: -6px;
+    }
+
+    .beauvais-route-track::before { top: 0; }
+    .beauvais-route-track::after { top: auto; right: auto; bottom: 0; }
+
+    .beauvais-route-track i {
+        top: 40%;
+        left: -0.8rem;
+        transform: rotate(90deg);
+    }
+
+    .beauvais-benefit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .beauvais-benefit-grid article:last-child {
+        grid-column: auto;
+    }
+
+    .beauvais-pickup-section .normandy-copy,
+    .beauvais-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .beauvais-pickup-section .beauvais-image-placeholder,
+    .beauvais-family-section .beauvais-image-placeholder {
+        order: 1;
+    }
+
+    .beauvais-image-placeholder {
+        min-height: 275px;
+    }
+
+    .beauvais-other-transfers > div {
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .beauvais-disneyland-hero {
+        min-height: 690px;
+    }
+
+    .beauvais-image-placeholder {
+        min-height: 235px;
+    }
+}
+
+/* ====================================
+   PARIS TO DISNEYLAND LANDING PAGE
+   ==================================== */
+.paris-disneyland-page {
+    --cdg-midnight: #1e2433;
+    --cdg-indigo: #34364d;
+    --cdg-lilac: #887a9f;
+    --cdg-cream: #faf6ef;
+    --paris-disney-ink: #1e2433;
+    --paris-disney-plum: #55445f;
+    --paris-disney-rose: #b77a82;
+    --paris-disney-blush: #f5eeec;
+}
+
+.paris-disneyland-hero {
+    background:
+        radial-gradient(circle at 79% 24%, rgba(201, 169, 97, 0.3), transparent 17%),
+        linear-gradient(150deg, transparent 0 62%, rgba(183, 122, 130, 0.13) 62% 63%, transparent 63%),
+        linear-gradient(120deg, #171b28 0%, #303247 58%, #604e64 100%);
+}
+
+.paris-disneyland-hero::before {
+    background: linear-gradient(90deg, rgba(18, 21, 32, 0.9) 0%, rgba(18, 21, 32, 0.68) 58%, rgba(18, 21, 32, 0.18) 100%);
+}
+
+.paris-disneyland-hero::after {
+    top: auto;
+    right: -7rem;
+    bottom: -16rem;
+    width: 36rem;
+    height: 36rem;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 5rem rgba(255, 255, 255, 0.016), 0 0 0 10rem rgba(255, 255, 255, 0.01);
+}
+
+.paris-disneyland-reassurance,
+.paris-disneyland-route-line {
+    background: var(--paris-disney-ink);
+}
+
+.paris-disneyland-glance,
+.paris-hotel-pickup-section,
+.paris-disneyland-booking-section {
+    background: var(--white);
+}
+
+.paris-door-section,
+.paris-disneyland-family-section,
+.paris-disneyland-dropoff-section {
+    background: var(--cdg-cream);
+}
+
+.paris-stay-section,
+.paris-disneyland-experience-section {
+    background: var(--paris-disney-blush);
+}
+
+.paris-disneyland-route-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 2.2fr 1fr;
+    align-items: center;
+    gap: 1.4rem;
+    min-height: 300px;
+    margin-bottom: 1.5rem;
+    padding: 2.5rem 3rem;
+    overflow: hidden;
+    color: var(--white);
+    background:
+        linear-gradient(160deg, transparent 0 54%, rgba(201, 169, 97, 0.12) 54% 55%, transparent 55%),
+        radial-gradient(circle at 82% 22%, rgba(183, 122, 130, 0.34), transparent 23%),
+        linear-gradient(135deg, var(--paris-disney-ink), var(--paris-disney-plum));
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(30, 36, 51, 0.16);
+}
+
+.paris-disneyland-route-placeholder > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: center;
+}
+
+.paris-disneyland-route-placeholder > div i {
+    color: var(--secondary);
+    font-size: 2.2rem;
+}
+
+.paris-disneyland-route-placeholder > div span {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.17rem;
+    font-weight: 600;
+}
+
+.paris-disneyland-route-track {
+    position: relative;
+    height: 3px;
+    border-top: 2px dashed rgba(255, 255, 255, 0.4);
+}
+
+.paris-disneyland-route-track::before,
+.paris-disneyland-route-track::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--secondary);
+    border-radius: 50%;
+}
+
+.paris-disneyland-route-track::before { left: 0; }
+.paris-disneyland-route-track::after { right: 0; }
+
+.paris-disneyland-route-track i {
+    position: absolute;
+    top: -1.45rem;
+    left: 48%;
+    color: var(--secondary);
+    font-size: 1.5rem;
+}
+
+.paris-door-section .section-header {
+    max-width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.paris-door-steps .normandy-step {
+    border-top-color: var(--paris-disney-rose);
+}
+
+.paris-disneyland-image-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 340px;
+    aspect-ratio: 16 / 10;
+    padding: 2rem;
+    overflow: hidden;
+    color: var(--white);
+    text-align: center;
+    background:
+        linear-gradient(145deg, transparent 0 62%, rgba(201, 169, 97, 0.14) 62% 63%, transparent 63%),
+        radial-gradient(circle at 78% 20%, rgba(183, 122, 130, 0.4), transparent 24%),
+        linear-gradient(140deg, var(--paris-disney-ink), var(--paris-disney-plum));
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(30, 36, 51, 0.16);
+    place-content: center;
+    gap: 1rem;
+}
+
+.paris-disneyland-image-placeholder > i,
+.paris-disneyland-experience-visual > div {
+    position: relative;
+    z-index: 1;
+    color: var(--secondary);
+    font-size: 2.55rem;
+}
+
+.paris-disneyland-experience-visual > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.paris-disneyland-experience-visual > div i:first-child,
+.paris-disneyland-experience-visual > div i:last-child {
+    font-size: 1.15rem;
+}
+
+.paris-disneyland-image-placeholder > span {
+    position: relative;
+    z-index: 1;
+    max-width: 340px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.23rem;
+}
+
+.paris-area-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin: 1.35rem 0 1.6rem;
+}
+
+.paris-area-grid span {
+    padding: 0.72rem 0.55rem;
+    color: var(--paris-disney-ink);
+    font-size: 0.84rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--cdg-cream);
+    border: 1px solid rgba(183, 122, 130, 0.2);
+    border-radius: 9px;
+}
+
+.paris-stay-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr auto 1.25fr;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.4rem;
+}
+
+.paris-stay-flow span {
+    padding: 0.75rem 0.55rem;
+    color: var(--paris-disney-ink);
+    font-size: 0.77rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--white);
+    border-radius: 9px;
+}
+
+.paris-stay-flow i {
+    color: var(--paris-disney-rose);
+    font-size: 0.75rem;
+}
+
+.paris-disneyland-dropoff-section .section-header {
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.paris-disneyland-destination-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.paris-disneyland-destination-list li {
+    padding: 1rem;
+    color: var(--paris-disney-ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--white);
+    border-top: 2px solid var(--paris-disney-rose);
+    border-radius: 10px;
+}
+
+.paris-other-transfers {
+    max-width: 760px;
+    margin: 2.25rem auto 0;
+    padding: 1.15rem 1.3rem;
+    text-align: center;
+    background: var(--cdg-cream);
+    border-radius: 13px;
+}
+
+.paris-other-transfers > span {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--paris-disney-ink);
+    font-weight: 600;
+}
+
+.paris-other-transfers > div {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.paris-other-transfers a {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.paris-disneyland-final-cta {
+    background: linear-gradient(135deg, #171b28, #45394d);
+}
+
+@media (max-width: 900px) {
+    .paris-disneyland-destination-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .paris-disneyland-route-placeholder {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+        min-height: 380px;
+        padding: 2rem 1.5rem;
+    }
+
+    .paris-disneyland-route-track {
+        width: 2px;
+        height: 72px;
+        justify-self: center;
+        border-top: 0;
+        border-left: 2px dashed rgba(255, 255, 255, 0.4);
+    }
+
+    .paris-disneyland-route-track::before,
+    .paris-disneyland-route-track::after {
+        left: -6px;
+    }
+
+    .paris-disneyland-route-track::before { top: 0; }
+    .paris-disneyland-route-track::after { top: auto; right: auto; bottom: 0; }
+
+    .paris-disneyland-route-track i {
+        top: 40%;
+        left: -0.8rem;
+        transform: rotate(90deg);
+    }
+
+    .paris-hotel-pickup-section .normandy-copy,
+    .paris-disneyland-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .paris-hotel-pickup-section .paris-disneyland-image-placeholder,
+    .paris-disneyland-family-section .paris-disneyland-image-placeholder {
+        order: 1;
+    }
+
+    .paris-disneyland-image-placeholder {
+        min-height: 270px;
+    }
+
+    .paris-stay-flow {
+        grid-template-columns: 1fr;
+    }
+
+    .paris-stay-flow i {
+        justify-self: center;
+        transform: rotate(90deg);
+    }
+
+    .paris-other-transfers > div {
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .paris-disneyland-hero {
+        min-height: 690px;
+    }
+
+    .paris-area-grid,
+    .paris-disneyland-destination-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .paris-disneyland-image-placeholder {
+        min-height: 230px;
+    }
+}
+
+/* ====================================
+   CDG TO PARIS LANDING PAGE
+   ==================================== */
+.cdg-paris-page {
+    --cdg-paris-navy: #162633;
+    --cdg-paris-blue: #355b70;
+    --cdg-paris-sky: #7698a8;
+    --cdg-paris-cream: #f7f4ee;
+    --cdg-paris-mist: #edf3f5;
+}
+
+.cdg-paris-hero {
+    position: relative;
+    display: flex;
+    min-height: 590px;
+    align-items: center;
+    overflow: hidden;
+    text-align: left;
+    background:
+        radial-gradient(circle at 82% 30%, rgba(201, 169, 97, 0.22), transparent 19%),
+        linear-gradient(118deg, #101d27 0%, #253f50 57%, #678797 100%);
+}
+
+.cdg-paris-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(9, 18, 25, 0.88) 0%, rgba(9, 18, 25, 0.65) 55%, rgba(9, 18, 25, 0.18) 100%);
+    z-index: 1;
+}
+
+.cdg-paris-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.cdg-paris-hero .normandy-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cdg-paris-hero h1,
+.cdg-paris-hero > .container > p {
+    max-width: 810px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.cdg-paris-hero h1 {
+    font-size: clamp(2.65rem, 4.9vw, 4.7rem);
+}
+
+.cdg-paris-hero > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.12rem;
+    line-height: 1.75;
+}
+
+.cdg-paris-reassurance {
+    padding: 1.65rem 0;
+    background: var(--cdg-paris-navy);
+}
+
+.cdg-paris-breadcrumb {
+    padding: 1rem 0;
+    background: var(--white);
+    border-bottom: 1px solid rgba(22, 38, 51, 0.08);
+}
+
+.cdg-paris-breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-light);
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+.cdg-paris-breadcrumb li:not(:last-child)::after {
+    content: '\203A';
+    margin-left: 0.55rem;
+    color: rgba(22, 38, 51, 0.42);
+}
+
+.cdg-paris-breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.cdg-paris-glance,
+.cdg-paris-pickup-section,
+.cdg-paris-booking-section {
+    background: var(--white);
+}
+
+.cdg-paris-route-line {
+    background: var(--cdg-paris-navy);
+}
+
+.cdg-paris-flight-section,
+.cdg-paris-family-section {
+    background: var(--cdg-paris-cream);
+}
+
+.cdg-paris-arrival-section,
+.cdg-paris-destination-section {
+    background: var(--cdg-paris-mist);
+}
+
+.cdg-paris-route-placeholder {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 260px;
+    margin-bottom: 1.5rem;
+    padding: 2.25rem 3rem;
+    color: var(--white);
+    background:
+        radial-gradient(circle at 78% 26%, rgba(201, 169, 97, 0.24), transparent 18%),
+        linear-gradient(135deg, var(--cdg-paris-navy), var(--cdg-paris-blue));
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(22, 38, 51, 0.14);
+}
+
+.cdg-paris-route-placeholder > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: center;
+}
+
+.cdg-paris-route-placeholder > div i {
+    color: var(--secondary);
+    font-size: 2rem;
+}
+
+.cdg-paris-route-placeholder strong {
+    font-family: 'Playfair Display', serif;
+}
+
+.cdg-paris-route-track {
+    position: relative;
+    height: 2px;
+    border-top: 2px dashed rgba(255, 255, 255, 0.38);
+}
+
+.cdg-paris-route-track::before,
+.cdg-paris-route-track::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--secondary);
+    border-radius: 50%;
+}
+
+.cdg-paris-route-track::before { left: 0; }
+.cdg-paris-route-track::after { right: 0; }
+
+.cdg-paris-route-track i {
+    position: absolute;
+    top: -1.45rem;
+    left: 48%;
+    color: var(--secondary);
+    font-size: 1.35rem;
+}
+
+.cdg-paris-flight-section .section-header {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.cdg-paris-flight-steps .normandy-step {
+    border-top-color: var(--cdg-paris-sky);
+}
+
+.cdg-paris-compact-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+}
+
+.cdg-paris-compact-benefits span {
+    padding: 0.65rem 0.9rem;
+    color: var(--cdg-paris-navy);
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(22, 38, 51, 0.08);
+    border-radius: 999px;
+}
+
+.cdg-paris-image-placeholder {
+    position: relative;
+    display: grid;
+    min-height: 350px;
+    aspect-ratio: 16 / 10;
+    place-content: center;
+    gap: 1rem;
+    overflow: hidden;
+    padding: 2rem;
+    color: var(--white);
+    text-align: center;
+    background:
+        radial-gradient(circle at 77% 22%, rgba(201, 169, 97, 0.28), transparent 22%),
+        linear-gradient(140deg, var(--cdg-paris-navy), var(--cdg-paris-blue));
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(22, 38, 51, 0.15);
+}
+
+.cdg-paris-image-placeholder::after {
+    content: '';
+    position: absolute;
+    right: -5rem;
+    bottom: -7rem;
+    width: 16rem;
+    height: 16rem;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3rem rgba(255, 255, 255, 0.018);
+}
+
+.cdg-paris-image-placeholder i,
+.cdg-paris-image-placeholder span {
+    position: relative;
+    z-index: 1;
+}
+
+.cdg-paris-image-placeholder i {
+    color: var(--secondary);
+    font-size: 2.6rem;
+}
+
+.cdg-paris-image-placeholder span {
+    max-width: 320px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.cdg-paris-arrival-placeholder {
+    background:
+        radial-gradient(circle at 75% 20%, rgba(201, 169, 97, 0.31), transparent 21%),
+        linear-gradient(140deg, #253b49, #5e7885);
+}
+
+.cdg-paris-family-placeholder {
+    background:
+        radial-gradient(circle at 76% 22%, rgba(201, 169, 97, 0.27), transparent 21%),
+        linear-gradient(140deg, #1c2b37, #465f6d);
+}
+
+.cdg-paris-emotion-points {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.4rem;
+}
+
+.cdg-paris-emotion-points span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.72rem 0.9rem;
+    color: var(--cdg-paris-navy);
+    font-size: 0.86rem;
+    font-weight: 600;
+    background: var(--white);
+    border-radius: 9px;
+}
+
+.cdg-paris-emotion-points i {
+    color: var(--secondary);
+}
+
+.cdg-paris-destination-section .section-header {
+    max-width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.cdg-paris-area-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 2rem auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.cdg-paris-area-list li {
+    padding: 1rem;
+    color: var(--cdg-paris-navy);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--white);
+    border-top: 2px solid var(--cdg-paris-sky);
+    border-radius: 10px;
+}
+
+.cdg-paris-area-note {
+    max-width: 760px;
+    margin: 1.25rem auto 0;
+    color: var(--text-light);
+    font-size: 0.87rem;
+    text-align: center;
+}
+
+.cdg-paris-related-route {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 720px;
+    margin: 2rem auto 0;
+    padding: 1rem 1.2rem;
+    color: var(--text-light);
+    background: var(--cdg-paris-cream);
+    border-radius: 12px;
+}
+
+.cdg-paris-related-route a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.cdg-paris-related-route i {
+    margin-left: 0.3rem;
+    font-size: 0.75rem;
+}
+
+.cdg-paris-final-cta {
+    background: linear-gradient(135deg, #101d27, #355b70);
+}
+
+@media (max-width: 1024px) {
+    .cdg-paris-area-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 768px) {
+    .cdg-paris-hero {
+        min-height: 630px;
+        padding-top: 6.8rem;
+    }
+
+    .cdg-paris-hero h1 {
+        font-size: 2.45rem;
+    }
+
+    .cdg-paris-hero > .container > p:not(.normandy-eyebrow) {
+        font-size: 1rem;
+    }
+
+    .cdg-paris-hero-image {
+        object-position: 62% center;
+    }
+
+    .cdg-paris-reassurance .normandy-reassurance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.2rem 0.75rem;
+    }
+
+    .cdg-paris-reassurance .normandy-reassurance-grid span {
+        min-height: 36px;
+        justify-content: flex-start;
+        padding-left: 0;
+        font-size: 0.8rem;
+    }
+
+    .cdg-paris-reassurance .normandy-reassurance-grid span:last-child {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    .cdg-paris-breadcrumb {
+        overflow-x: auto;
+    }
+
+    .cdg-paris-breadcrumb ol {
+        min-width: max-content;
+    }
+
+    .cdg-paris-route-placeholder {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        min-height: 360px;
+        padding: 2rem 1.5rem;
+    }
+
+    .cdg-paris-route-track {
+        width: 2px;
+        height: 70px;
+        justify-self: center;
+        border-top: 0;
+        border-left: 2px dashed rgba(255, 255, 255, 0.38);
+    }
+
+    .cdg-paris-route-track::before,
+    .cdg-paris-route-track::after {
+        left: -6px;
+    }
+
+    .cdg-paris-route-track::before { top: 0; }
+    .cdg-paris-route-track::after { top: auto; right: auto; bottom: 0; }
+
+    .cdg-paris-route-track i {
+        top: 40%;
+        left: -0.8rem;
+        transform: rotate(90deg);
+    }
+
+    .cdg-paris-pickup-section .normandy-copy,
+    .cdg-paris-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .cdg-paris-pickup-section .cdg-paris-image-placeholder,
+    .cdg-paris-family-section .cdg-paris-image-placeholder,
+    .cdg-paris-pickup-section .cdg-section-image,
+    .cdg-paris-family-section .cdg-section-image {
+        order: 1;
+    }
+
+    .cdg-paris-image-placeholder {
+        min-height: 270px;
+    }
+
+    .cdg-paris-related-route {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .cdg-paris-hero {
+        min-height: 650px;
+        padding-top: 6.6rem;
+    }
+
+    .cdg-paris-hero h1 {
+        font-size: 2.08rem;
+    }
+
+    .cdg-paris-hero .normandy-eyebrow {
+        font-size: 0.7rem;
+    }
+
+    .cdg-paris-hero-image {
+        object-position: 58% center;
+    }
+
+    .cdg-paris-area-list {
+        grid-template-columns: 1fr;
+    }
+
+    .cdg-paris-emotion-points {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cdg-paris-emotion-points span {
+        justify-content: center;
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+    }
+}
+
+/* ====================================
+   ORLY TO PARIS LANDING PAGE
+   ==================================== */
+.orly-paris-page {
+    --orly-paris-ink: #173039;
+    --orly-paris-teal: #35656a;
+    --orly-paris-river: #73989a;
+    --orly-paris-copper: #c28c69;
+    --orly-paris-sand: #f6f0e8;
+    --orly-paris-mist: #eaf2f1;
+}
+
+.orly-paris-hero {
+    position: relative;
+    display: flex;
+    min-height: 590px;
+    align-items: center;
+    overflow: hidden;
+    text-align: left;
+    background:
+        radial-gradient(circle at 77% 26%, rgba(194, 140, 105, 0.42), transparent 18%),
+        radial-gradient(circle at 72% 78%, rgba(115, 152, 154, 0.42), transparent 32%),
+        linear-gradient(120deg, #10252c 0%, #245056 57%, #63898b 100%);
+}
+
+.orly-paris-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(165deg, transparent 0 59%, rgba(255, 255, 255, 0.045) 59% 60%, transparent 60%),
+        linear-gradient(90deg, rgba(9, 26, 31, 0.84) 0%, rgba(9, 26, 31, 0.59) 57%, rgba(9, 26, 31, 0.15) 100%);
+}
+
+.orly-paris-hero .normandy-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.orly-paris-hero h1,
+.orly-paris-hero > .container > p {
+    max-width: 820px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.orly-paris-hero h1 {
+    font-size: clamp(2.65rem, 4.9vw, 4.7rem);
+}
+
+.orly-paris-hero > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.12rem;
+    line-height: 1.75;
+}
+
+.orly-paris-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.orly-paris-reassurance {
+    padding: 1.65rem 0;
+    background: var(--orly-paris-ink);
+}
+
+.orly-paris-breadcrumb {
+    padding: 1rem 0;
+    background: var(--white);
+    border-bottom: 1px solid rgba(23, 48, 57, 0.08);
+}
+
+.orly-paris-breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-light);
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+.orly-paris-breadcrumb li:not(:last-child)::after {
+    content: '\203A';
+    margin-left: 0.55rem;
+    color: rgba(23, 48, 57, 0.4);
+}
+
+.orly-paris-breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.orly-paris-glance-section,
+.orly-paris-pickup-section,
+.orly-paris-booking-section {
+    background: var(--white);
+}
+
+.orly-paris-direct-section,
+.orly-paris-family-section {
+    background: var(--orly-paris-sand);
+}
+
+.orly-paris-near-section,
+.orly-paris-destination-section {
+    background: var(--orly-paris-mist);
+}
+
+.orly-paris-section-label {
+    margin-bottom: 0.65rem;
+    color: var(--orly-paris-copper);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.orly-paris-route-image {
+    max-width: 1080px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(23, 48, 57, 0.14);
+}
+
+.orly-paris-route-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.orly-paris-route-band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 1.5rem;
+    padding: 1.1rem 1.4rem;
+    color: var(--white);
+    font-weight: 600;
+    background: var(--orly-paris-ink);
+    border-radius: 13px;
+}
+
+.orly-paris-route-band span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.orly-paris-route-band span i {
+    color: var(--secondary);
+}
+
+.orly-paris-route-band > i {
+    color: var(--orly-paris-copper);
+    font-size: 0.75rem;
+}
+
+.orly-paris-direct-section .section-header,
+.orly-paris-destination-section .section-header {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.orly-paris-direct-steps .normandy-step {
+    border-top-color: var(--orly-paris-copper);
+}
+
+.orly-paris-compact-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+}
+
+.orly-paris-compact-benefits span {
+    padding: 0.65rem 0.9rem;
+    color: var(--orly-paris-ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(23, 48, 57, 0.08);
+    border-radius: 999px;
+}
+
+.orly-paris-terminal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin: 1.4rem 0;
+}
+
+.orly-paris-terminal-grid span {
+    padding: 0.8rem 0.45rem;
+    color: var(--orly-paris-ink);
+    font-weight: 600;
+    text-align: center;
+    background: var(--orly-paris-sand);
+    border: 1px solid rgba(194, 140, 105, 0.28);
+    border-radius: 9px;
+}
+
+.orly-paris-section-image {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(23, 48, 57, 0.15);
+}
+
+.orly-paris-section-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.orly-paris-mini-route {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.4rem;
+}
+
+.orly-paris-mini-route span {
+    padding: 0.7rem 0.75rem;
+    color: var(--orly-paris-ink);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--white);
+    border-radius: 9px;
+}
+
+.orly-paris-mini-route i {
+    color: var(--orly-paris-copper);
+    font-size: 0.72rem;
+}
+
+.orly-paris-area-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 2rem auto 0;
+    padding: 0;
+    list-style: none;
+}
+
+.orly-paris-area-list li {
+    padding: 1rem;
+    color: var(--orly-paris-ink);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-align: center;
+    background: var(--white);
+    border-top: 2px solid var(--orly-paris-copper);
+    border-radius: 10px;
+}
+
+.orly-paris-area-note {
+    max-width: 760px;
+    margin: 1.25rem auto 0;
+    color: var(--text-light);
+    font-size: 0.87rem;
+    text-align: center;
+}
+
+.orly-paris-related-routes {
+    max-width: 820px;
+    margin: 2rem auto 0;
+    padding: 1.1rem 1.3rem;
+    text-align: center;
+    background: var(--orly-paris-sand);
+    border-radius: 12px;
+}
+
+.orly-paris-related-routes > span {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--orly-paris-ink);
+    font-weight: 600;
+}
+
+.orly-paris-related-routes > div {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.orly-paris-related-routes a {
+    color: var(--accent);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.orly-paris-final-cta {
+    background: linear-gradient(135deg, #10252c, #35656a);
+}
+
+@media (max-width: 1024px) {
+    .orly-paris-area-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .orly-paris-hero {
+        min-height: 630px;
+        padding-top: 6.8rem;
+    }
+
+    .orly-paris-hero h1 {
+        font-size: 2.45rem;
+    }
+
+    .orly-paris-hero > .container > p:not(.normandy-eyebrow) {
+        font-size: 1rem;
+    }
+
+    .orly-paris-hero-image {
+        object-position: 62% center;
+    }
+
+    .orly-paris-reassurance .normandy-reassurance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.2rem 0.75rem;
+    }
+
+    .orly-paris-reassurance .normandy-reassurance-grid span {
+        min-height: 36px;
+        justify-content: flex-start;
+        padding-left: 0;
+        font-size: 0.8rem;
+    }
+
+    .orly-paris-reassurance .normandy-reassurance-grid span:last-child {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+
+    .orly-paris-breadcrumb {
+        overflow-x: auto;
+    }
+
+    .orly-paris-breadcrumb ol {
+        min-width: max-content;
+    }
+
+    .orly-paris-route-band,
+    .orly-paris-mini-route {
+        flex-direction: column;
+    }
+
+    .orly-paris-route-band > i,
+    .orly-paris-mini-route > i {
+        transform: rotate(90deg);
+    }
+
+    .orly-paris-pickup-section .normandy-copy,
+    .orly-paris-family-section .normandy-copy {
+        order: 2;
+    }
+
+    .orly-paris-pickup-section .orly-paris-section-image,
+    .orly-paris-family-section .orly-paris-section-image {
+        order: 1;
+    }
+
+    .orly-paris-section-image img {
+        min-height: 270px;
+    }
+}
+
+@media (max-width: 480px) {
+    .orly-paris-hero {
+        min-height: 650px;
+        padding-top: 6.6rem;
+    }
+
+    .orly-paris-hero h1 {
+        font-size: 2.08rem;
+    }
+
+    .orly-paris-hero .normandy-eyebrow {
+        font-size: 0.7rem;
+    }
+
+    .orly-paris-terminal-grid,
+    .orly-paris-area-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ====================================
+   BEAUVAIS TO PARIS LANDING PAGE
+   ==================================== */
+.beauvais-paris-page {
+    --beauvais-paris-ink: #302c36;
+    --beauvais-paris-plum: #5b4658;
+    --beauvais-paris-rose: #a46f68;
+    --beauvais-paris-clay: #c69072;
+    --beauvais-paris-cream: #f7f0e8;
+    --beauvais-paris-mist: #f1ecee;
+}
+
+.beauvais-paris-hero {
+    position: relative;
+    display: flex;
+    min-height: 600px;
+    align-items: center;
+    overflow: hidden;
+    text-align: left;
+    background:
+        radial-gradient(circle at 78% 23%, rgba(216, 176, 143, 0.35), transparent 20%),
+        radial-gradient(ellipse at 78% 82%, rgba(164, 111, 104, 0.38), transparent 30%),
+        linear-gradient(120deg, #282631 0%, #51404f 58%, #8d6564 100%);
+}
+
+.beauvais-paris-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        radial-gradient(ellipse at 78% 100%, transparent 0 12%, rgba(255, 255, 255, 0.055) 12.2% 12.8%, transparent 13%),
+        linear-gradient(90deg, rgba(28, 25, 33, 0.88) 0%, rgba(43, 35, 44, 0.65) 58%, rgba(58, 42, 50, 0.14) 100%);
+}
+
+.beauvais-paris-hero .normandy-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.beauvais-paris-hero h1,
+.beauvais-paris-hero > .container > p {
+    max-width: 840px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.beauvais-paris-hero h1 {
+    font-size: clamp(2.65rem, 4.9vw, 4.7rem);
+}
+
+.beauvais-paris-hero > .container > p:not(.normandy-eyebrow) {
+    font-size: 1.12rem;
+    line-height: 1.75;
+}
+
+.beauvais-paris-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.beauvais-paris-reassurance {
+    padding: 1.65rem 0;
+    background: var(--beauvais-paris-ink);
+}
+
+.beauvais-paris-breadcrumb {
+    padding: 1rem 0;
+    overflow-x: auto;
+    background: var(--white);
+    border-bottom: 1px solid rgba(48, 44, 54, 0.08);
+}
+
+.beauvais-paris-breadcrumb ol {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    color: var(--text-light);
+    font-size: 0.82rem;
+    list-style: none;
+}
+
+.beauvais-paris-breadcrumb li:not(:last-child)::after {
+    content: '\203A';
+    margin-left: 0.55rem;
+    color: rgba(48, 44, 54, 0.4);
+}
+
+.beauvais-paris-breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.beauvais-paris-glance-section,
+.beauvais-paris-pickup-section,
+.beauvais-paris-booking-section { background: var(--white); }
+
+.beauvais-paris-direct-section,
+.beauvais-paris-family-section { background: var(--beauvais-paris-cream); }
+
+.beauvais-paris-journey-section { background: var(--beauvais-paris-mist); }
+.beauvais-paris-arrival-section { background: #ece6e1; }
+
+.beauvais-paris-section-label {
+    margin-bottom: 0.65rem;
+    color: var(--beauvais-paris-rose);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.beauvais-paris-route-image {
+    max-width: 1080px;
+    margin: 0 auto 1.5rem;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 15px 38px rgba(48, 44, 54, 0.16);
+}
+
+.beauvais-paris-route-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.beauvais-paris-route-band {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.15rem;
+    margin-bottom: 1.5rem;
+    padding: 1.1rem 1.4rem;
+    color: var(--white);
+    font-weight: 600;
+    background: var(--beauvais-paris-ink);
+    border-radius: 13px;
+}
+
+.beauvais-paris-route-band > i {
+    color: var(--beauvais-paris-clay);
+    font-size: 0.75rem;
+}
+
+.beauvais-paris-direct-section .section-header,
+.beauvais-paris-booking-section .section-header {
+    max-width: 900px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.beauvais-paris-direct-steps .normandy-step { border-top-color: var(--beauvais-paris-clay); }
+
+.beauvais-paris-benefits {
+    display: flex;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+}
+
+.beauvais-paris-benefits span {
+    padding: 0.65rem 0.95rem;
+    color: var(--beauvais-paris-ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(48, 44, 54, 0.09);
+    border-radius: 999px;
+}
+
+.beauvais-paris-section-image {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 16px 40px rgba(48, 44, 54, 0.16);
+}
+
+.beauvais-paris-section-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.beauvais-paris-comfort {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-top: 1.4rem;
+}
+
+.beauvais-paris-comfort span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.7rem 0.8rem;
+    color: var(--beauvais-paris-ink);
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: var(--white);
+    border-radius: 9px;
+}
+
+.beauvais-paris-comfort i { color: var(--beauvais-paris-rose); }
+
+.beauvais-paris-area-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    margin: 1.4rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.beauvais-paris-area-list li {
+    padding: 0.8rem;
+    color: var(--beauvais-paris-ink);
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.78);
+    border-left: 2px solid var(--beauvais-paris-clay);
+    border-radius: 8px;
+}
+
+.beauvais-paris-area-note {
+    margin-top: 1rem;
+    color: var(--text-light);
+    font-size: 0.84rem;
+}
+
+.beauvais-paris-related {
+    max-width: 820px;
+    margin: 2rem auto 0;
+    padding: 1.1rem 1.3rem;
+    text-align: center;
+    background: var(--beauvais-paris-cream);
+    border-radius: 12px;
+}
+
+.beauvais-paris-related > span {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--beauvais-paris-ink);
+    font-weight: 600;
+}
+
+.beauvais-paris-related > div {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+}
+
+.beauvais-paris-related a {
+    color: var(--accent);
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.beauvais-paris-final-cta { background: linear-gradient(135deg, #302c36, #6f515f); }
+
+@media (max-width: 768px) {
+    .beauvais-paris-hero { min-height: 630px; padding-top: 6.8rem; }
+    .beauvais-paris-hero h1 { font-size: 2.42rem; }
+    .beauvais-paris-hero > .container > p:not(.normandy-eyebrow) { font-size: 1rem; }
+    .beauvais-paris-hero-image { object-position: 63% center; }
+    .beauvais-paris-reassurance .normandy-reassurance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem 0.75rem; }
+    .beauvais-paris-reassurance .normandy-reassurance-grid span { min-height: 36px; justify-content: flex-start; padding-left: 0; font-size: 0.8rem; }
+    .beauvais-paris-reassurance .normandy-reassurance-grid span:last-child { grid-column: 1 / -1; justify-content: center; }
+    .beauvais-paris-breadcrumb ol { min-width: max-content; }
+    .beauvais-paris-route-band { flex-direction: column; }
+    .beauvais-paris-route-band > i { transform: rotate(90deg); }
+    .beauvais-paris-pickup-section .normandy-copy,
+    .beauvais-paris-arrival-section .normandy-copy { order: 2; }
+    .beauvais-paris-pickup-section .beauvais-paris-section-image,
+    .beauvais-paris-arrival-section .beauvais-paris-section-image { order: 1; }
+    .beauvais-paris-section-image img { min-height: 270px; }
+}
+
+@media (max-width: 480px) {
+    .beauvais-paris-hero { min-height: 650px; padding-top: 6.6rem; }
+    .beauvais-paris-hero h1 { font-size: 2.02rem; }
+    .beauvais-paris-hero .normandy-eyebrow { font-size: 0.7rem; }
+    .beauvais-paris-area-list { grid-template-columns: 1fr 1fr; }
 }
 
 /* ====================================

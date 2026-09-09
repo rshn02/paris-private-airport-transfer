@@ -885,6 +885,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // Admin mode entry point.
     document.getElementById('adminToggleBtn')?.addEventListener('click', toggleAdminMode);
 
+    // Prefill existing dedicated route landing pages.
+    // This only selects existing form values; pricing remains calculated by the current engine.
+    const routeParams = new URLSearchParams(window.location.search);
+    const routePrefills = {
+        'cdg-paris': {
+            service: 'cdg-paris',
+            pickup: 'Charles de Gaulle Airport (CDG)',
+            destination: ''
+        },
+        'orly-paris': {
+            service: 'orly-paris',
+            pickup: 'Paris Orly Airport (ORY)',
+            destination: ''
+        },
+        'beauvais-paris': {
+            service: 'beauvais-paris',
+            pickup: 'Beauvais Airport (BVA)',
+            destination: ''
+        },
+        'cdg-disneyland': {
+            service: 'cdg-disney',
+            pickup: 'Charles de Gaulle Airport (CDG)',
+            destination: 'Disneyland Paris'
+        },
+        'orly-disneyland': {
+            service: 'orly-disney',
+            pickup: 'Paris Orly Airport (ORY)',
+            destination: 'Disneyland Paris'
+        },
+        'beauvais-disneyland': {
+            service: 'beauvais-disney',
+            pickup: 'Beauvais Airport (BVA)',
+            destination: 'Disneyland Paris'
+        },
+        'paris-disneyland': {
+            service: 'paris-disney',
+            destination: 'Disneyland Paris'
+        }
+    };
+    const routePrefill = routePrefills[routeParams.get('route')];
+
+    if (routePrefill) {
+        const serviceSelect = document.getElementById('service');
+        const calculatorService = document.getElementById('calc-service');
+        const pickupInput = document.getElementById('pickup');
+        const destinationInput = document.getElementById('destination');
+
+        if (serviceSelect) serviceSelect.value = routePrefill.service;
+        if (calculatorService) calculatorService.value = routePrefill.service;
+        if (pickupInput && routePrefill.pickup && !pickupInput.value) pickupInput.value = routePrefill.pickup;
+        if (destinationInput && !destinationInput.value) destinationInput.value = routePrefill.destination;
+    }
+
     // Initial price summary.
     updatePriceSummary();
 });

@@ -56,6 +56,35 @@ const COUNTRIES = [
 
 let selectedCountry = COUNTRIES[0];
 
+// Prefill the existing form for dedicated service landing pages without
+// changing its submission payload or backend integration.
+const contactParams = new URLSearchParams(window.location.search);
+if (contactParams.get("service") === "normandy") {
+    const subjectField = document.getElementById("contact-subject");
+    const messageField = document.getElementById("contact-message");
+
+    if (subjectField) subjectField.value = "quote";
+    if (messageField && !messageField.value) {
+        messageField.value = "Hello, I would like to request a quote for a Paris to Normandy Private Chauffeur journey.\n\nDate:\nNumber of passengers:\nPickup location:\nDesired destinations or stops:\nOne-way, round trip or day trip:";
+    }
+} else if (contactParams.get("service") === "champagne") {
+    const subjectField = document.getElementById("contact-subject");
+    const messageField = document.getElementById("contact-message");
+
+    if (subjectField) subjectField.value = "quote";
+    if (messageField && !messageField.value) {
+        messageField.value = "Hello, I would like to request a quote for a Paris to Champagne Private Chauffeur journey.\n\nDate:\nNumber of passengers:\nPickup location:\nDesired destinations or stops:\nOne-way, round trip or day trip:";
+    }
+} else if (contactParams.get("service") === "loire-valley") {
+    const subjectField = document.getElementById("contact-subject");
+    const messageField = document.getElementById("contact-message");
+
+    if (subjectField) subjectField.value = "quote";
+    if (messageField && !messageField.value) {
+        messageField.value = "Hello, I would like to request a quote for a Paris to Loire Valley Private Chauffeur journey.\n\nDate:\nNumber of passengers:\nPickup location:\nChâteaux or destinations:\nOne-way, round trip or day trip:";
+    }
+}
+
 function updateContactPhoneFull() {
     const rawNumber = document.getElementById("contact-phone")?.value.trim() || "";
     const normalizedNumber = rawNumber.replace(/^0/, "");
