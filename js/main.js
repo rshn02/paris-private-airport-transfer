@@ -11,7 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Build the Airport Transfer route submenu from the shared navigation link.
     // Keeping this in the shared script applies the same hierarchy to every public page.
     if (navLinks) {
-        const airportLink = navLinks.querySelector('.nav-dropdown-menu > li > a[href$="airport-transfer.html"]');
+        const airportLink = navLinks.querySelector(
+            '.nav-dropdown-menu > li > a[href="/airport"], ' +
+            '.nav-dropdown-menu > li > a[href$="airport-transfer.html"]'
+        );
 
         if (airportLink) {
             const airportItem = airportLink.parentElement;
@@ -34,12 +37,16 @@ document.addEventListener('DOMContentLoaded', function() {
             airportButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
             airportMenu.className = 'nav-subdropdown-menu';
             const airportHref = airportLink.getAttribute('href');
-            const pathPrefix = airportHref.slice(0, -'airport-transfer.html'.length);
-            cdgParisLink.href = pathPrefix + 'cdg-to-paris.html';
+            const usesCleanUrls = airportHref === '/airport';
+            const pathPrefix = usesCleanUrls
+                ? '/'
+                : airportHref.slice(0, -'airport-transfer.html'.length);
+            const pageSuffix = usesCleanUrls ? '' : '.html';
+            cdgParisLink.href = pathPrefix + 'cdg-to-paris' + pageSuffix;
             cdgParisLink.textContent = 'CDG to Paris';
-            orlyParisLink.href = pathPrefix + 'orly-to-paris.html';
+            orlyParisLink.href = pathPrefix + 'orly-to-paris' + pageSuffix;
             orlyParisLink.textContent = 'Orly to Paris';
-            beauvaisParisLink.href = pathPrefix + 'beauvais-to-paris.html';
+            beauvaisParisLink.href = pathPrefix + 'beauvais-to-paris' + pageSuffix;
             beauvaisParisLink.textContent = 'Beauvais to Paris';
 
             if (document.body.classList.contains('cdg-paris-page')) {
