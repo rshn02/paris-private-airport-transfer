@@ -5632,6 +5632,23 @@ textarea {
     line-height: 1.65;
 }
 
+.beauvais-compact-benefits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1.25rem 0;
+}
+
+.beauvais-compact-benefits span {
+    padding: 0.6rem 0.85rem;
+    color: var(--beauvais-ink);
+    background: rgba(185, 120, 93, 0.1);
+    border: 1px solid rgba(185, 120, 93, 0.28);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
 .beauvais-other-transfers {
     max-width: 720px;
     margin: 2.25rem auto 0;
