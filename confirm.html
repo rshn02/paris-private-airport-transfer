@@ -25,6 +25,11 @@
       let confirmRequestInFlight = false;
 
       function trackAnalyticsEvent(name, params) {
+        if (window.PPATMarketing?.trackEvent) {
+          window.PPATMarketing.trackEvent(name, params || {});
+          return;
+        }
+
         if (typeof gtag !== "function") return;
         gtag("event", name, params || {});
       }
@@ -44,7 +49,10 @@
 
         bookingConfirmedTracked = true;
         trackAnalyticsEvent("booking_confirmed", {
-          page_path: window.location.pathname,
+          page_path:
+            window.PPATMarketing?.publicPath?.(window.location.pathname) ||
+            window.location.pathname.replace(/\.html$/i, "") ||
+            "/",
           success: true,
         });
       }
@@ -573,5 +581,6 @@
 
       document.addEventListener("DOMContentLoaded", init);
     </script>
+    <script src="js/marketing-attribution.js"></script>
   </body>
 </html>

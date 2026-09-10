@@ -19,14 +19,25 @@ let state = {
 };
 
 function trackAnalyticsEvent(name, params = {}) {
+    if (window.PPATMarketing?.trackEvent) {
+        window.PPATMarketing.trackEvent(name, params);
+        return;
+    }
+
     if (typeof gtag !== 'function') return;
 
     gtag('event', name, params);
 }
 
+function bookingPagePath() {
+    return window.PPATMarketing?.publicPath?.(window.location.pathname)
+        || window.location.pathname.replace(/\.html$/i, '')
+        || '/';
+}
+
 function trackBookingPageView() {
     trackAnalyticsEvent('booking_page_view', {
-        page_path: window.location.pathname,
+        page_path: bookingPagePath(),
         form_version: ANALYTICS_FORM_VERSION
     });
 }
@@ -36,8 +47,9 @@ function trackBookingFormStart() {
 
     bookingFormStartedTracked = true;
     trackAnalyticsEvent('booking_form_start', {
-        page_path: window.location.pathname,
-        form_version: ANALYTICS_FORM_VERSION
+        page_path: bookingPagePath(),
+        form_version: ANALYTICS_FORM_VERSION,
+        service: document.getElementById('service')?.value || undefined
     });
 }
 
@@ -46,9 +58,10 @@ function trackBookingSubmitSuccess(serviceType, tripType) {
 
     bookingSubmitSuccessTracked = true;
     trackAnalyticsEvent('booking_submit_success', {
-        page_path: window.location.pathname,
+        page_path: bookingPagePath(),
         form_version: ANALYTICS_FORM_VERSION,
         service_type: serviceType || 'unknown',
+        service: serviceType || 'unknown',
         trip_type: tripType || 'unknown',
         success: true
     });
@@ -698,6 +711,13 @@ async function handleFormSubmit(e) {
         trip_type: state.isRoundTrip ? "round_trip" : "one_way",
 
     };
+
+    if (!state.adminMode) {
+        const marketingAttribution = window.PPATMarketing?.getAttribution?.();
+        if (marketingAttribution) {
+            bookingData.marketing_attribution = marketingAttribution;
+        }
+    }
 
     try {
         const token = state.adminMode ? await getVerifiedAdminToken() : null;

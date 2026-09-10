@@ -4,6 +4,45 @@ const form = document.getElementById("contactForm");
 const successBox = document.getElementById("contactSuccess");
 const errorBox = document.getElementById("contactError");
 const submitBtn = document.getElementById("contactSubmitBtn");
+const CONTACT_FORM_VERSION = "contact_main_v1";
+
+let contactFormStartedTracked = false;
+let contactSubmitSuccessTracked = false;
+
+function contactPagePath() {
+    return window.PPATMarketing?.publicPath?.(window.location.pathname)
+        || window.location.pathname.replace(/\.html$/i, '')
+        || '/';
+}
+
+function trackContactEvent(name, params = {}) {
+    const eventParams = {
+        page_path: contactPagePath(),
+        form_version: CONTACT_FORM_VERSION,
+        ...params
+    };
+
+    if (window.PPATMarketing?.trackEvent) {
+        window.PPATMarketing.trackEvent(name, eventParams);
+        return;
+    }
+
+    if (typeof gtag === "function") {
+        gtag("event", name, eventParams);
+    }
+}
+
+function trackContactFormStart() {
+    if (contactFormStartedTracked) return;
+    contactFormStartedTracked = true;
+    trackContactEvent("contact_form_start");
+}
+
+function trackContactSubmitSuccess() {
+    if (contactSubmitSuccessTracked) return;
+    contactSubmitSuccessTracked = true;
+    trackContactEvent("contact_submit_success", { success: true });
+}
 
 const COUNTRIES = [
     { flag: "🇫🇷", name: "France", dial: "+33" },
@@ -59,6 +98,10 @@ let selectedCountry = COUNTRIES[0];
 // Prefill the existing form for dedicated service landing pages without
 // changing its submission payload or backend integration.
 const contactParams = new URLSearchParams(window.location.search);
+const requestedContactService = contactParams.get("service") || "";
+const contactService = /^[a-z0-9_-]+$/i.test(requestedContactService)
+    ? requestedContactService.toLowerCase()
+    : "";
 if (contactParams.get("service") === "normandy") {
     const subjectField = document.getElementById("contact-subject");
     const messageField = document.getElementById("contact-message");
@@ -139,6 +182,14 @@ function hideMessages() {
 buildContactCountryList();
 updateContactPhoneFull();
 
+document.addEventListener("DOMContentLoaded", () => {
+    trackContactEvent("contact_page_view");
+});
+
+form?.addEventListener("focusin", trackContactFormStart);
+form?.addEventListener("input", trackContactFormStart);
+form?.addEventListener("change", trackContactFormStart);
+
 document.getElementById("contactCountryFlagDisplay")?.addEventListener("click", (event) => {
     event.stopPropagation();
     document.getElementById("contactCountryDropdown")?.classList.toggle("open");
@@ -165,7 +216,9 @@ form.addEventListener("submit", async (e) => {
         phone: document.getElementById("contact-phone-full").value.trim() || document.getElementById("contact-phone").value.trim(),
         subject: document.getElementById("contact-subject").value,
         message: document.getElementById("contact-message").value.trim(),
-        website: document.getElementById("contact-website").value
+        website: document.getElementById("contact-website").value,
+        service: contactService,
+        marketing_attribution: window.PPATMarketing?.getAttribution?.() || null
     };
 
     if (
@@ -198,9 +251,11 @@ form.addEventListener("submit", async (e) => {
 
         const result = await response.json();
 
-        if (!result.success) {
-            throw new Error(result.message);
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || "Message could not be sent.");
         }
+
+        if (!data.website) trackContactSubmitSuccess();
 
         showSuccess(
             "Your message has been sent successfully. We will contact you shortly."
