@@ -134,9 +134,86 @@ function updateContactPhoneFull() {
     const hiddenInput = document.getElementById("contact-phone-full");
 
     if (hiddenInput) {
-        hiddenInput.value = `${selectedCountry.dial}${normalizedNumber}`;
+        hiddenInput.value = !rawNumber ? "" : rawNumber.startsWith("+")
+            ? rawNumber
+            : `${selectedCountry.dial}${normalizedNumber}`;
     }
 }
+
+// Validate the visible fields before building the request (the dial code is not a number).
+function isValidContactEmail(value) {
+    if (typeof value !== "string" || value.length > 254) return false;
+    const parts = value.split("@");
+    return parts.length === 2
+        && /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*$/i.test(parts[0])
+        && parts[0].length <= 64
+        && parts[1].includes(".")
+        && parts[1].split(".").every(label => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/i.test(label));
+}
+
+function isValidContactPhone(value) {
+    if (typeof value !== "string" || !/^\+?[0-9 ()-]+$/.test(value)) return false;
+    const digits = value.replace(/\D/g, "");
+    return digits.length >= 7 && digits.length <= 15;
+}
+
+const contactRequiredMessages = {
+    "contact-name": "Please enter your full name.",
+    "contact-email": "Please enter a valid email address.",
+    "contact-phone": "Please enter your phone number.",
+    "contact-subject": "Please select a subject.",
+    "contact-message": "Please enter your message."
+};
+
+function validateContactField(field) {
+    const value = typeof field.value === "string" ? field.value.trim() : "";
+    let message = value ? "" : contactRequiredMessages[field.id];
+    if (field.id === "contact-email" && !isValidContactEmail(value)) {
+        message = contactRequiredMessages[field.id];
+    }
+    if (field.id === "contact-phone" && value
+        && (!isValidContactPhone(value) || !isValidContactPhone(document.getElementById("contact-phone-full").value))) {
+        message = "Please enter a valid phone number.";
+    }
+    const group = field.closest(".form-group");
+    let error = group.querySelector(".field-error");
+    if (!error) {
+        error = document.createElement("div");
+        error.className = "field-error";
+        error.id = `${field.id}-error`;
+        group.appendChild(error);
+    }
+    error.textContent = message || "";
+    error.classList.toggle("show", Boolean(message));
+    error.setAttribute("aria-live", "polite");
+    field.setAttribute("aria-describedby", error.id);
+    field.setAttribute("aria-invalid", String(Boolean(message)));
+    field.setCustomValidity(message || "");
+    group.classList.toggle("has-error", Boolean(message));
+    if (field.id === "contact-phone") {
+        document.getElementById("contactPhoneWrapper").classList.toggle("error", Boolean(message));
+    }
+    return !message;
+}
+
+function validateContactForm() {
+    updateContactPhoneFull();
+    let firstInvalid = null;
+    Object.keys(contactRequiredMessages).forEach(id => {
+        const field = document.getElementById(id);
+        if (!validateContactField(field) && !firstInvalid) firstInvalid = field;
+    });
+    firstInvalid?.focus();
+    return !firstInvalid;
+}
+
+Object.keys(contactRequiredMessages).forEach(id => {
+    const field = document.getElementById(id);
+    ["input", "change"].forEach(event => field.addEventListener(event, () => {
+        updateContactPhoneFull();
+        if (field.getAttribute("aria-invalid") === "true") validateContactField(field);
+    }));
+});
 
 function buildContactCountryList() {
     const list = document.getElementById("contactCountryList");
@@ -208,29 +285,24 @@ form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
+    if (submitBtn.disabled) return;
     hideMessages();
+    if (!validateContactForm()) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message";
+        return;
+    }
 
     const data = {
         name: document.getElementById("contact-name").value.trim(),
         email: document.getElementById("contact-email").value.trim(),
         phone: document.getElementById("contact-phone-full").value.trim() || document.getElementById("contact-phone").value.trim(),
-        subject: document.getElementById("contact-subject").value,
+        subject: document.getElementById("contact-subject").value.trim(),
         message: document.getElementById("contact-message").value.trim(),
-        website: document.getElementById("contact-website").value,
+        website: document.getElementById("contact-website").value.trim(),
         service: contactService,
         marketing_attribution: window.PPATMarketing?.getAttribution?.() || null
     };
-
-    if (
-        !data.name ||
-        !data.email ||
-        !data.phone ||
-        !data.subject ||
-        !data.message
-    ) {
-        showError("Please complete all required fields.");
-        return;
-    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
@@ -252,7 +324,7 @@ form.addEventListener("submit", async (e) => {
         const result = await response.json();
 
         if (!response.ok || !result.success) {
-            throw new Error(result.message || "Message could not be sent.");
+            throw new Error(result.error || result.message || "Message could not be sent.");
         }
 
         if (!data.website) trackContactSubmitSuccess();
