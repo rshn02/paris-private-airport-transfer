@@ -314,7 +314,8 @@ form.addEventListener("submit", async (e) => {
             method: "POST",
 
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...await window.PPATEmailOperations.headers("contact", data)
             },
 
             body: JSON.stringify(data)
@@ -327,6 +328,7 @@ form.addEventListener("submit", async (e) => {
             throw new Error(result.error || result.message || "Message could not be sent.");
         }
 
+        window.PPATEmailOperations.complete("contact");
         if (!data.website) trackContactSubmitSuccess();
 
         showSuccess(

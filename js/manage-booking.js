@@ -301,6 +301,7 @@ async function saveModification(e) {
   }
 
   const submitBtn = document.querySelector("#modifyForm .submit-btn");
+  if (submitBtn?.disabled) return;
   if (submitBtn) {
     submitBtn.disabled = true;
     submitBtn.textContent = "Saving...";
@@ -342,7 +343,8 @@ async function saveModification(e) {
     const response = await fetch(`${API_URL}/api/manage/modify`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        ...await window.PPATEmailOperations.headers("modify", payload)
       },
       body: JSON.stringify(payload)
     });
@@ -354,6 +356,7 @@ async function saveModification(e) {
       return;
     }
 
+    window.PPATEmailOperations.complete("modify");
     currentBooking = result.booking;
 
     renderBooking(currentBooking);
@@ -385,6 +388,7 @@ async function cancelBooking() {
   }
 
   const btn = document.getElementById("modalConfirmBtn");
+  if (btn?.disabled) return;
   if (btn) {
     btn.disabled = true;
     btn.textContent = "Cancelling...";
@@ -394,7 +398,8 @@ async function cancelBooking() {
     const response = await fetch(`${API_URL}/api/manage/cancel`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        ...await window.PPATEmailOperations.headers("cancel", { booking_number: currentBooking.booking_number, customer_email: currentBooking.customer_email })
       },
       body: JSON.stringify({
         booking_number: currentBooking.booking_number,
@@ -409,6 +414,7 @@ async function cancelBooking() {
       return;
     }
 
+    window.PPATEmailOperations.complete("cancel");
     currentBooking = data.booking;
     renderBooking(currentBooking);
 

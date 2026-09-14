@@ -668,6 +668,7 @@ async function handleFormSubmit(e) {
     if (!validateForm()) return;
 
     const btn = document.getElementById('submitBtn');
+    if (btn?.disabled) return;
 
     if (btn) {
         btn.disabled = true;
@@ -743,6 +744,7 @@ async function handleFormSubmit(e) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                ...await window.PPATEmailOperations.headers("booking", bookingData),
                 ...(token ? { Authorization: `Bearer ${token}` } : {})
             },
             body: JSON.stringify(bookingData)
@@ -768,6 +770,7 @@ async function handleFormSubmit(e) {
         ok?.classList.add('show');
         ok?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
+        window.PPATEmailOperations.complete("booking");
         e.target.reset();
 
         state = {
