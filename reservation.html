@@ -844,15 +844,20 @@
 
           <form id="bookingForm" class="booking-form" novalidate>
             <!-- ── ADMIN PANEL ── -->
-            <div class="admin-panel" id="adminPanel">
+            <div class="admin-panel" id="adminPanel" hidden>
               <h4><i class="fa-solid fa-shield-halved"></i> Admin Mode</h4>
+              <div id="adminBar" class="admin-session-status">
+                <span>Connected as administrator</span>
+                <button id="adminToggleBtn" type="button" class="admin-apply-btn reset">Sign out</button>
+              </div>
+              <p>Calculated price: <strong id="adminCalculatedPrice">0€</strong></p>
 
               <div class="admin-grid">
                 <div class="admin-field">
                   <label>Booking for (internal note)</label>
                   <input
                     type="text"
-                    id="adminClientNote"
+                    id="adminClientNote" maxlength="2000"
                     placeholder="Ex: J. Smith – phone booking"
                   />
                 </div>
@@ -860,7 +865,7 @@
                   <label>Internal reference</label>
                   <input
                     type="text"
-                    id="adminRef"
+                    id="adminRef" maxlength="150"
                     placeholder="Ex: REF-2026-042"
                   />
                 </div>
@@ -1812,6 +1817,8 @@
     <script src="js/main.js?v=20260910-1" defer></script>
     <!-- <script src="js/forms.js"></script> -->
     <script src="js/email-operation.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/supabase.js" defer></script>
     <script src="js/reservation.js" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>

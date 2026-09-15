@@ -279,8 +279,8 @@ function requireAdminUi() {
 // all admin overrides before they are saved.
 function applyAdminPrice() {
     if (!requireAdminUi()) return;
-    const val = parseInt(document.getElementById('adminCustomPrice')?.value, 10);
-    if (!val || val <= 0) { alert('Entrez un prix valide supérieur à 0€'); return; }
+    const val = Number(document.getElementById('adminCustomPrice')?.value);
+    if (!Number.isFinite(val) || val <= 0) { alert('Entrez un prix valide supérieur à 0€'); return; }
     state.customPrice = val;
     showAdminNotice(`Prix manuel : ${val}€ (pending server validation)`);
     updatePriceSummary();
@@ -289,6 +289,10 @@ function applyAdminPrice() {
 function resetAdminPrice() {
     if (!requireAdminUi()) return;
     state.customPrice = null;
+    state.promoAmount = 0;
+    state.promoLabel = '';
+    const amount = document.getElementById('adminPromoAmount');
+    if (amount) amount.value = '';
     const input = document.getElementById('adminCustomPrice');
     if (input) input.value = '';
     document.getElementById('adminOverrideNotice')?.classList.remove('show');
@@ -297,10 +301,10 @@ function resetAdminPrice() {
 
 function applyPromo() {
     if (!requireAdminUi()) return;
-    const amount = parseFloat(document.getElementById('adminPromoAmount')?.value);
+    const amount = Number(document.getElementById('adminPromoAmount')?.value);
     const type   = document.getElementById('adminPromoType')?.value;
     const label  = document.getElementById('adminPromoLabel')?.value.trim();
-    if (!amount || amount <= 0) { alert('Enter a valid discount value'); return; }
+    if (!Number.isFinite(amount) || amount <= 0) { alert('Enter a valid discount value'); return; }
     if (type === 'percent' && amount > 100) { alert('Percentage discount cannot exceed 100%.'); return; }
     state.promoAmount = amount;
     state.promoType   = type;
@@ -354,6 +358,8 @@ function getNightSurchargeTotal() {
 }
 
 function updatePriceSummary() {
+    const calculated = document.getElementById('adminCalculatedPrice');
+    if (calculated) calculated.textContent = (getBasePrice('form') * (state.isRoundTrip ? 2 : 1) + getNightSurchargeTotal()) + '€';
     const p      = getTotalPrice();
     const fmt    = v => v + '€';
     const adults = parseInt(document.getElementById('passengers')?.value) || 0;
@@ -549,116 +555,99 @@ function bindLiveValidation() {
 }
 
 
-// Legacy password flow retained as a no-op during the transition to Supabase Auth.
-async function legacyAdminPromptRemoved() {
-    return;
-
-    // Already authenticated: log out and reset the admin UI.
-    if (state.adminMode) {
-
-        await Promise.resolve();
-
-        state.adminMode = false;
-
-        document.getElementById('adminPanel')?.classList.remove('open');
-        document.getElementById('adminBar')?.classList.remove('visible');
-
-        document.getElementById('adminToggleBtn').innerHTML =
-            '<i class="fa-solid fa-shield-halved"></i> Admin';
-
-        return;
-    }
-
-    // Ask for the admin password before opening the override tools.
-    const password = prompt("🔐 Mot de passe administrateur");
-
-    if (!password) return;
-
-    try {
-
-        const res = { json: async () => ({ success: false }) };
-
-        const data = await res.json();
-
-        if (!data.success) {
-            alert("❌ Mot de passe incorrect");
-            return;
-        }
-
-        state.adminMode = true;
-
-        document.getElementById('adminPanel')?.classList.add('open');
-        document.getElementById('adminBar')?.classList.add('visible');
-
-        document.getElementById('adminToggleBtn').innerHTML =
-            '<i class="fa-solid fa-shield-halved"></i> Quitter Admin';
-
-        document.getElementById('adminPanel')
-            ?.scrollIntoView({ behavior:'smooth', block:'center' });
-
-    } catch (err) {
-
-        console.error(err);
-
-        alert("Erreur serveur admin");
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("adminToggleBtn");
-    const bar = document.getElementById("adminBar");
-    const panel = document.getElementById("adminPanel");
-
-    // The panel is opened only after the backend verifies a Supabase session.
-});
-
 const API_URL = 'https://paris-private-backend.onrender.com';
+let adminSessionRevision = 0;
+let adminExpiryTimer;
+let verifiedAdminUserId = null;
+let adminInitialization = Promise.resolve();
 
 function setAdminUi(enabled) {
     state.adminMode = enabled;
-    document.getElementById('adminPanel')?.classList.toggle('open', enabled);
-    document.getElementById('adminBar')?.classList.toggle('visible', enabled);
-    const button = document.getElementById('adminToggleBtn');
-    if (button) {
-        button.innerHTML = enabled
-            ? '<i class="fa-solid fa-shield-halved"></i> Sign out Admin'
-            : '<i class="fa-solid fa-shield-halved"></i> Admin';
+    const panel = document.getElementById('adminPanel');
+    if (panel) {
+        panel.hidden = !enabled;
+        panel.classList.toggle('open', enabled);
     }
+    if (!enabled) {
+        verifiedAdminUserId = null;
+        clearTimeout(adminExpiryTimer);
+        state.customPrice = null;
+        state.promoAmount = 0;
+        state.promoType = 'fixed';
+        state.promoLabel = '';
+        ['adminCustomPrice', 'adminPromoAmount', 'adminPromoLabel', 'adminClientNote',
+            'adminRef', 'adminOverrideReason'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) input.value = '';
+        });
+        const type = document.getElementById('adminPromoType');
+        if (type) type.value = 'fixed';
+        document.getElementById('adminOverrideNotice')?.classList.remove('show');
+    }
+    updatePriceSummary();
 }
 
 async function getVerifiedAdminToken() {
     if (!window.ppatSupabase) return null;
-    const { data: { session } } = await window.ppatSupabase.auth.getSession();
-    if (!session?.access_token) return null;
-
+    const revision = adminSessionRevision;
+    const { data, error } = await window.ppatSupabase.auth.getSession();
+    const session = data?.session;
+    if (error || !session?.access_token || session.expires_at * 1000 <= Date.now()) return null;
     const response = await fetch(`${API_URL}/api/admin/session`, {
-        headers: { Authorization: `Bearer ${session.access_token}` }
+        headers: { Authorization: `Bearer ${session.access_token}` },
+        signal: AbortSignal.timeout(10000)
     });
-    return response.ok ? session.access_token : null;
+    if (!response.ok || revision !== adminSessionRevision || session.expires_at * 1000 <= Date.now()) return null;
+    verifiedAdminUserId = session.user?.id || null;
+    clearTimeout(adminExpiryTimer);
+    if (Number.isFinite(session.expires_at)) {
+        adminExpiryTimer = setTimeout(() => {
+            adminSessionRevision++;
+            setAdminUi(false);
+        }, Math.min(session.expires_at * 1000 - Date.now(), 2147483647));
+    }
+    return session.access_token;
 }
 
 async function syncAdminUi() {
+    const revision = ++adminSessionRevision;
     try {
-        setAdminUi(Boolean(await getVerifiedAdminToken()));
-    } catch (error) {
-        console.error('Admin session check failed:', error);
-        setAdminUi(false);
+        const token = await getVerifiedAdminToken();
+        if (revision === adminSessionRevision) setAdminUi(Boolean(token));
+    } catch {
+        if (revision === adminSessionRevision) setAdminUi(false);
     }
 }
 
-// This declaration replaces the legacy password prompt above.
-async function toggleAdminMode() {
-    if (!state.adminMode) {
-        window.location.assign('/admin?returnTo=/reservation.html');
-        return;
-    }
-
-    await window.ppatSupabase?.auth.signOut();
-    state.customPrice = null;
-    state.promoAmount = 0;
-    state.promoLabel = '';
+function initializeAdminSession() {
     setAdminUi(false);
-    updatePriceSummary();
+    if (!window.ppatSupabase) return;
+    window.ppatSupabase.auth.onAuthStateChange((event, session) => {
+        if (event === 'INITIAL_SESSION') return; // getSession below handles initial restoration.
+        // Never await Supabase calls inside its auth callback.
+        adminSessionRevision++;
+        if (!session || event === 'SIGNED_OUT' || session.expires_at * 1000 <= Date.now()) {
+            setAdminUi(false);
+        } else {
+            if (verifiedAdminUserId !== (session.user?.id || null)) setAdminUi(false);
+            const revision = adminSessionRevision;
+            setTimeout(() => {
+                if (revision === adminSessionRevision) adminInitialization = syncAdminUi();
+            }, 0);
+        }
+    });
+    adminInitialization = syncAdminUi();
+}
+
+async function toggleAdminMode() {
+    adminSessionRevision++;
+    setAdminUi(false);
+    try {
+        const result = await window.ppatSupabase?.auth.signOut();
+        if (result?.error) alert('Sign out could not be completed. Please try again.');
+    } catch {
+        alert('Sign out could not be completed. Please try again.');
+    }
 }
 
 
@@ -675,6 +664,8 @@ async function handleFormSubmit(e) {
         btn.innerHTML = '<span>⏳ Sending...</span>';
     }
 
+    await adminInitialization;
+    const submittingAsAdmin = state.adminMode;
     const bookingData = {
         customer_name: document.getElementById('name')?.value.trim(),
         customer_email: document.getElementById('email')?.value.trim(),
@@ -721,8 +712,16 @@ async function handleFormSubmit(e) {
     }
 
     try {
-        const token = state.adminMode ? await getVerifiedAdminToken() : null;
-        if (state.adminMode && !token) {
+        let token = null;
+        if (submittingAsAdmin) {
+            try {
+                token = await getVerifiedAdminToken();
+            } catch {
+                setAdminUi(false);
+                throw new Error('Unable to verify administrator access. Please sign in again.');
+            }
+        }
+        if (submittingAsAdmin && (!token || !state.adminMode)) {
             setAdminUi(false);
             throw new Error('Your admin session has expired. Please sign in again.');
         }
@@ -829,6 +828,7 @@ function changeSeat(type, change) {
 
 // Initialize the reservation page without relying on inline event handlers.
 document.addEventListener('DOMContentLoaded', () => {
+    initializeAdminSession();
     trackBookingPageView();
 
     const bookingForm = document.getElementById('bookingForm');

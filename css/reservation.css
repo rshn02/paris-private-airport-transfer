@@ -655,3 +655,9 @@
         width: 240px;
     }
 }
+
+/* Admin controls remain hidden until server authorization. */
+.admin-panel[hidden] { display: none !important; }
+.admin-session-status { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+.admin-session-status, .admin-panel > p { color: rgba(255, 255, 255, 0.85); }
