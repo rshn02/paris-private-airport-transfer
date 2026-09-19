@@ -14,7 +14,7 @@
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
     <meta property="og:site_name" content="Paris Private Airport Transfer">
-    <meta property="og:title" content="Hourly Chauffeur Service Paris | Paris Private Airport Transfer">
+    <meta property="og:title" content="Hourly Chauffeur Service Paris | Private Driver by the Hour">
     <meta property="og:description" content="Private chauffeur service by the hour in Paris with premium vehicles, multiple stops and a flexible itinerary.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.parisprivateairporttransfer.com/hourly">
@@ -24,7 +24,7 @@
     <meta property="og:image:alt" content="Paris Private Airport Transfer - Hourly chauffeur service in Paris">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hourly Chauffeur Service Paris | Paris Private Airport Transfer">
+    <meta name="twitter:title" content="Hourly Chauffeur Service Paris | Private Driver by the Hour">
     <meta name="twitter:description" content="Private chauffeur service by the hour in Paris with premium vehicles, multiple stops and a flexible itinerary.">
     <meta name="twitter:image" content="https://www.parisprivateairporttransfer.com/images/og-image.jpg">
     <meta name="twitter:image:alt" content="Paris Private Airport Transfer - Hourly chauffeur service in Paris">
@@ -63,6 +63,7 @@
       "description": "Private chauffeur service by the hour in Paris with premium vehicles, multiple stops and a flexible itinerary.",
       "provider": {
         "@type": "LocalBusiness",
+          "@id": "https://www.parisprivateairporttransfer.com/#business",
         "name": "Paris Private Airport Transfer",
         "url": "https://www.parisprivateairporttransfer.com/",
         "telephone": "+33 7 67 73 73 09",
@@ -99,7 +100,19 @@
                     </div>
                     <ul class="nav-dropdown-menu">
                         <li><a href="/services">All Services</a></li>
-                        <li><a href="/airport">Airport Transfer</a></li>
+                        <li class="nav-subdropdown">
+                <div class="nav-subdropdown-toggle">
+                  <a href="/airport">Airport Transfer</a>
+                  <button type="button" class="nav-subdropdown-btn" aria-label="Open Airport Transfer pages" aria-expanded="false">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+                <ul class="nav-subdropdown-menu">
+                  <li><a href="/cdg-to-paris">CDG to Paris</a></li>
+                  <li><a href="/orly-to-paris">Orly to Paris</a></li>
+                  <li><a href="/beauvais-to-paris">Beauvais to Paris</a></li>
+                </ul>
+              </li>
                         <li class="nav-subdropdown">
                             <div class="nav-subdropdown-toggle">
                                 <a href="/disneyland">Disneyland Experience</a>
@@ -135,8 +148,9 @@
     <main>
     <section class="page-header hourly-service-page-header">
         <div class="container">
-            <h1>Private Chauffeur at Your Disposal</h1>
+            <h1>Hourly Chauffeur Service in Paris</h1>
             <p>Your private chauffeur and premium vehicle, available for as long as you need.</p>
+        </div>
     </section>
 
     <section class="hourly-service-intro-section">
@@ -356,8 +370,8 @@
 
                 <div class="footer-section">
                     <h3>Services</h3>
-                    <a href="/services#aeroports">Airport Transfers</a>
-                    <a href="/services#disneyland">Disneyland Experience</a>
+                    <a href="/airport">Airport Transfers</a>
+                    <a href="/disneyland">Disneyland Experience</a>
                     <a href="/long-distance">Long Distance</a>
                     <a href="/hourly">Hourly Service</a>
                     <a href="/flotte">Our Vehicles</a>

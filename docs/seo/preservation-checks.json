@@ -1,0 +1,29 @@
+{
+  "protected_files_unchanged": [
+    "confirm.html",
+    "admin.html",
+    "vercel.json",
+    "reservation.html",
+    "robots.txt",
+    "css/reservation.bundle.min.css",
+    "css/style.css",
+    "css/manage-booking.css",
+    "css/reservation.css",
+    "js/manage-booking.js",
+    "js/reservation.js",
+    "js/supabase.js",
+    "js/admin-login.js",
+    "js/main.js",
+    "js/marketing-attribution.js",
+    "js/confirm.js",
+    "js/contact.js",
+    "js/email-operation.js",
+    "js/forms.js",
+    "js/pricing.js"
+  ],
+  "forms_unchanged": true,
+  "executable_scripts_unchanged": true,
+  "image_tags_unchanged": true,
+  "local_asset_references_checked": 629,
+  "issues": []
+}

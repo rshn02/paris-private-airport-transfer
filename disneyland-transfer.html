@@ -164,6 +164,7 @@
         "description": "Private chauffeur transfers to Disneyland Paris from Paris, Charles de Gaulle Airport, Orly Airport and Beauvais Airport with premium vehicles and direct travel.",
         "provider": {
           "@type": "LocalBusiness",
+          "@id": "https://www.parisprivateairporttransfer.com/#business",
           "name": "Paris Private Airport Transfer",
           "url": "https://www.parisprivateairporttransfer.com/",
           "telephone": "+33 7 67 73 73 09",
@@ -224,7 +225,19 @@
             </div>
             <ul class="nav-dropdown-menu">
               <li><a href="/services">All Services</a></li>
-              <li><a href="/airport">Airport Transfer</a></li>
+              <li class="nav-subdropdown">
+                <div class="nav-subdropdown-toggle">
+                  <a href="/airport">Airport Transfer</a>
+                  <button type="button" class="nav-subdropdown-btn" aria-label="Open Airport Transfer pages" aria-expanded="false">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+                <ul class="nav-subdropdown-menu">
+                  <li><a href="/cdg-to-paris">CDG to Paris</a></li>
+                  <li><a href="/orly-to-paris">Orly to Paris</a></li>
+                  <li><a href="/beauvais-to-paris">Beauvais to Paris</a></li>
+                </ul>
+              </li>
               <li class="nav-subdropdown">
                 <div class="nav-subdropdown-toggle">
                   <a href="/disneyland" class="active"
@@ -708,8 +721,8 @@
 
           <div class="footer-section">
             <h3>Services</h3>
-            <a href="/services#aeroports">Airport Transfers</a>
-            <a href="/services#disneyland">Disneyland Experience</a>
+            <a href="/airport">Airport Transfers</a>
+            <a href="/disneyland">Disneyland Experience</a>
             <a href="/services#longue-distance">Long Distance</a>
             <a href="/hourly">Hourly Service</a>
             <a href="/flotte">Our Vehicles</a>

@@ -326,6 +326,7 @@ function getTotalPrice() {
         const discount = calcDiscount(state.customPrice);
         return { base: state.customPrice, night: 0, discount, total: Math.max(0, state.customPrice - discount) };
     }
+    if (document.getElementById('service')?.value === 'other') return { base: 0, night: 0, discount: 0, total: 0 };
     const base     = getBasePrice('form');
     const afterRT  = state.isRoundTrip ? base * 2 : base;
     const night    = getNightSurchargeTotal();
@@ -359,7 +360,10 @@ function getNightSurchargeTotal() {
 
 function updatePriceSummary() {
     const calculated = document.getElementById('adminCalculatedPrice');
-    if (calculated) calculated.textContent = (getBasePrice('form') * (state.isRoundTrip ? 2 : 1) + getNightSurchargeTotal()) + '€';
+    const isOther = document.getElementById('service')?.value === 'other';
+    if (calculated) calculated.textContent = isOther ? 'No automatic fare — enter a custom price' : (getBasePrice('form') * (state.isRoundTrip ? 2 : 1) + getNightSurchargeTotal()) + '€';
+    const priceError = document.getElementById('adminServicePriceError');
+    if (priceError && (!isOther || state.customPrice > 0)) priceError.hidden = true;
     const p      = getTotalPrice();
     const fmt    = v => v + '€';
     const adults = parseInt(document.getElementById('passengers')?.value) || 0;
@@ -409,7 +413,7 @@ function updatePriceSummary() {
 
     // Final total.
     const totalEl = document.getElementById('summaryTotal');
-    if (totalEl) totalEl.textContent = fmt(p.total);
+    if (totalEl) totalEl.textContent = isOther && state.customPrice === null ? 'Custom price required' : fmt(p.total);
 
     // Keep the hero calculator in sync with its own inputs.
     if (state.customPrice === null) {
@@ -498,6 +502,18 @@ function showError(id, msg = null) {
 function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
 function isValidPhone(p) { return p.replace(/[\s\-\(\)\.]/g, '').length >= 7; }
 
+function validateAdminService() {
+    const isOther = document.getElementById('service')?.value === 'other';
+    const valid = !isOther || (state.adminMode && Number.isFinite(state.customPrice) && state.customPrice > 0);
+    const error = document.getElementById('adminServicePriceError');
+    if (error) {
+        error.hidden = valid;
+        error.textContent = valid ? '' : 'Please enter and apply a custom price greater than 0 for Other.';
+    }
+    if (!valid) document.getElementById('adminCustomPrice')?.focus();
+    return valid;
+}
+
 function validateForm() {
     let ok = true;
     ['fg-name','fg-email','fg-phone','fg-service','fg-pickup','fg-destination',
@@ -563,6 +579,11 @@ let adminInitialization = Promise.resolve();
 
 function setAdminUi(enabled) {
     state.adminMode = enabled;
+    const other = document.getElementById('adminOtherService');
+    if (other) { other.hidden = !enabled; other.disabled = !enabled; }
+    if (!enabled && document.getElementById('service')?.value === 'other') {
+        document.getElementById('service').value = '';
+    }
     const panel = document.getElementById('adminPanel');
     if (panel) {
         panel.hidden = !enabled;
@@ -654,7 +675,7 @@ async function toggleAdminMode() {
 // Send the booking payload to the backend and reset the UI on success.
 async function handleFormSubmit(e) {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm() || !validateAdminService()) return;
 
     const btn = document.getElementById('submitBtn');
     if (btn?.disabled) return;

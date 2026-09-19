@@ -20,7 +20,7 @@
 
     <link
       rel="canonical"
-      href="https://www.parisprivateairporttransfer.com/manage-booking.html"
+      href="https://www.parisprivateairporttransfer.com/manage-booking"
     />
     <link
       rel="icon"
@@ -47,7 +47,7 @@
     />
     <meta
       property="og:url"
-      content="https://www.parisprivateairporttransfer.com/manage-booking.html"
+      content="https://www.parisprivateairporttransfer.com/manage-booking"
     />
 
     <!-- Google tag (gtag.js) -->
@@ -134,7 +134,7 @@
   <body class="manage-booking-page">
     <nav id="navbar">
       <div class="nav-container">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
           <img
             src="images/Logo.svg"
             alt="Paris Private Airport Transfer"
@@ -146,10 +146,10 @@
         <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
 
         <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li class="nav-dropdown">
             <div class="nav-dropdown-toggle">
-              <a href="services.html">Services</a>
+              <a href="/services">Services</a>
               <button
                 type="button"
                 class="nav-dropdown-btn"
@@ -160,11 +160,23 @@
               </button>
             </div>
             <ul class="nav-dropdown-menu">
-              <li><a href="services.html">All Services</a></li>
-              <li><a href="airport-transfer.html">Airport Transfer</a></li>
+              <li><a href="/services">All Services</a></li>
               <li class="nav-subdropdown">
                 <div class="nav-subdropdown-toggle">
-                  <a href="disneyland-transfer.html">Disneyland Experience</a>
+                  <a href="/airport">Airport Transfer</a>
+                  <button type="button" class="nav-subdropdown-btn" aria-label="Open Airport Transfer pages" aria-expanded="false">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </div>
+                <ul class="nav-subdropdown-menu">
+                  <li><a href="/cdg-to-paris">CDG to Paris</a></li>
+                  <li><a href="/orly-to-paris">Orly to Paris</a></li>
+                  <li><a href="/beauvais-to-paris">Beauvais to Paris</a></li>
+                </ul>
+              </li>
+              <li class="nav-subdropdown">
+                <div class="nav-subdropdown-toggle">
+                  <a href="/disneyland">Disneyland Experience</a>
                   <button
                     type="button"
                     class="nav-subdropdown-btn"
@@ -176,21 +188,21 @@
                 </div>
                 <ul class="nav-subdropdown-menu">
                   <li>
-                    <a href="cdg-to-disneyland.html">CDG to Disneyland</a>
+                    <a href="/cdg-to-disneyland">CDG to Disneyland</a>
                   </li>
                   <li>
-                    <a href="orly-to-disneyland.html">Orly to Disneyland</a>
+                    <a href="/orly-to-disneyland">Orly to Disneyland</a>
                   </li>
                   <li>
-                    <a href="beauvais-to-disneyland.html"
+                    <a href="/beauvais-to-disneyland"
                       >Beauvais to Disneyland</a
                     >
-                  </li><li><a href="paris-to-disneyland.html">Paris to Disneyland</a></li>
+                  </li><li><a href="/paris-to-disneyland">Paris to Disneyland</a></li>
                 </ul>
               </li>
               <li class="nav-subdropdown">
                 <div class="nav-subdropdown-toggle">
-                  <a href="long-distance-transfer.html">Long Distance</a>
+                  <a href="/long-distance">Long Distance</a>
                   <button
                     type="button"
                     class="nav-subdropdown-btn"
@@ -201,20 +213,20 @@
                   </button>
                 </div>
                 <ul class="nav-subdropdown-menu">
-                  <li><a href="paris-to-normandy.html">Normandy</a></li>
-                  <li><a href="paris-to-champagne.html">Champagne</a></li>
-                  <li><a href="paris-to-loire-valley.html">Loire Valley</a></li>
+                  <li><a href="/paris-to-normandy">Normandy</a></li>
+                  <li><a href="/paris-to-champagne">Champagne</a></li>
+                  <li><a href="/paris-to-loire-valley">Loire Valley</a></li>
                 </ul>
               </li>
-              <li><a href="hourly-service.html">Hourly Service</a></li>
+              <li><a href="/hourly">Hourly Service</a></li>
             </ul>
           </li>
-          <li><a href="flotte.html">Our Fleet</a></li>
+          <li><a href="/flotte">Our Fleet</a></li>
           <li>
-            <a href="manage-booking.html" class="active">Manage Booking</a>
+            <a href="/manage-booking" class="active">Manage Booking</a>
           </li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="reservation.html" class="cta-button">Book Now</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/reservation" class="cta-button">Book Now</a></li>
         </ul>
       </div>
     </nav>
@@ -736,26 +748,26 @@
           <div class="footer-section">
             <h3>Services</h3>
 
-            <a href="services.html#aeroports"> Airport Transfers </a>
+            <a href="/airport"> Airport Transfers </a>
 
-            <a href="services.html#disneyland"> Disneyland Experience </a>
+            <a href="/disneyland"> Disneyland Experience </a>
 
-            <a href="services.html#longue-distance"> Long Distance </a>
+            <a href="/services#longue-distance"> Long Distance </a>
 
-            <a href="hourly-service.html"> Hourly Service </a>
+            <a href="/hourly"> Hourly Service </a>
 
-            <a href="flotte.html"> Our Vehicles </a>
+            <a href="/flotte"> Our Vehicles </a>
           </div>
 
           <!-- Footer Infos -->
           <div class="footer-section">
             <h3>Information</h3>
 
-            <a href="contact.html">Contact</a>
+            <a href="/contact">Contact</a>
 
-            <a href="pages/cgv.html"> Terms and Conditions </a>
+            <a href="/pages/cgv"> Terms and Conditions </a>
 
-            <a href="pages/confidentialite.html"> Privacy </a>
+            <a href="/pages/confidentialite"> Privacy </a>
           </div>
 
           <!-- Footer Contact -->

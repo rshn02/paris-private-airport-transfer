@@ -893,6 +893,7 @@
                     <input
                       type="number"
                       id="adminCustomPrice"
+                      aria-describedby="adminServicePriceError"
                       placeholder="0"
                       min="0"
                       step="1"
@@ -914,6 +915,8 @@
                   </button>
                 </div>
               </div>
+
+              <p id="adminServicePriceError" role="alert" hidden></p>
 
               <!-- Promotion -->
               <div style="margin-top: 1.5rem">
@@ -1083,6 +1086,7 @@
                     <option value="dispo-8h">Hourly Service – 8h</option>
                     <option value="dispo-10h">Hourly Service – 10h</option>
                   </optgroup>
+                  <option id="adminOtherService" value="other" hidden disabled>Other</option>
                 </select>
                 <div class="field-error">
                   <i class="fa-solid fa-circle-exclamation"></i> Please select a

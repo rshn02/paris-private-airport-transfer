@@ -1,0 +1,526 @@
+[
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/admin",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/admin",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/airport",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/airport",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/beauvais-to-disneyland",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/beauvais-to-disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/beauvais-to-paris",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/beauvais-to-paris",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/cdg-to-disneyland",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/cdg-to-disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/cdg-to-paris",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/cdg-to-paris",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/confirm",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/confirm",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/contact",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/contact",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/disneyland",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/flotte",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/flotte",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/hourly",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/hourly",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/links",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/links",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/long-distance",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/manage-booking",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/manage-booking",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/orly-to-disneyland",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/orly-to-disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/orly-to-paris",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/orly-to-paris",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/pages/cgv",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/pages/cgv",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/pages/confidentialite",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/pages/confidentialite",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/paris-to-champagne",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/paris-to-champagne",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/paris-to-disneyland",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/paris-to-disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/paris-to-loire-valley",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/paris-to-loire-valley",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/paris-to-normandy",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/paris-to-normandy",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/preview",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/preview",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/reservation",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/reservation",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/services",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/services",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/signature",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/signature",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/contact.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/contact.html",
+        "status": 308,
+        "location": "/contact",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/contact",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/long-distance-transfer.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance-transfer.html",
+        "status": 308,
+        "location": "/long-distance-transfer",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance-transfer",
+        "status": 308,
+        "location": "/long-distance",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/long-distance-transfer",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance-transfer",
+        "status": 308,
+        "location": "/long-distance",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/long-distance",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/disneyland-transfer.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland-transfer.html",
+        "status": 308,
+        "location": "/disneyland-transfer",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland-transfer",
+        "status": 308,
+        "location": "/disneyland",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/disneyland-transfer",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland-transfer",
+        "status": 308,
+        "location": "/disneyland",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/disneyland",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/airport-transfer.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/airport-transfer.html",
+        "status": 308,
+        "location": "/airport-transfer",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/airport-transfer",
+        "status": 308,
+        "location": "/airport",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/airport",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/hourly-service.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/hourly-service.html",
+        "status": 308,
+        "location": "/hourly-service",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/hourly-service",
+        "status": 308,
+        "location": "/hourly",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/hourly",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/index.html",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/index.html",
+        "status": 308,
+        "location": "/",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/sitemap.xml",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/sitemap.xml",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/robots.txt",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/robots.txt",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://www.parisprivateairporttransfer.com/seo-audit-nonexistent-page",
+    "chain": [
+      {
+        "url": "https://www.parisprivateairporttransfer.com/seo-audit-nonexistent-page",
+        "status": 404,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "https://parisprivateairporttransfer.com/",
+    "chain": [
+      {
+        "url": "https://parisprivateairporttransfer.com/",
+        "status": 308,
+        "location": "https://www.parisprivateairporttransfer.com/",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  },
+  {
+    "requested": "http://www.parisprivateairporttransfer.com/",
+    "chain": [
+      {
+        "url": "http://www.parisprivateairporttransfer.com/",
+        "status": 308,
+        "location": "https://www.parisprivateairporttransfer.com/",
+        "x_robots_tag": null
+      },
+      {
+        "url": "https://www.parisprivateairporttransfer.com/",
+        "status": 200,
+        "location": null,
+        "x_robots_tag": null
+      }
+    ]
+  }
+]

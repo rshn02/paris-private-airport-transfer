@@ -1,0 +1,245 @@
+[
+  {
+    "pathname": "/?before",
+    "width": 1440,
+    "h1": [
+      "Your Premium\nPrivate Chauffeur"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/",
+    "width": 1440,
+    "h1": [
+      "Paris Airport Transfer\n& Private Chauffeur"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/airport",
+    "width": 1440,
+    "h1": [
+      "Choose Your Paris Airport Transfer"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/disneyland",
+    "width": 1440,
+    "h1": [
+      "Private Transfer to Disneyland Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/services",
+    "width": 1440,
+    "h1": [
+      "Private Chauffeur Services in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/flotte",
+    "width": 1440,
+    "h1": [
+      "Our Private Chauffeur Fleet in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/hourly",
+    "width": 1440,
+    "h1": [
+      "Hourly Chauffeur Service in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/cdg-to-paris",
+    "width": 1440,
+    "h1": [
+      "Private Transfer from CDG Airport to Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/long-distance",
+    "width": 1440,
+    "h1": [
+      "Long Distance Private Transfer from Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/paris-to-loire-valley",
+    "width": 1440,
+    "h1": [
+      "Private Chauffeur from Paris to the Loire Valley"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 102.59375,
+    "bodyWidth": 1440,
+    "errors": []
+  },
+  {
+    "pathname": "/?before",
+    "width": 390,
+    "h1": [
+      "Your Premium\nPrivate Chauffeur"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/",
+    "width": 390,
+    "h1": [
+      "Paris Airport Transfer\n& Private Chauffeur"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "mobileAirportSubmenuVisible": true
+  },
+  {
+    "pathname": "/airport",
+    "width": 390,
+    "h1": [
+      "Choose Your Paris Airport Transfer"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/disneyland",
+    "width": 390,
+    "h1": [
+      "Private Transfer to Disneyland Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 477,
+    "errors": []
+  },
+  {
+    "pathname": "/services",
+    "width": 390,
+    "h1": [
+      "Private Chauffeur Services in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/flotte",
+    "width": 390,
+    "h1": [
+      "Our Private Chauffeur Fleet in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/hourly",
+    "width": 390,
+    "h1": [
+      "Hourly Chauffeur Service in Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/cdg-to-paris",
+    "width": 390,
+    "h1": [
+      "Private Transfer from CDG Airport to Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/long-distance",
+    "width": 390,
+    "h1": [
+      "Long Distance Private Transfer from Paris"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  },
+  {
+    "pathname": "/paris-to-loire-valley",
+    "width": 390,
+    "h1": [
+      "Private Chauffeur from Paris to the Loire Valley"
+    ],
+    "overflow": false,
+    "airportLinks": 1,
+    "header": 94.59375,
+    "bodyWidth": 390,
+    "errors": []
+  }
+]

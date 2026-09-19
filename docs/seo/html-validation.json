@@ -1,0 +1,222 @@
+[
+  {
+    "file": "admin.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "airport-transfer.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "beauvais-to-disneyland.html",
+    "beforeErrors": 2,
+    "afterErrors": 2,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 2
+    }
+  },
+  {
+    "file": "beauvais-to-paris.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "cdg-to-disneyland.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "cdg-to-paris.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "confirm.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "contact.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "valid-autocomplete: \"tel-national\" cannot be used on <input type=\"tel\">": 1
+    }
+  },
+  {
+    "file": "disneyland-transfer.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "flotte.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "hourly-service.html",
+    "beforeErrors": 5,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "index.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "links.html",
+    "beforeErrors": 2,
+    "afterErrors": 2,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 2
+    }
+  },
+  {
+    "file": "long-distance-transfer.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "manage-booking.html",
+    "beforeErrors": 3,
+    "afterErrors": 3,
+    "added": {},
+    "existing": {
+      "element-permitted-content: <div> element is not permitted as content under <label>": 3
+    }
+  },
+  {
+    "file": "orly-to-disneyland.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "orly-to-paris.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "pages/cgv.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "pages/confidentialite.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "paris-to-champagne.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "paris-to-disneyland.html",
+    "beforeErrors": 1,
+    "afterErrors": 1,
+    "added": {},
+    "existing": {
+      "aria-label-misuse: \"aria-label\" cannot be used on this element": 1
+    }
+  },
+  {
+    "file": "paris-to-loire-valley.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "paris-to-normandy.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "preview.html",
+    "beforeErrors": 35,
+    "afterErrors": 35,
+    "added": {},
+    "existing": {
+      "no-deprecated-attr: Attribute \"cellpadding\" is deprecated on <table> element": 14,
+      "no-deprecated-attr: Attribute \"cellspacing\" is deprecated on <table> element": 14,
+      "no-deprecated-attr: Attribute \"valign\" is deprecated on <td> element": 7
+    }
+  },
+  {
+    "file": "reservation.html",
+    "beforeErrors": 6,
+    "afterErrors": 6,
+    "added": {},
+    "existing": {
+      "valid-autocomplete: \"tel-national\" cannot be used on <input type=\"tel\">": 1,
+      "element-permitted-content: <div> element is not permitted as content under <label>": 5
+    }
+  },
+  {
+    "file": "services.html",
+    "beforeErrors": 0,
+    "afterErrors": 0,
+    "added": {},
+    "existing": {}
+  },
+  {
+    "file": "signature.html",
+    "beforeErrors": 29,
+    "afterErrors": 29,
+    "added": {},
+    "existing": {
+      "no-deprecated-attr: Attribute \"cellpadding\" is deprecated on <table> element": 9,
+      "no-deprecated-attr: Attribute \"cellspacing\" is deprecated on <table> element": 9,
+      "no-deprecated-attr: Attribute \"valign\" is deprecated on <td> element": 11
+    }
+  }
+]

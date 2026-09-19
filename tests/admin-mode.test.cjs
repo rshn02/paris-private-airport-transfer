@@ -8,7 +8,7 @@ const source=fs.readFileSync(path.join(root,'js/reservation.js'),'utf8');
 function fixture({session=null,authorized=true,networkError=false,delay}={}){
  const nodes=new Map(),requests=[],alerts=[],timers=new Map();let callback,clock=0;
  const values={name:'Test Customer',email:'client@example.com','phone-full':'+447700900123',pickup:'CDG',destination:'Paris',date:'2026-12-01',time:'12:00',passengers:'2',child:'0',luggage:'1 bag','baby-seat-input':'0','child-seat-input':'0',service:'cdg-paris',adminPromoType:'fixed'};
- function node(id){if(!nodes.has(id)){const classes=new Set();nodes.set(id,{value:values[id]||'',textContent:'',innerHTML:'',hidden:id==='adminPanel',disabled:false,style:{},classList:{add:x=>classes.add(x),remove:x=>classes.delete(x),toggle:(x,on)=>on?classes.add(x):classes.delete(x),contains:x=>classes.has(x)},addEventListener(){},scrollIntoView(){},querySelector(){return null;}});}return nodes.get(id);}
+ function node(id){if(!nodes.has(id)){const classes=new Set();nodes.set(id,{value:values[id]||'',textContent:'',innerHTML:'',hidden:id==='adminPanel',disabled:false,style:{},classList:{add:x=>classes.add(x),remove:x=>classes.delete(x),toggle:(x,on)=>on?classes.add(x):classes.delete(x),contains:x=>classes.has(x)},addEventListener(){},focus(){},scrollIntoView(){},querySelector(){return null;}});}return nodes.get(id);}
  const auth={getSession:async()=>({data:{session}}),onAuthStateChange:fn=>{callback=fn;return{data:{subscription:{unsubscribe(){}}}};},signOut:async()=>{session=null;callback?.('SIGNED_OUT',null);return{};}};
  const context=vm.createContext({console:{log(){},warn(){},error(){}},AbortSignal,Date,URLSearchParams,
   setTimeout:(fn,ms)=>{timers.set(++clock,{fn,ms});return clock;},clearTimeout:id=>timers.delete(id),
@@ -91,4 +91,13 @@ for(const mode of ['admin','denied','invalid','network'])test('login form handle
  const context=vm.createContext({URLSearchParams,AbortSignal,document:{getElementById:id=>nodes[id],addEventListener:(event,fn)=>fn()},window:{location:{search:'?returnTo=https://evil.example',assign:path=>redirect=path},ppatSupabase:{auth:{signInWithPassword:async()=>mode==='invalid'?{error:{}}:{data:{session:adminSession()}},signOut:async()=>{signouts++;}}}},fetch:async()=>{if(mode==='network')throw Error('sensitive');return{ok:mode==='admin'};}});
  vm.runInContext(fs.readFileSync(path.join(root,'js/admin-login.js'),'utf8'),context);await submit({preventDefault(){}});
  assert.equal(redirect,mode==='admin'?'/reservation':undefined);assert.equal(button.disabled,false);assert.equal(password.value,'');assert.equal(signouts,mode==='denied'?1:0);assert.ok(!status.textContent.includes('sensitive'));
+});
+test('Other is available only in admin mode and cleared on logout',async()=>{
+ const f=fixture({session:adminSession()});f.evaluate('setAdminUi(false)');assert.equal(f.node('adminOtherService').hidden,true);assert.equal(f.node('adminOtherService').disabled,true);
+ await f.initialize();assert.equal(f.node('adminOtherService').hidden,false);assert.equal(f.node('adminOtherService').disabled,false);f.node('service').value='other';await f.evaluate('toggleAdminMode()');assert.equal(f.node('service').value,'');assert.equal(f.node('adminOtherService').disabled,true);
+});
+test('Other requires an applied custom price, supports submission and Reset blocks again',async()=>{
+ const f=fixture({session:adminSession()});await f.initialize();f.node('service').value='other';prepareSubmit(f);await f.submit();assert.equal(f.requests.filter(r=>r.options.method==='POST').length,0);assert.equal(f.node('adminServicePriceError').hidden,false);
+ f.node('adminCustomPrice').value='185';f.evaluate('applyAdminPrice()');assert.equal(f.node('adminServicePriceError').hidden,true);assert.equal(f.evaluate('getTotalPrice().total'),185);assert.match(f.node('adminCalculatedPrice').textContent,/No automatic fare/);await f.submit();const post=f.requests.find(r=>r.options.method==='POST');assert.equal(JSON.parse(post.options.body).service_type,'other');assert.equal(JSON.parse(post.options.body).admin_override.custom_price,185);
+ f.evaluate('resetAdminPrice()');assert.equal(f.evaluate('validateAdminService()'),false);assert.equal(f.node('summaryTotal').textContent,'Custom price required');
 });
