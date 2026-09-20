@@ -801,6 +801,16 @@ footer {
     margin: 0 auto;
 }
 
+.page-header .normandy-eyebrow {
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
 .services-page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.55)),
@@ -4266,6 +4276,14 @@ textarea {
     }
 }
 
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .normandy-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.58) 52%, rgba(10, 10, 10, 0.3) 100%),
+            url('../images/services/normandy/normandy-private-chauffeur-1376.webp');
+    }
+}
+
 @media (max-width: 768px) {
     .normandy-page-header {
         min-height: 610px;
@@ -4362,7 +4380,7 @@ textarea {
         background-position: 66% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.84) 0%, rgba(10, 10, 10, 0.63) 68%, rgba(10, 10, 10, 0.38) 100%),
-            url('../images/services/normandy/normandy-private-chauffeur-480.webp');
+            url('../images/services/normandy/normandy-private-chauffeur-800.webp');
     }
 
     .normandy-page-header h1 {
@@ -4376,6 +4394,14 @@ textarea {
     .normandy-card .btn-primary {
         width: 100%;
         text-align: center;
+    }
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .normandy-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.84) 0%, rgba(10, 10, 10, 0.63) 68%, rgba(10, 10, 10, 0.38) 100%),
+            url('../images/services/normandy/normandy-private-chauffeur-1376.webp');
     }
 }
 
@@ -4438,6 +4464,14 @@ textarea {
 
 }
 
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .champagne-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.6) 55%, rgba(10, 10, 10, 0.28) 100%),
+            url('../images/services/champagne/champagne-private-chauffeur-1376.webp');
+    }
+}
+
 @media (max-width: 768px) {
     .champagne-page-header {
         min-height: 610px;
@@ -4469,13 +4503,21 @@ textarea {
         background-position: 62% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0%, rgba(10, 10, 10, 0.66) 72%, rgba(10, 10, 10, 0.38) 100%),
-            url('../images/services/champagne/champagne-private-chauffeur-480.webp');
+            url('../images/services/champagne/champagne-private-chauffeur-800.webp');
     }
 
     .champagne-page-header h1 {
         font-size: 2.25rem;
     }
 
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .champagne-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0%, rgba(10, 10, 10, 0.66) 72%, rgba(10, 10, 10, 0.38) 100%),
+            url('../images/services/champagne/champagne-private-chauffeur-1376.webp');
+    }
 }
 
 /* ====================================
@@ -4569,6 +4611,14 @@ textarea {
     }
 }
 
+@media (min-width: 481px) and (max-width: 1024px) and (min-resolution: 2dppx) {
+    .loire-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(8, 8, 8, 0.76) 0%, rgba(8, 8, 8, 0.54) 60%, rgba(8, 8, 8, 0.2) 100%),
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
+    }
+}
+
 @media (max-width: 768px) {
     .loire-page-header {
         min-height: 650px;
@@ -4601,7 +4651,7 @@ textarea {
         background-position: 60% center;
         background-image:
             linear-gradient(90deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.58) 72%, rgba(8, 8, 8, 0.24) 100%),
-            url('../images/services/loire-valley/loire-valley-private-chauffeur-480.webp');
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-800.webp');
     }
 
     .loire-page-header h1 {
@@ -4612,6 +4662,14 @@ textarea {
         font-size: 0.72rem;
     }
 
+}
+
+@media (max-width: 480px) and (min-resolution: 2dppx) {
+    .loire-page-header {
+        background-image:
+            linear-gradient(90deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.58) 72%, rgba(8, 8, 8, 0.24) 100%),
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
+    }
 }
 
 /* ====================================
