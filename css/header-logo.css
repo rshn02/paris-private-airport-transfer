@@ -11,7 +11,7 @@
 }
 #navbar .logo {
     flex: 0 0 auto;
-    width: 198px;
+    width: 178.2px;
     height: auto;
     overflow: visible;
 }
@@ -34,7 +34,7 @@
 @media (max-width: 1100px) {
     #navbar { --site-header-height: 108px; }
     #navbar .nav-container { padding: 6px 16px; gap: 12px; }
-    #navbar .logo { width: min(216px, calc(90vw - 79.2px)); }
+    #navbar .logo { width: min(194.4px, calc(81vw - 71.28px)); }
     /* NAVBAR */
     #navbar .nav-links {
         position: fixed;
@@ -142,5 +142,5 @@
 @media (max-width: 600px) {
     #navbar { --site-header-height: 96px; }
     #navbar .nav-container { padding-top: 4px; padding-bottom: 4px; }
-    #navbar .logo { width: clamp(190px, calc(25vw + 110px), 200px); }
+    #navbar .logo { width: clamp(171px, calc(22.5vw + 99px), 180px); }
 }
