@@ -32,8 +32,8 @@
 }
 /* Switch before the full navigation can compete with the logo for space. */
 @media (max-width: 1100px) {
-    #navbar { --site-header-height: 120px; }
-    #navbar .nav-container { padding: 8px 16px; gap: 12px; }
+    #navbar { --site-header-height: 108px; }
+    #navbar .nav-container { padding: 6px 16px; gap: 12px; }
     #navbar .logo { width: min(216px, calc(90vw - 79.2px)); }
     /* NAVBAR */
     #navbar .nav-links {
@@ -136,4 +136,11 @@
         display: block;
     }
 
+}
+
+/* Compact phone header; keep the full logo and a 44px menu target. */
+@media (max-width: 600px) {
+    #navbar { --site-header-height: 96px; }
+    #navbar .nav-container { padding-top: 4px; padding-bottom: 4px; }
+    #navbar .logo { width: clamp(190px, calc(25vw + 110px), 200px); }
 }
