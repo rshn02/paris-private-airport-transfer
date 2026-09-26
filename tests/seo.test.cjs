@@ -37,7 +37,7 @@ test('JSON-LD parses, FAQ text is visible, business IDs agree and no ratings are
  if(x['@type']==='Question'){questions++;assert.ok(compact(visible).includes(compact(x.name)),file+' question');assert.ok(compact(visible).includes(compact(x.acceptedAnswer.text)),file+' answer');}
  Object.values(x).forEach(walk);}
  for(const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g))walk(JSON.parse(match[1]));
- }assert.equal(questions,112);
+ }assert.equal(questions,118);
 });
 test('home targets airport transfers and links contextually to every main route',()=>{
  const html=read('index.html');const main=html.split('<main>')[1].split('</main>')[0];assert.match(plain(main.match(/<h1>([\s\S]*?)<\/h1>/)[1]),/Paris Airport Transfer/);

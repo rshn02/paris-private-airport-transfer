@@ -202,6 +202,88 @@
         ]
       }
     </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.parisprivateairporttransfer.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://www.parisprivateairporttransfer.com/services"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Long Distance",
+            "item": "https://www.parisprivateairporttransfer.com/long-distance"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How far can I travel with a private chauffeur from Paris?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We provide long-distance private transfers to numerous destinations throughout France. Cross-border journeys to selected European destinations are also available on request, subject to availability for your itinerary."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you pick me up from an airport or Disneyland Paris?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Pickups can be arranged from Paris, Île-de-France, CDG Airport, Orly Airport, Beauvais Airport and Disneyland Paris, as well as hotels, residences, train stations, private addresses and other agreed pickup locations within our service area."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I book a one-way, round trip or private day journey?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. One-way transfers and return journeys can be arranged. A private day journey may also be possible when the destination, planned itinerary and time available allow it."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can we include several stops during the journey?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Rest stops can be arranged during long journeys. Additional itinerary stops may also be possible when agreed in advance and compatible with the planned journey and time available."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I travel with a lot of luggage?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Vehicle selection can be adapted to the number of passengers and amount of luggage. Please provide accurate passenger and luggage information when requesting your quote."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What information should I provide for a long-distance quote?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Please provide your pickup location, destination, travel date and pickup time, number of passengers, luggage, requested stops and whether you need a one-way, round trip or private day journey. Your quote will be prepared around the itinerary and requirements provided."
+            }
+          }
+        ]
+      }
+    </script>
     <link rel="stylesheet" href="css/header-logo.css" />
   </head>
   <body class="long-distance-transfer-page">
@@ -341,8 +423,15 @@
               <p class="long-distance-transfer-lead">
                 Travel beyond Paris with a private long-distance chauffeur
                 service across France and Europe. Enjoy a comfortable
-                door-to-door journey from your hotel, residence or airport, with
-                a premium vehicle and an itinerary tailored to your needs.
+                door-to-door journey with a premium vehicle and an itinerary
+                tailored to your needs.
+              </p>
+              <p>
+                Pickup is available in Paris and Île-de-France from hotels,
+                residences, train stations and private addresses. Journeys can
+                also begin at <a href="/airport">CDG Airport, Orly Airport or
+                Beauvais Airport</a>, Disneyland Paris, or another agreed pickup
+                location within our service area.
               </p>
               <ul class="service-features">
                 <li>✓ Private door-to-door transportation</li>
@@ -501,7 +590,9 @@
                   door-to-door journey between Paris and Brussels.
                 </p>
                 <div class="long-distance-transfer-actions">
-                  <a href="/contact" class="btn-primary no-pulse"
+                  <a
+                    href="/contact?service=long-distance"
+                    class="btn-primary no-pulse"
                     >Request a Quote</a
                   >
                 </div>
@@ -550,7 +641,9 @@
                   Luxembourg with flexible pick-up and a professional chauffeur.
                 </p>
                 <div class="long-distance-transfer-actions">
-                  <a href="/contact" class="btn-primary no-pulse"
+                  <a
+                    href="/contact?service=long-distance"
+                    class="btn-primary no-pulse"
                     >Request a Quote</a
                   >
                 </div>
@@ -569,7 +662,9 @@
                   destinations in Switzerland are available on request.
                 </p>
                 <div class="long-distance-transfer-actions">
-                  <a href="/contact" class="btn-primary no-pulse"
+                  <a
+                    href="/contact?service=long-distance"
+                    class="btn-primary no-pulse"
                     >Request a Quote</a
                   >
                 </div>
@@ -678,12 +773,24 @@
             <div class="fleet-info">
               <h2>Your Journey, Your Schedule</h2>
               <p class="fleet-description">
-                Travel at your own pace, with stops for rest or refreshments
-                arranged around your itinerary. For a customised schedule or
-                multiple stops in Paris before or after your journey, explore
+                Choose a direct private transfer, a one-way journey or a return
+                journey adapted to your plans. Multi-stop itineraries and
+                private day journeys may also be arranged in advance when they
+                are compatible with the planned route and time available.
+              </p>
+              <p class="fleet-description">
+                For needs that require extended chauffeur availability, explore
                 our <a href="/hourly">hourly chauffeur service</a>.
               </p>
-              <a href="/contact" class="btn-primary no-pulse"
+              <p class="fleet-description">
+                To receive a tailored quote, share your pickup location,
+                destination, travel date and pickup time, passenger and luggage
+                details, requested stops, and whether you need a one-way, round
+                trip or private day journey.
+              </p>
+              <a
+                href="/contact?service=long-distance"
+                class="btn-primary no-pulse"
                 >Plan Your Journey</a
               >
             </div>
@@ -770,32 +877,34 @@
               <h3>How far can I travel with a private chauffeur from Paris?</h3>
               <p>
                 We provide long-distance private transfers to numerous
-                destinations throughout France and selected European countries.
-                Contact us for availability for your specific journey.
+                destinations throughout France. Cross-border journeys to
+                selected European destinations are also available on request,
+                subject to availability for your itinerary.
               </p>
             </article>
             <article class="faq-item">
-              <h3>
-                Can I book a private transfer from Paris to another country?
-              </h3>
+              <h3>Can you pick me up from an airport or Disneyland Paris?</h3>
               <p>
-                Yes. International transfers to selected European destinations
-                are available on request.
+                Yes. Pickups can be arranged from Paris, Île-de-France, CDG
+                Airport, Orly Airport, Beauvais Airport and Disneyland Paris,
+                as well as hotels, residences, train stations, private addresses
+                and other agreed pickup locations within our service area.
               </p>
             </article>
             <article class="faq-item">
-              <h3>Can we stop during the journey?</h3>
+              <h3>Can I book a one-way, round trip or private day journey?</h3>
               <p>
-                Yes. Rest stops can be arranged during long journeys, and
-                customised stops may also be possible depending on your
-                itinerary.
+                Yes. One-way transfers and return journeys can be arranged. A
+                private day journey may also be possible when the destination,
+                planned itinerary and time available allow it.
               </p>
             </article>
             <article class="faq-item">
-              <h3>Can you pick us up from our hotel?</h3>
+              <h3>Can we include several stops during the journey?</h3>
               <p>
-                Yes. Door-to-door pick-up can be arranged from hotels, private
-                residences, airports and other agreed locations.
+                Rest stops can be arranged during long journeys. Additional
+                itinerary stops may also be possible when agreed in advance and
+                compatible with the planned journey and time available.
               </p>
             </article>
             <article class="faq-item">
@@ -803,15 +912,19 @@
               <p>
                 Yes. Vehicle selection can be adapted to the number of
                 passengers and amount of luggage. Please provide accurate
-                luggage information when booking.
+                passenger and luggage information when requesting your quote.
               </p>
             </article>
             <article class="faq-item">
-              <h3>How much does a long-distance transfer cost?</h3>
+              <h3>
+                What information should I provide for a long-distance quote?
+              </h3>
               <p>
-                Prices depend on the destination, vehicle, itinerary and any
-                additional requirements. Contact us for a personalised quote for
-                your journey.
+                Please provide your pickup location, destination, travel date
+                and pickup time, number of passengers, luggage, requested stops
+                and whether you need a one-way, round trip or private day
+                journey. Your quote will be prepared around the itinerary and
+                requirements provided.
               </p>
             </article>
           </div>
@@ -828,7 +941,9 @@
               chauffeur.
             </p>
             <div class="long-distance-transfer-cta-actions">
-              <a href="/contact" class="btn-primary btn-large no-pulse"
+              <a
+                href="/contact?service=long-distance"
+                class="btn-primary btn-large no-pulse"
                 >Request a Quote</a
               >
             </div>
