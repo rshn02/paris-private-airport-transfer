@@ -374,6 +374,8 @@
               <div
                 class="success-message"
                 id="contactSuccess"
+                role="status"
+                aria-live="polite"
                 style="display: none"
               >
                 ✓ Message sent successfully! You will receive a confirmation
@@ -383,6 +385,8 @@
               <div
                 class="error-message"
                 id="contactError"
+                role="alert"
+                aria-live="assertive"
                 style="display: none"
               ></div>
 
@@ -425,14 +429,18 @@
                   <label for="contact-phone">Phone *</label>
                   <div class="phone-input-wrapper" id="contactPhoneWrapper">
                     <div class="country-select-wrapper">
-                      <div
+                      <button
+                        type="button"
                         class="country-flag-display"
                         id="contactCountryFlagDisplay"
+                        aria-label="Choose country calling code"
+                        aria-expanded="false"
+                        aria-controls="contactCountryDropdown"
                       >
                         <span class="flag" id="contactSelectedFlag">🇫🇷</span>
                         <span class="dial" id="contactSelectedDial">+33</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
-                      </div>
+                      </button>
                       <div class="country-dropdown" id="contactCountryDropdown">
                         <div class="country-list" id="contactCountryList"></div>
                       </div>

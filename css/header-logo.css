@@ -144,3 +144,18 @@
     #navbar .nav-container { padding-top: 4px; padding-bottom: 4px; }
     #navbar .logo { width: clamp(171px, calc(22.5vw + 99px), 180px); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

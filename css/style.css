@@ -2284,16 +2284,27 @@ textarea {
 }
 
 .country-flag-display {
+    appearance: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 0.8rem;
     background: var(--bg-light);
+    border: 0;
     border-right: 1px solid rgba(201, 169, 97, 0.2);
+    color: inherit;
     cursor: pointer;
+    font: inherit;
     min-width: 110px;
     user-select: none;
     height: 100%;
+    text-align: left;
+}
+
+.country-flag-display:focus-visible,
+.country-option:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
 }
 
 .country-dropdown {
@@ -4258,7 +4269,7 @@ textarea {
         background-position: 58% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.58) 52%, rgba(10, 10, 10, 0.3) 100%),
-            url('../images/services/normandy/normandy-private-chauffeur-800.webp');
+            url('../images/services/normandy/normandy-private-chauffeur-1376.webp');
     }
 
     .normandy-reassurance-grid {
@@ -4287,7 +4298,7 @@ textarea {
 @media (max-width: 768px) {
     .normandy-page-header {
         min-height: 610px;
-        background-position: 40% center;
+        background-position: 54% center;
     }
 
     .normandy-page-header h1 {
@@ -4310,22 +4321,12 @@ textarea {
         text-align: center;
     }
 
-    .normandy-reassurance-grid,
     .normandy-card-grid,
     .normandy-split,
     .normandy-split-reverse,
     .normandy-formats-grid,
     .normandy-steps {
         grid-template-columns: 1fr;
-    }
-
-    .normandy-reassurance-grid {
-        gap: 0.25rem;
-    }
-
-    .normandy-reassurance-grid span {
-        justify-content: flex-start;
-        padding-left: calc(50% - 92px);
     }
 
     .normandy-card {
@@ -4380,7 +4381,7 @@ textarea {
         background-position: 66% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.84) 0%, rgba(10, 10, 10, 0.63) 68%, rgba(10, 10, 10, 0.38) 100%),
-            url('../images/services/normandy/normandy-private-chauffeur-800.webp');
+            url('../images/services/normandy/normandy-private-chauffeur-1376.webp');
     }
 
     .normandy-page-header h1 {
@@ -4395,6 +4396,46 @@ textarea {
         width: 100%;
         text-align: center;
     }
+}
+
+@media (min-width: 481px) and (max-width: 599px) {
+    .normandy-page-header { background-position: 62% center; }
+}
+
+@media (min-width: 600px) and (max-width: 699px) {
+    .normandy-page-header { background-position: 58% center; }
+}
+
+@media (min-width: 769px) and (max-width: 819px) {
+    .normandy-page-header {
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+        background-position: 54% center;
+    }
+}
+
+@media (min-width: 820px) and (max-width: 899px) {
+    .normandy-page-header {
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+        background-position: 56% center;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1024px) {
+    .normandy-page-header {
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+        background-position: 58% center;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1159px) {
+    .normandy-page-header { background-position: 58% center; }
+}
+
+@media (min-width: 1160px) and (max-width: 1279px) {
+    .normandy-page-header { background-position: 54% center; }
 }
 
 @media (max-width: 480px) and (min-resolution: 2dppx) {
@@ -4459,7 +4500,7 @@ textarea {
         background-position: 54% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.82) 0%, rgba(10, 10, 10, 0.6) 55%, rgba(10, 10, 10, 0.28) 100%),
-            url('../images/services/champagne/champagne-private-chauffeur-800.webp');
+            url('../images/services/champagne/champagne-private-chauffeur-1376.webp');
     }
 
 }
@@ -4503,7 +4544,7 @@ textarea {
         background-position: 62% center;
         background-image:
             linear-gradient(90deg, rgba(10, 10, 10, 0.86) 0%, rgba(10, 10, 10, 0.66) 72%, rgba(10, 10, 10, 0.38) 100%),
-            url('../images/services/champagne/champagne-private-chauffeur-800.webp');
+            url('../images/services/champagne/champagne-private-chauffeur-1376.webp');
     }
 
     .champagne-page-header h1 {
@@ -4607,7 +4648,7 @@ textarea {
         min-height: 590px;
         background-image:
             linear-gradient(90deg, rgba(8, 8, 8, 0.76) 0%, rgba(8, 8, 8, 0.54) 60%, rgba(8, 8, 8, 0.2) 100%),
-            url('../images/services/loire-valley/loire-valley-private-chauffeur-800.webp');
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
     }
 }
 
@@ -4646,12 +4687,12 @@ textarea {
 
 @media (max-width: 480px) {
     .loire-page-header {
-        min-height: 690px;
+        min-height: 650px;
         padding-top: 7.5rem;
-        background-position: 60% center;
+        background-position: 62% center;
         background-image:
             linear-gradient(90deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.58) 72%, rgba(8, 8, 8, 0.24) 100%),
-            url('../images/services/loire-valley/loire-valley-private-chauffeur-800.webp');
+            url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
     }
 
     .loire-page-header h1 {
@@ -4669,6 +4710,22 @@ textarea {
         background-image:
             linear-gradient(90deg, rgba(8, 8, 8, 0.78) 0%, rgba(8, 8, 8, 0.58) 72%, rgba(8, 8, 8, 0.24) 100%),
             url('../images/services/loire-valley/loire-valley-private-chauffeur-1376.webp');
+    }
+}
+
+@media (max-width: 480px) {
+    .normandy-page-header,
+    .champagne-page-header,
+    .loire-page-header {
+        padding-top: 6.6rem;
+        padding-bottom: 3rem;
+    }
+
+    .normandy-page-header .normandy-hero-actions,
+    .champagne-page-header .normandy-hero-actions,
+    .loire-page-header .normandy-hero-actions {
+        gap: 0.75rem;
+        margin-top: 1.5rem;
     }
 }
 
@@ -5093,18 +5150,6 @@ textarea {
         object-position: 62% center;
     }
 
-    .cdg-reassurance .normandy-reassurance-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.35rem 0.75rem;
-    }
-
-    .cdg-reassurance .normandy-reassurance-grid span {
-        min-height: 40px;
-        justify-content: flex-start;
-        padding-left: 0;
-        font-size: 0.82rem;
-    }
-
     .cdg-route-line {
         flex-direction: column;
         gap: 0.8rem;
@@ -5168,6 +5213,18 @@ textarea {
 
     .cdg-image-placeholder {
         min-height: 260px;
+    }
+}
+
+@media (max-width: 360px) {
+    .cdg-disneyland-hero {
+        padding-top: 6.6rem;
+        padding-bottom: 3rem;
+    }
+
+    .cdg-disneyland-hero .normandy-hero-actions {
+        gap: 0.75rem;
+        margin-top: 1.5rem;
     }
 }
 
@@ -6554,23 +6611,6 @@ textarea {
         object-position: 62% center;
     }
 
-    .cdg-paris-reassurance .normandy-reassurance-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.2rem 0.75rem;
-    }
-
-    .cdg-paris-reassurance .normandy-reassurance-grid span {
-        min-height: 36px;
-        justify-content: flex-start;
-        padding-left: 0;
-        font-size: 0.8rem;
-    }
-
-    .cdg-paris-reassurance .normandy-reassurance-grid span:last-child {
-        grid-column: 1 / -1;
-        justify-content: center;
-    }
-
     .cdg-paris-breadcrumb {
         overflow-x: auto;
     }
@@ -7002,23 +7042,6 @@ textarea {
         object-position: 62% center;
     }
 
-    .orly-paris-reassurance .normandy-reassurance-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.2rem 0.75rem;
-    }
-
-    .orly-paris-reassurance .normandy-reassurance-grid span {
-        min-height: 36px;
-        justify-content: flex-start;
-        padding-left: 0;
-        font-size: 0.8rem;
-    }
-
-    .orly-paris-reassurance .normandy-reassurance-grid span:last-child {
-        grid-column: 1 / -1;
-        justify-content: center;
-    }
-
     .orly-paris-breadcrumb {
         overflow-x: auto;
     }
@@ -7352,9 +7375,6 @@ textarea {
     .beauvais-paris-hero h1 { font-size: 2.42rem; }
     .beauvais-paris-hero > .container > p:not(.normandy-eyebrow) { font-size: 1rem; }
     .beauvais-paris-hero-image { object-position: 63% center; }
-    .beauvais-paris-reassurance .normandy-reassurance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.2rem 0.75rem; }
-    .beauvais-paris-reassurance .normandy-reassurance-grid span { min-height: 36px; justify-content: flex-start; padding-left: 0; font-size: 0.8rem; }
-    .beauvais-paris-reassurance .normandy-reassurance-grid span:last-child { grid-column: 1 / -1; justify-content: center; }
     .beauvais-paris-breadcrumb ol { min-width: max-content; }
     .beauvais-paris-route-band { flex-direction: column; }
     .beauvais-paris-route-band > i { transform: rotate(90deg); }
@@ -7822,4 +7842,27 @@ textarea {
         font-size: 0.8rem;
     }
 
+}
+
+/* Final shared override: all five-item service reassurance strips match on mobile. */
+@media (max-width: 768px) {
+    .normandy-reassurance .normandy-reassurance-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.2rem 0.75rem;
+    }
+
+    .normandy-reassurance .normandy-reassurance-grid > span {
+        min-width: 0;
+        min-height: 36px;
+        justify-content: flex-start;
+        padding-left: 0;
+        font-size: 0.8rem;
+        text-align: left;
+    }
+
+    .normandy-reassurance .normandy-reassurance-grid > span:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-content: center;
+        text-align: center;
+    }
 }

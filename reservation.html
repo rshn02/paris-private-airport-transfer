@@ -370,6 +370,28 @@
         line-height: 1;
       }
 
+      /* Keep the tablet footer inside the viewport without changing desktop. */
+      @media (min-width: 769px) and (max-width: 1100px) {
+        .footer-contact-section .footer-contact-items {
+          gap: 0.9rem;
+          flex-wrap: wrap;
+        }
+
+        .footer-contact-section .footer-contact-items p {
+          white-space: normal;
+        }
+      }
+
+      /* Preserve the existing country control appearance now that it is a button. */
+      .country-flag-display {
+        appearance: none;
+        border: 0;
+        border-right: 1px solid rgba(201, 169, 97, 0.2);
+        color: inherit;
+        font: inherit;
+        text-align: left;
+      }
+
       @media (max-width: 768px) {
         .nav-dropdown {
           width: 100%;
@@ -815,7 +837,12 @@
           </div>
 
           <!-- Messages de retour -->
-          <div class="success-message" id="bookingSuccess">
+          <div
+            class="success-message"
+            id="bookingSuccess"
+            role="status"
+            aria-live="polite"
+          >
             <strong>✓ Booking confirmed!</strong><br />
             Your reference number:
             <strong
@@ -830,6 +857,8 @@
           </div>
           <div
             id="bookingError"
+            role="alert"
+            aria-live="assertive"
             style="
               display: none;
               background: #f8d7da;
@@ -1006,11 +1035,18 @@
                 <label>Phone *</label>
                 <div class="phone-input-wrapper" id="phoneWrapper">
                   <div class="country-select-wrapper">
-                    <div class="country-flag-display" id="countryFlagDisplay">
+                    <button
+                      type="button"
+                      class="country-flag-display"
+                      id="countryFlagDisplay"
+                      aria-label="Choose country calling code"
+                      aria-expanded="false"
+                      aria-controls="countryDropdown"
+                    >
                       <span class="flag" id="selectedFlag">🇫🇷</span>
                       <span class="dial" id="selectedDial">+33</span>
                       <i class="fa-solid fa-chevron-down chevron"></i>
-                    </div>
+                    </button>
                     <div class="country-dropdown" id="countryDropdown">
                       <div class="country-list" id="countryList"></div>
                     </div>

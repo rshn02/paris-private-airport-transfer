@@ -242,11 +242,11 @@ function buildCountryList() {
     const list = document.getElementById('countryList');
     if (!list) return;
     list.innerHTML = COUNTRIES.map((c, i) =>
-        `<div class="country-option" data-index="${i}">
+        `<button type="button" class="country-option" data-index="${i}">
             <span class="flag">${c.flag}</span>
             <span class="name">${c.name}</span>
             <span class="code">${c.dial}</span>
-        </div>`
+        </button>`
     ).join('');
 
     // Rebind option clicks every time the list is rebuilt.
@@ -256,10 +256,19 @@ function buildCountryList() {
             selectedCountry = COUNTRIES[i];
             document.getElementById('selectedFlag').textContent = selectedCountry.flag;
             document.getElementById('selectedDial').textContent = selectedCountry.dial;
-            document.getElementById('countryDropdown').classList.remove('open');
+            setCountryDropdown(false, true);
             updatePhoneFull();
         });
     });
+}
+
+function setCountryDropdown(open, returnFocus = false) {
+    const trigger = document.getElementById('countryFlagDisplay');
+    const dropdown = document.getElementById('countryDropdown');
+    if (!trigger || !dropdown) return;
+    dropdown.classList.toggle('open', open);
+    trigger.setAttribute('aria-expanded', String(open));
+    if (returnFocus) trigger.focus();
 }
 
 function updatePhoneFull() {
@@ -481,22 +490,38 @@ function autoSelectVehicle() {
 
 
 // Form validation and inline error helpers.
+function prepareFieldError(group) {
+    if (!group) return { control: null, error: null };
+    const control = group.querySelector('input:not([type="hidden"]), select, textarea');
+    const error = group.querySelector('.field-error');
+    if (!control || !error) return { control, error };
+
+    if (!error.id) error.id = `${group.id || control.id}-error`;
+    error.setAttribute('aria-live', 'polite');
+    control.setAttribute('aria-describedby', error.id);
+    if (!control.hasAttribute('aria-invalid')) control.setAttribute('aria-invalid', 'false');
+    return { control, error };
+}
+
 function clearError(id) {
     const g = document.getElementById(id);
     if (!g) return;
+    const { control, error } = prepareFieldError(g);
     g.classList.remove('has-error');
-    g.querySelector('.field-error')?.classList.remove('show');
+    error?.classList.remove('show');
+    control?.setAttribute('aria-invalid', 'false');
 }
 
 function showError(id, msg = null) {
     const g = document.getElementById(id);
     if (!g) return;
+    const { control, error: err } = prepareFieldError(g);
     g.classList.add('has-error');
-    const err = g.querySelector('.field-error');
     if (err) {
         if (msg) err.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${msg}`;
         err.classList.add('show');
     }
+    control?.setAttribute('aria-invalid', 'true');
 }
 
 function isValidEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
@@ -524,9 +549,8 @@ function validateForm() {
 
     const phone = document.getElementById('phone-number')?.value.trim();
     if (!phone || !isValidPhone(phone)) {
-        document.getElementById('fg-phone')?.classList.add('has-error');
+        showError('fg-phone');
         document.getElementById('phoneWrapper')?.classList.add('error');
-        document.getElementById('phoneError')?.classList.add('show');
         ok = false;
     } else {
         document.getElementById('phoneWrapper')?.classList.remove('error');
@@ -562,9 +586,8 @@ function bindLiveValidation() {
         el?.addEventListener('change', () => clearError(gid));
     });
     document.getElementById('phone-number')?.addEventListener('input', () => {
-        document.getElementById('fg-phone')?.classList.remove('has-error');
+        clearError('fg-phone');
         document.getElementById('phoneWrapper')?.classList.remove('error');
-        document.getElementById('phoneError')?.classList.remove('show');
         updatePhoneFull();
     });
     document.getElementById('cgv')?.addEventListener('change', () => clearError('fg-cgv'));
@@ -875,21 +898,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Build the phone country dropdown.
     buildCountryList();
+    document.querySelectorAll('#bookingForm .form-group').forEach(prepareFieldError);
 
     // Toggle the country dropdown from the flag control.
     document.getElementById('countryFlagDisplay')?.addEventListener('click', e => {
         e.stopPropagation();
         const dd = document.getElementById('countryDropdown');
         if (!dd) return;
-        const isOpen = dd.classList.toggle('open');
+        const isOpen = !dd.classList.contains('open');
         if (isOpen) buildCountryList();
+        setCountryDropdown(isOpen);
+    });
+
+    document.querySelector('.country-select-wrapper')?.addEventListener('keydown', e => {
+        if (e.key !== 'Escape') return;
+        e.preventDefault();
+        setCountryDropdown(false, true);
     });
 
     // Close the dropdown when clicking outside the selector.
     document.addEventListener('click', e => {
         const wrapper = document.querySelector('.country-select-wrapper');
         if (wrapper && !wrapper.contains(e.target)) {
-            document.getElementById('countryDropdown')?.classList.remove('open');
+            setCountryDropdown(false);
         }
     });
 

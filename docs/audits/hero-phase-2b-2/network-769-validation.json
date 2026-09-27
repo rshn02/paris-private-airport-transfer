@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-09-27T15:33:24.337Z",
+  "width": 769,
+  "dpr": 1,
+  "results": [
+    {
+      "page": "cdg-paris",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/cdg-paris/cdg-paris-private-chauffeur-800.webp"
+      ]
+    },
+    {
+      "page": "orly-paris",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/orly-paris/orly-paris-private-chauffeur-800.webp"
+      ]
+    },
+    {
+      "page": "beauvais-paris",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/beauvais-paris/beauvais-paris-private-chauffeur-montmartre-800.webp"
+      ]
+    },
+    {
+      "page": "cdg-disneyland",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/cdg-disneyland/cdg-disneyland-private-transfer-800.webp"
+      ]
+    },
+    {
+      "page": "orly-disneyland",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/orly-disneyland/orly-disneyland-private-transfer-800.webp"
+      ]
+    },
+    {
+      "page": "beauvais-disneyland",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/beauvais-disneyland/beauvais-disneyland-private-transfer-800.webp"
+      ]
+    },
+    {
+      "page": "paris-disneyland",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/paris-disneyland/paris-disneyland-private-transfer-800.webp"
+      ]
+    },
+    {
+      "page": "normandy",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/normandy/normandy-private-chauffeur-1376.webp"
+      ]
+    },
+    {
+      "page": "champagne",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/champagne/champagne-private-chauffeur-1376.webp"
+      ]
+    },
+    {
+      "page": "loire",
+      "requests": [
+        "http://127.0.0.1:4180/images/services/loire-valley/loire-valley-private-chauffeur-1376.webp"
+      ]
+    }
+  ]
+}

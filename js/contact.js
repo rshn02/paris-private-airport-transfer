@@ -220,11 +220,11 @@ function buildContactCountryList() {
     if (!list) return;
 
     list.innerHTML = COUNTRIES.map((country, index) => `
-        <div class="country-option" data-index="${index}">
+        <button type="button" class="country-option" data-index="${index}">
             <span class="flag">${country.flag}</span>
             <span class="name">${country.name}</span>
             <span class="code">${country.dial}</span>
-        </div>
+        </button>
     `).join("");
 
     list.querySelectorAll(".country-option").forEach((option) => {
@@ -233,10 +233,19 @@ function buildContactCountryList() {
             selectedCountry = COUNTRIES[index];
             document.getElementById("contactSelectedFlag").textContent = selectedCountry.flag;
             document.getElementById("contactSelectedDial").textContent = selectedCountry.dial;
-            document.getElementById("contactCountryDropdown")?.classList.remove("open");
+            setContactCountryDropdown(false, true);
             updateContactPhoneFull();
         });
     });
+}
+
+function setContactCountryDropdown(open, returnFocus = false) {
+    const trigger = document.getElementById("contactCountryFlagDisplay");
+    const dropdown = document.getElementById("contactCountryDropdown");
+    if (!trigger || !dropdown) return;
+    dropdown.classList.toggle("open", open);
+    trigger.setAttribute("aria-expanded", String(open));
+    if (returnFocus) trigger.focus();
 }
 
 function showSuccess(message) {
@@ -269,13 +278,20 @@ form?.addEventListener("change", trackContactFormStart);
 
 document.getElementById("contactCountryFlagDisplay")?.addEventListener("click", (event) => {
     event.stopPropagation();
-    document.getElementById("contactCountryDropdown")?.classList.toggle("open");
+    const dropdown = document.getElementById("contactCountryDropdown");
+    setContactCountryDropdown(!dropdown?.classList.contains("open"));
+});
+
+document.querySelector("#contactPhoneWrapper .country-select-wrapper")?.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    event.preventDefault();
+    setContactCountryDropdown(false, true);
 });
 
 document.addEventListener("click", (event) => {
     const wrapper = document.querySelector("#contactPhoneWrapper .country-select-wrapper");
     if (wrapper && !wrapper.contains(event.target)) {
-        document.getElementById("contactCountryDropdown")?.classList.remove("open");
+        setContactCountryDropdown(false);
     }
 });
 

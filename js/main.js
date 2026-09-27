@@ -72,34 +72,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (mobileMenuBtn && navLinks) {
+        if (!navLinks.id) navLinks.id = 'navLinks';
+        mobileMenuBtn.setAttribute('aria-controls', navLinks.id);
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.setAttribute('aria-label', 'Open navigation menu');
+
+        function closeNavigationDropdowns() {
+            navLinks.querySelectorAll('.nav-dropdown.open').forEach(function(dropdown) {
+                dropdown.classList.remove('open');
+                const button = dropdown.querySelector('.nav-dropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            });
+            navLinks.querySelectorAll('.nav-subdropdown.open').forEach(function(subdropdown) {
+                subdropdown.classList.remove('open');
+                const button = subdropdown.querySelector('.nav-subdropdown-btn');
+                if (button) button.setAttribute('aria-expanded', 'false');
+            });
+        }
+
+        function setMobileMenu(open, returnFocus = false) {
+            navLinks.classList.toggle('active', open);
+            mobileMenuBtn.textContent = open ? '✕' : '☰';
+            mobileMenuBtn.setAttribute('aria-expanded', String(open));
+            mobileMenuBtn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            if (!open) closeNavigationDropdowns();
+            if (returnFocus) mobileMenuBtn.focus();
+        }
+
         mobileMenuBtn.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-            
-            // Keep the menu icon aligned with the current open state.
-            if (navLinks.classList.contains('active')) {
-                mobileMenuBtn.textContent = '✕';
-            } else {
-                mobileMenuBtn.textContent = '☰';
-            }
+            setMobileMenu(!navLinks.classList.contains('active'));
         });
 
         // Close the mobile menu after navigation.
         const menuLinks = navLinks.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.textContent = '☰';
-                navLinks.querySelectorAll('.nav-dropdown.open').forEach(function(dropdown) {
-                    dropdown.classList.remove('open');
-                    const button = dropdown.querySelector('.nav-dropdown-btn');
-                    if (button) button.setAttribute('aria-expanded', 'false');
-                });
-                navLinks.querySelectorAll('.nav-subdropdown.open').forEach(function(subdropdown) {
-                    subdropdown.classList.remove('open');
-                    const button = subdropdown.querySelector('.nav-subdropdown-btn');
-                    if (button) button.setAttribute('aria-expanded', 'false');
-                });
+                setMobileMenu(false);
             });
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                e.preventDefault();
+                setMobileMenu(false, true);
+            }
         });
     }
 
