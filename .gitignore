@@ -1,2 +1,5 @@
 .DS_Store
 **/.DS_Store
+
+# Generated public artifact; Vercel's outputDirectory controls publication.
+/dist/
