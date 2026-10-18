@@ -1,5 +1,5 @@
 // Marketing attribution shared by the public pages.
-// Stores non-personal first/last-touch data for 30 days without creating a user ID.
+// Stores first/last campaign touches only with advertising consent; GA4 is independently gated by audience consent.
 (function initPPATMarketing(window, document) {
     'use strict';
 
@@ -43,6 +43,15 @@
     };
 
     let memoryAttribution = null;
+    const permitted = () => window.PPATConsent?.allows('advertising') === true;
+    function clearAttribution() {
+        memoryAttribution = null;
+        try { window.localStorage.removeItem(STORAGE_KEY); } catch {}
+    }
+    window.addEventListener('ppat:consentchange', () => {
+        if (!permitted()) { memoryAttribution = null; if (!window.PPATConsent?.getChoice()?.advertising) clearAttribution(); }
+        else captureAttribution();
+    });
 
     function cleanValue(value, maxLength = 200) {
         if (typeof value !== 'string') return '';
@@ -154,6 +163,7 @@
     }
 
     function readStoredAttribution(now = Date.now()) {
+        if (!permitted()) return null;
         try {
             const raw = window.localStorage.getItem(STORAGE_KEY);
             if (!raw) return memoryAttribution;
@@ -179,6 +189,7 @@
     }
 
     function writeAttribution(attribution) {
+        if (!permitted()) return null;
         memoryAttribution = attribution;
         try {
             window.localStorage.setItem(STORAGE_KEY, JSON.stringify(attribution));
@@ -189,6 +200,7 @@
     }
 
     function captureAttribution(now = Date.now()) {
+        if (!permitted()) return null;
         const campaign = readCampaignParams(window.location.search);
         const pageContext = currentContext();
         const externalReferrer = document.referrer && !isInternalReferrer(document.referrer)
@@ -270,11 +282,80 @@
         );
     }
 
-    function trackEvent(name, params = {}) {
-        if (typeof window.gtag !== 'function') return false;
-        window.gtag('event', name, getEventParameters(params));
+    const GA_ID = 'G-83LVJPDG1N';
+    const PUBLIC_PAGES = new Set(['/', '/airport', '/disneyland', '/long-distance', '/hourly',
+        '/services', '/flotte', '/contact', '/reservation', '/links', '/pages/cgv',
+        '/pages/confidentialite', ...Object.keys(ROUTE_BY_PATH), ...Object.keys(SERVICE_BY_PATH)]);
+    const measurementPath = () => publicPath(window.location.pathname.replace(/\/$/, '') || '/');
+    const audienceAllowed = () => window.PPATConsent?.allows('audience') === true && PUBLIC_PAGES.has(measurementPath());
+    let googleScript = null, ready = false, pageViewed = false, expiryTimer;
+    const pendingEvents = [];
+    window['ga-disable-' + GA_ID] = true;
+    function command() { window.dataLayer.push(arguments); }
+    function safePage() {
+        // Never use location.href, document.title, referrer, campaign values or form data.
+        return { page_location: 'https://www.parisprivateairporttransfer.com' + measurementPath(),
+            page_title: 'Paris Private Airport Transfer ' + measurementPath(), page_referrer: '' };
+    }
+    function pageView() {
+        if (pageViewed || !ready || !audienceAllowed()) return;
+        pageViewed = true;
+        command('event', 'page_view', { ...safePage(), send_to: GA_ID });
+    }
+    function updateAnalytics() {
+        const allowed = audienceAllowed();
+        window['ga-disable-' + GA_ID] = !allowed;
+        if (!allowed) {
+            // Disable immediately; do not send consent-mode denial pings or replay queued events.
+            pendingEvents.length = 0;
+            if (window.dataLayer) window.dataLayer.length = 0;
+            if (googleScript && !ready) { googleScript.onload = null; googleScript.remove(); googleScript = null; }
+            return;
+        }
+        if (ready) { pageView(); return; }
+        if (googleScript) return;
+        window.dataLayer = window.dataLayer || [];
+        googleScript = document.createElement('script');
+        googleScript.async = true;
+        googleScript.referrerPolicy = 'no-referrer';
+        googleScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        googleScript.onload = () => {
+            if (!audienceAllowed()) return updateAnalytics();
+            ready = true;
+            command('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied',
+                ad_user_data: 'denied', ad_personalization: 'denied' });
+            command('js', new Date());
+            command('config', GA_ID, { ...safePage(), send_page_view: false,
+                allow_google_signals: false, allow_ad_personalization_signals: false,
+                cookie_expires: 180 * 86400, cookie_update: false });
+            pageView();
+            for (const name of pendingEvents.splice(0)) trackEvent(name);
+        };
+        googleScript.onerror = () => { googleScript?.remove(); googleScript = null; pendingEvents.length = 0; };
+        document.head.append(googleScript);
+    }
+    function trackEvent(name) {
+        const isBooking = ['booking_form_start', 'booking_submit_success'].includes(name);
+        const isContact = ['contact_form_start', 'contact_submit_success'].includes(name);
+        if ((!isBooking && !isContact) || !audienceAllowed() ||
+            measurementPath() !== (isBooking ? '/reservation' : '/contact')) return false;
+        if (!ready) { if (googleScript) { pendingEvents.push(name); return true; } return false; }
+        // Deliberately ignore all caller parameters, including route/query and customer fields.
+        command('event', name, { ...safePage(), send_to: GA_ID, form_version: isBooking ? 'reservation_main_v1' : 'contact_main_v1' });
         return true;
     }
+    window.addEventListener('ppat:consentchange', updateAnalytics);
+    window.addEventListener('pageshow', updateAnalytics);
+    updateAnalytics();
+    // Expiring consent must also disable an already loaded tag on a long-lived page.
+    function checkExpiry() {
+        if (expiryTimer) window.clearTimeout(expiryTimer);
+        updateAnalytics();
+        const expires = window.PPATConsent?.getChoice()?.expiresAt;
+        if (expires && window.setTimeout) expiryTimer = window.setTimeout(checkExpiry, Math.min(2147483647, Math.max(1, expires - Date.now())));
+    }
+    window.addEventListener('ppat:consentchange', checkExpiry);
+    if (window.setTimeout) checkExpiry();
 
     function contactEventName(href) {
         const value = cleanValue(href, 1000).toLowerCase();
@@ -293,7 +374,7 @@
         return '';
     }
 
-    const attribution = captureAttribution();
+    captureAttribution();
 
     window.PPATMarketing = {
         captureAttribution,
@@ -304,7 +385,7 @@
         trackEvent,
         storageKey: STORAGE_KEY,
         ttlMs: ATTRIBUTION_TTL_MS,
-        attribution
+        get attribution() { return getAttribution(); }
     };
 
     if (!window.__ppatContactClickTrackingInstalled) {

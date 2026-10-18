@@ -5,22 +5,22 @@ const path=require('node:path');
 const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
 const source=fs.readFileSync(path.join(root,'js/reservation.js'),'utf8');
-function fixture({session=null,authorized=true,networkError=false,delay}={}){
- const nodes=new Map(),requests=[],alerts=[],timers=new Map();let callback,clock=0;
+function fixture({session=null,authorized=true,networkError=false,delay,bookingFailure=false}={}){
+ const nodes=new Map(),requests=[],alerts=[],analytics=[],timers=new Map();let callback,clock=0;
  const values={name:'Test Customer',email:'client@example.com','phone-full':'+447700900123',pickup:'CDG',destination:'Paris',date:'2026-12-01',time:'12:00',passengers:'2',child:'0',luggage:'1 bag','baby-seat-input':'0','child-seat-input':'0',service:'cdg-paris',adminPromoType:'fixed'};
  function node(id){if(!nodes.has(id)){const classes=new Set();nodes.set(id,{value:values[id]||'',textContent:'',innerHTML:'',hidden:id==='adminPanel',disabled:false,style:{},classList:{add:x=>classes.add(x),remove:x=>classes.delete(x),toggle:(x,on)=>on?classes.add(x):classes.delete(x),contains:x=>classes.has(x)},addEventListener(){},focus(){},scrollIntoView(){},querySelector(){return null;}});}return nodes.get(id);}
  const auth={getSession:async()=>({data:{session}}),onAuthStateChange:fn=>{callback=fn;return{data:{subscription:{unsubscribe(){}}}};},signOut:async()=>{session=null;callback?.('SIGNED_OUT',null);return{};}};
  const context=vm.createContext({console:{log(){},warn(){},error(){}},AbortSignal,Date,URLSearchParams,
   setTimeout:(fn,ms)=>{timers.set(++clock,{fn,ms});return clock;},clearTimeout:id=>timers.delete(id),
   document:{getElementById:node,addEventListener(){},querySelector:()=>({value:'cash'}),querySelectorAll:()=>[]},
-  window:{ppatSupabase:{auth},location:{pathname:'/reservation'},PPATEmailOperations:{headers:async()=>({}),complete(){}},PPATMarketing:{getAttribution:()=>({source:'test'})}},
+  window:{ppatSupabase:{auth},location:{pathname:'/reservation'},PPATEmailOperations:{headers:async()=>({}),complete(){}},PPATMarketing:{getAttribution:()=>({source:'test'}),trackEvent:(name)=>{analytics.push(name);return true;}}},
   alert:msg=>alerts.push(msg),fetch:async(url,options)=>{
    requests.push({url,options});if(url.endsWith('/session')){if(delay)await delay;if(networkError)throw Error('private transport data');return{ok:authorized};}
-   return{ok:true,text:async()=>JSON.stringify({success:true,booking_number:'TEST'})};
+   return{ok:!bookingFailure,text:async()=>JSON.stringify({success:!bookingFailure,booking_number:'TEST'})};
   }});
  vm.runInContext(source,context);
  const evaluate=code=>vm.runInContext(code,context);
- return{node,requests,alerts,auth,evaluate,timers,async initialize(){evaluate('initializeAdminSession()');await evaluate('adminInitialization');},event(event,value){session=value;callback(event,value);},submit:()=>evaluate("handleFormSubmit({preventDefault(){},target:{reset(){}}})")};
+ return{node,requests,alerts,analytics,auth,evaluate,timers,async initialize(){evaluate('initializeAdminSession()');await evaluate('adminInitialization');},event(event,value){session=value;callback(event,value);},submit:()=>evaluate("handleFormSubmit({preventDefault(){},target:{reset(){}}})")};
 }
 const adminSession=()=>({user:{id:'admin-id'},access_token:'synthetic-admin-token',expires_at:Math.floor(Date.now()/1000)+3600});
 function prepareSubmit(f){f.evaluate('validateForm=()=>true; setTripMode=()=>{};');}
@@ -100,4 +100,9 @@ test('Other requires an applied custom price, supports submission and Reset bloc
  const f=fixture({session:adminSession()});await f.initialize();f.node('service').value='other';prepareSubmit(f);await f.submit();assert.equal(f.requests.filter(r=>r.options.method==='POST').length,0);assert.equal(f.node('adminServicePriceError').hidden,false);
  f.node('adminCustomPrice').value='185';f.evaluate('applyAdminPrice()');assert.equal(f.node('adminServicePriceError').hidden,true);assert.equal(f.evaluate('getTotalPrice().total'),185);assert.match(f.node('adminCalculatedPrice').textContent,/No automatic fare/);await f.submit();const post=f.requests.find(r=>r.options.method==='POST');assert.equal(JSON.parse(post.options.body).service_type,'other');assert.equal(JSON.parse(post.options.body).admin_override.custom_price,185);
  f.evaluate('resetAdminPrice()');assert.equal(f.evaluate('validateAdminService()'),false);assert.equal(f.node('summaryTotal').textContent,'Custom price required');
+});
+
+for(const bookingFailure of [false,true])test('booking success analytics follows API outcome '+bookingFailure,async()=>{
+ const f=fixture({bookingFailure});await f.initialize();prepareSubmit(f);await f.submit();
+ assert.equal(f.analytics.filter(n=>n==='booking_submit_success').length,bookingFailure?0:1);
 });

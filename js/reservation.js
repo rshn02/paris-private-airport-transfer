@@ -20,13 +20,10 @@ let state = {
 
 function trackAnalyticsEvent(name, params = {}) {
     if (window.PPATMarketing?.trackEvent) {
-        window.PPATMarketing.trackEvent(name, params);
-        return;
+        return window.PPATMarketing.trackEvent(name, params);
     }
 
-    if (typeof gtag !== 'function') return;
-
-    gtag('event', name, params);
+    return false;
 }
 
 function bookingPagePath() {
@@ -45,8 +42,7 @@ function trackBookingPageView() {
 function trackBookingFormStart() {
     if (bookingFormStartedTracked) return;
 
-    bookingFormStartedTracked = true;
-    trackAnalyticsEvent('booking_form_start', {
+    bookingFormStartedTracked = trackAnalyticsEvent('booking_form_start', {
         page_path: bookingPagePath(),
         form_version: ANALYTICS_FORM_VERSION,
         service: document.getElementById('service')?.value || undefined
@@ -56,8 +52,7 @@ function trackBookingFormStart() {
 function trackBookingSubmitSuccess(serviceType, tripType) {
     if (bookingSubmitSuccessTracked) return;
 
-    bookingSubmitSuccessTracked = true;
-    trackAnalyticsEvent('booking_submit_success', {
+    bookingSubmitSuccessTracked = trackAnalyticsEvent('booking_submit_success', {
         page_path: bookingPagePath(),
         form_version: ANALYTICS_FORM_VERSION,
         service_type: serviceType || 'unknown',
@@ -815,6 +810,8 @@ async function handleFormSubmit(e) {
 
         window.PPATEmailOperations.complete("booking");
         e.target.reset();
+        bookingFormStartedTracked = false;
+        bookingSubmitSuccessTracked = false;
 
         state = {
             isRoundTrip: false,
@@ -877,16 +874,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bookingForm = document.getElementById('bookingForm');
 
-    bookingForm?.addEventListener('focusin', () => {
-        trackBookingFormStart();
+    bookingForm?.addEventListener('input', event => {
+        if (event.isTrusted) trackBookingFormStart();
     });
 
-    bookingForm?.addEventListener('input', () => {
-        trackBookingFormStart();
-    });
-
-    bookingForm?.addEventListener('change', () => {
-        trackBookingFormStart();
+    bookingForm?.addEventListener('change', event => {
+        if (event.isTrusted) trackBookingFormStart();
     });
 
     // Prevent selecting past dates.

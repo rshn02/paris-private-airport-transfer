@@ -23,25 +23,20 @@ function trackContactEvent(name, params = {}) {
     };
 
     if (window.PPATMarketing?.trackEvent) {
-        window.PPATMarketing.trackEvent(name, eventParams);
-        return;
+        return window.PPATMarketing.trackEvent(name, eventParams);
     }
 
-    if (typeof gtag === "function") {
-        gtag("event", name, eventParams);
-    }
+    return false;
 }
 
 function trackContactFormStart() {
     if (contactFormStartedTracked) return;
-    contactFormStartedTracked = true;
-    trackContactEvent("contact_form_start");
+    contactFormStartedTracked = trackContactEvent("contact_form_start");
 }
 
 function trackContactSubmitSuccess() {
     if (contactSubmitSuccessTracked) return;
-    contactSubmitSuccessTracked = true;
-    trackContactEvent("contact_submit_success", { success: true });
+    contactSubmitSuccessTracked = trackContactEvent("contact_submit_success", { success: true });
 }
 
 const COUNTRIES = [
@@ -268,13 +263,14 @@ function hideMessages() {
 buildContactCountryList();
 updateContactPhoneFull();
 
-document.addEventListener("DOMContentLoaded", () => {
-    trackContactEvent("contact_page_view");
-});
-
-form?.addEventListener("focusin", trackContactFormStart);
-form?.addEventListener("input", trackContactFormStart);
-form?.addEventListener("change", trackContactFormStart);
+// Track only a real edit of a customer-visible field, never focus or prefill.
+for (const type of ["input", "change"]) {
+    form?.addEventListener(type, event => {
+        if (event.isTrusted && Object.hasOwn(contactRequiredMessages, event.target?.id)) {
+            trackContactFormStart();
+        }
+    });
+}
 
 document.getElementById("contactCountryFlagDisplay")?.addEventListener("click", (event) => {
     event.stopPropagation();
