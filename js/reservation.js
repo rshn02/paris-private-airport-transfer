@@ -832,7 +832,7 @@ async function handleFormSubmit(e) {
     } finally {
         if (btn) {
             btn.disabled = false;
-            btn.innerHTML = '<span>Confirm My Booking</span>';
+            btn.innerHTML = '<span>Send Booking Request</span>';
         }
     }
 }
