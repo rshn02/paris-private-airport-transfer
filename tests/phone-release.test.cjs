@@ -17,10 +17,12 @@ test('new HTML uses distinct phone entry points, ordered dependencies and refres
   const html=fs.readFileSync(path.join(root,`${name}.html`),'utf8').replace(/<!--[\s\S]*?-->/g,'');
   const scripts=[...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(m=>m[1]);
   let previous=-1;
-  for(const script of ['js/libphonenumber-max.js','js/phone-validation.js','js/phone-input.js',`js/${name}-phone-v2.js`]){
+  for(const script of ['js/libphonenumber-max.js','js/phone-validation.js','js/phone-input.js?v=20261026-mobile-1',`js/${name}-phone-v2.js`]){
    const index=scripts.indexOf(script);assert.ok(index>previous,script+' must load after its dependencies');previous=index;
   }
   assert.ok(scripts.includes('js/main.js?v=20261025-phone-v2'));assert.ok(!scripts.includes(`js/${name}.js`));
+  const phone=html.match(/<input\b[^>]*id="(?:contact-phone|phone-number)"[^>]*>/)?.[0];
+  assert.ok(phone);assert.match(phone,/placeholder="Phone number"/);
   for(const [,asset]of html.matchAll(/(?:src|href)="((?:js|css)\/[^"?]+)(?:\?[^" ]*)?"/g))assert.ok(manifest.includes(asset),asset+' must be in build manifest');
  }
 });

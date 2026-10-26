@@ -26,6 +26,7 @@
         error.setAttribute('aria-live', 'polite');
         input.setAttribute('aria-describedby', ids.error);
         input.setAttribute('inputmode', 'tel');
+        input.placeholder = french ? 'Numéro de téléphone' : 'Phone number';
         input.maxLength = 50;
         function display() {
             const selected = countries.find(c => c.code === country);
@@ -105,7 +106,10 @@
         });
         document.addEventListener('click', event => { if (!trigger.parentElement.contains(event.target)) open(false); });
         trigger.parentElement.addEventListener('focusout', event => {
-            if (!trigger.parentElement.contains(event.relatedTarget)) open(false);
+            // WebKit can blur the search without focusing a tapped country button.
+            // Closing here with no focus destination hides the button before click.
+            // The outside-click handler still dismisses unfocused/touch destinations.
+            if (event.relatedTarget && !trigger.parentElement.contains(event.relatedTarget)) open(false);
         });
         input.addEventListener('input', () => {
             const detected = api.detectCountry(input.value);
