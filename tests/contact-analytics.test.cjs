@@ -3,13 +3,18 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs'),vm=require('node:vm');
 function fixture({allowed=true,outcome='success',path='/contact',loading=false}={}) {
  const nodes=new Map(),scripts=[],listeners={},requests=[];
- const values={'contact-name':'Synthetic Person','contact-email':'synthetic@example.test','contact-phone':'07700900123','contact-subject':'quote','contact-message':'PRIVATE_MESSAGE','contact-website':''};
+ const values={'contact-name':'Synthetic Person','contact-email':'synthetic@example.test','contact-phone':'2025550123','contact-subject':'quote','contact-message':'PRIVATE_MESSAGE','contact-website':''};
  const classes={toggle(){},contains(){return false;}};
  function node(id){if(!nodes.has(id)){const handlers={};const n={id,value:values[id]||'',style:{},disabled:false,classList:classes,setAttribute(){},getAttribute(){return null;},setCustomValidity(){},focus(){},reset(){},querySelectorAll(){return [];},closest(){return {querySelector:()=>({classList:classes,setAttribute(){}}),classList:classes};},addEventListener:(type,fn)=>(handlers[type]??=[]).push(fn),async fire(type,event={}){for(const fn of handlers[type]||[])await fn({preventDefault(){},...event});}};nodes.set(id,n);}return nodes.get(id);}
  const window={location:{pathname:path,search:'?service=normandy&token=PRIVATE_TOKEN',hostname:'example.test'},PPATConsent:{allows:purpose=>purpose==='audience'&&allowed,getChoice:()=>({audience:allowed,advertising:false})},PPATEmailOperations:{headers:async()=>({'Idempotency-Key':'synthetic-operation'}),complete(){}},localStorage:{removeItem(){}},addEventListener:(type,fn)=>(listeners[type]??=[]).push(fn)};
- const document={referrer:'https://example.test/?email=synthetic@example.test',getElementById:node,querySelector:()=>null,addEventListener(){},head:{append:s=>scripts.push(s)},createElement:()=>({remove(){}})};
+ const document={documentElement:{lang:"en"},referrer:'https://example.test/?email=synthetic@example.test',getElementById:node,querySelector:()=>null,addEventListener(){},head:{append:s=>scripts.push(s)},createElement:()=>({remove(){}})};
+ const phoneContext=vm.createContext({});
+ vm.runInContext(fs.readFileSync('js/libphonenumber-max.js','utf8'),phoneContext);
+ vm.runInContext(fs.readFileSync('js/phone-validation.js','utf8'),phoneContext);
+ const phone=phoneContext.PPATPhone;
+ window.PPATPhoneInput={create:()=>({country:'US',sync(){node('contact-phone-full').value=phone.normalize(node('contact-phone').value,'US')||'';},validate(){this.sync();return Boolean(node('contact-phone-full').value);}})};
  const context=vm.createContext({window,document,URL,URLSearchParams,Date,console:{error(){}},fetch:async(url,options)=>{requests.push({url,options});if(outcome==='network')throw Error('Simulated network failure');return {ok:outcome!=='http',json:async()=>{if(outcome==='json')throw Error('Invalid JSON');return {success:outcome!=='api'};}};}});
- for(const file of ['marketing-attribution','contact'])vm.runInContext(fs.readFileSync('js/'+file+'.js','utf8'),context);
+ for(const file of ['marketing-attribution','contact-phone-v2'])vm.runInContext(fs.readFileSync('js/'+file+'.js','utf8'),context);
  const load=()=>scripts.at(-1)?.onload?.();if(!loading)load();
  return {node,window,requests,load,events:()=>Array.from(window.dataLayer||[]).filter(x=>x[0]==='event').map(x=>({name:x[1],params:x[2]})),edit:(type='input',isTrusted=true,id='contact-name')=>node('contactForm').fire(type,{isTrusted,target:node(id)}),submit:()=>node('contactForm').fire('submit'),consent(value){allowed=value;for(const fn of listeners['ppat:consentchange']||[])fn();}};
 }

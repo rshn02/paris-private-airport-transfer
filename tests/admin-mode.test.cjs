@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const root=path.resolve(__dirname,'..');
-const source=fs.readFileSync(path.join(root,'js/reservation.js'),'utf8');
+const source=fs.readFileSync(path.join(root,'js/reservation-phone-v2.js'),'utf8');
 function fixture({session=null,authorized=true,networkError=false,delay,bookingFailure=false}={}){
  const nodes=new Map(),requests=[],alerts=[],analytics=[],timers=new Map();let callback,clock=0;
  const values={name:'Test Customer',email:'client@example.com','phone-full':'+447700900123',pickup:'CDG',destination:'Paris',date:'2026-12-01',time:'12:00',passengers:'2',child:'0',luggage:'1 bag','baby-seat-input':'0','child-seat-input':'0',service:'cdg-paris',adminPromoType:'fixed'};
@@ -12,7 +12,7 @@ function fixture({session=null,authorized=true,networkError=false,delay,bookingF
  const auth={getSession:async()=>({data:{session}}),onAuthStateChange:fn=>{callback=fn;return{data:{subscription:{unsubscribe(){}}}};},signOut:async()=>{session=null;callback?.('SIGNED_OUT',null);return{};}};
  const context=vm.createContext({console:{log(){},warn(){},error(){}},AbortSignal,Date,URLSearchParams,
   setTimeout:(fn,ms)=>{timers.set(++clock,{fn,ms});return clock;},clearTimeout:id=>timers.delete(id),
-  document:{getElementById:node,addEventListener(){},querySelector:()=>({value:'cash'}),querySelectorAll:()=>[]},
+  document:{documentElement:{lang:"en"},getElementById:node,addEventListener(){},querySelector:()=>({value:'cash'}),querySelectorAll:()=>[]},
   window:{ppatSupabase:{auth},location:{pathname:'/reservation'},PPATEmailOperations:{headers:async()=>({}),complete(){}},PPATMarketing:{getAttribution:()=>({source:'test'}),trackEvent:(name)=>{analytics.push(name);return true;}}},
   alert:msg=>alerts.push(msg),fetch:async(url,options)=>{
    requests.push({url,options});if(url.endsWith('/session')){if(delay)await delay;if(networkError)throw Error('private transport data');return{ok:authorized};}
@@ -29,7 +29,7 @@ test('markup hides admin controls and loads shared Supabase client before reserv
  assert.match(html,/<div class="admin-panel" id="adminPanel" hidden>/);
  for(const id of ['adminToggleBtn','adminBar','adminCalculatedPrice'])assert.ok(html.includes('id="'+id+'"'));
  assert.ok(html.indexOf('supabase-js@2')<html.indexOf('src="js/supabase.js"'));
- assert.ok(html.indexOf('src="js/supabase.js"')<html.indexOf('src="js/reservation.js"'));
+ assert.ok(html.indexOf('src="js/supabase.js"')<html.indexOf('src="js/reservation-phone-v2.js"'));
 });
 test('public: hidden panel, public endpoint, no admin fields',async()=>{
  const f=fixture();await f.initialize();assert.equal(f.node('adminPanel').hidden,true);prepareSubmit(f);await f.submit();

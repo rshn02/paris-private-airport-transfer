@@ -605,6 +605,7 @@
     <link rel="stylesheet" href="css/header-logo.css" />
     <link rel="stylesheet" href="/css/consent.css" />
     <script src="/js/consent.js"></script>
+    <link rel="stylesheet" href="css/phone-input.css" />
   </head>
   <body>
     <!-- ════════════════════════════════════
@@ -1018,7 +1019,7 @@
 
               <!-- Phone with country code -->
               <div class="form-group" id="fg-phone">
-                <label>Phone *</label>
+                <label for="phone-number">Phone *</label>
                 <div class="phone-input-wrapper" id="phoneWrapper">
                   <div class="country-select-wrapper">
                     <button
@@ -1029,8 +1030,8 @@
                       aria-expanded="false"
                       aria-controls="countryDropdown"
                     >
-                      <span class="flag" id="selectedFlag">🇫🇷</span>
-                      <span class="dial" id="selectedDial">+33</span>
+                      <span class="flag" id="selectedFlag">🇺🇸</span>
+                      <span class="dial" id="selectedDial">+1</span>
                       <i class="fa-solid fa-chevron-down chevron"></i>
                     </button>
                     <div class="country-dropdown" id="countryDropdown">
@@ -1041,7 +1042,7 @@
                     type="tel"
                     id="phone-number"
                     name="phone"
-                    placeholder="6 12 34 56 78"
+                    placeholder="(202) 555-0123"
                     autocomplete="tel-national"
                   />
                 </div>
@@ -1840,12 +1841,15 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/main.js?v=20260910-1" defer></script>
+    <script src="js/main.js?v=20261025-phone-v2" defer></script>
     <!-- <script src="js/forms.js"></script> -->
     <script src="js/email-operation.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
     <script src="js/supabase.js" defer></script>
-    <script src="js/reservation.js" defer></script>
+    <script src="js/libphonenumber-max.js" defer></script>
+    <script src="js/phone-validation.js" defer></script>
+    <script src="js/phone-input.js" defer></script>
+    <script src="js/reservation-phone-v2.js" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>
 </html>

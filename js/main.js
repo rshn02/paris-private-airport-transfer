@@ -269,7 +269,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contactForm');
     const contactSuccess = document.getElementById('contactSuccess');
 
-    if (contactForm) {
+    // The dedicated API form owns validation, success feedback and reset.
+    if (contactForm && !document.getElementById("contact-phone-full")) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             

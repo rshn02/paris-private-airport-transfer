@@ -1,0 +1,13 @@
+/* Extend the existing gold and white phone control without changing other fields. */
+.phone-input-wrapper > input[type="tel"] { min-width: 0; width: 100%; }
+.country-dropdown { width: min(300px, calc(100vw - 64px)); }
+.country-dropdown .phone-country-search {
+    flex: none; width: calc(100% - 16px); margin: 8px; padding: 10px;
+    border: 1px solid rgba(201, 169, 97, .4); border-radius: 4px;
+    background: #fff; color: #222; font: inherit; box-sizing: border-box;
+}
+.country-dropdown .country-list { min-height: 0; }
+.country-dropdown .country-option:focus-visible,
+.country-flag-display:focus-visible,
+.country-dropdown .phone-country-search:focus-visible { outline: 2px solid #947332; outline-offset: -2px; }
+.country-dropdown .country-option[aria-pressed="true"] { background: rgba(201, 169, 97, .15); }

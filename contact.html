@@ -130,6 +130,7 @@
     <link rel="stylesheet" href="css/header-logo.css" />
     <link rel="stylesheet" href="/css/consent.css" />
     <script src="/js/consent.js"></script>
+    <link rel="stylesheet" href="css/phone-input.css" />
   </head>
   <body>
     <!-- Navigation -->
@@ -424,8 +425,8 @@
                         aria-expanded="false"
                         aria-controls="contactCountryDropdown"
                       >
-                        <span class="flag" id="contactSelectedFlag">🇫🇷</span>
-                        <span class="dial" id="contactSelectedDial">+33</span>
+                        <span class="flag" id="contactSelectedFlag">🇺🇸</span>
+                        <span class="dial" id="contactSelectedDial">+1</span>
                         <i class="fa-solid fa-chevron-down chevron"></i>
                       </button>
                       <div class="country-dropdown" id="contactCountryDropdown">
@@ -437,7 +438,7 @@
                       id="contact-phone"
                       name="phone"
                       required
-                      placeholder="6 12 34 56 78"
+                      placeholder="(202) 555-0123"
                       autocomplete="tel-national"
                     />
                   </div>
@@ -702,9 +703,12 @@
       </footer>
     </main>
 
-    <script src="js/main.js?v=20260910-1" defer></script>
+    <script src="js/main.js?v=20261025-phone-v2" defer></script>
     <script src="js/email-operation.js" defer></script>
-    <script src="js/contact.js" defer></script>
+    <script src="js/libphonenumber-max.js" defer></script>
+    <script src="js/phone-validation.js" defer></script>
+    <script src="js/phone-input.js" defer></script>
+    <script src="js/contact-phone-v2.js" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>
 </html>
