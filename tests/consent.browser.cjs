@@ -37,7 +37,13 @@ for(const outcome of ['success','api','network','validation']) {
  await p.locator('#contact-name').focus();assert.equal(await p.evaluate(()=>dataLayer.filter(x=>x[1]==='contact_form_start').length),0);
  let requests=0;
  await p.route('**/api/contact',async r=>{requests++;if(outcome==='network')return r.abort();return r.fulfill({status:outcome==='api'?500:200,contentType:'application/json',body:JSON.stringify({success:outcome==='success'})});});
- await p.locator('#contact-name').fill('SYNTHETIC_PERSON');await p.locator('#contact-email').fill(outcome==='validation'?'invalid':'synthetic@example.test');await p.locator('#contact-phone').fill('07700900123');
+ // This national-format fixture requires its country, independently of the form's US default.
+ await p.locator('#contactCountryFlagDisplay').click();
+ await p.locator('#contactCountryDropdown input').fill('United Kingdom');
+ await p.locator('#contactCountryList [data-country="GB"]').click();
+ await p.locator('#contact-name').fill('SYNTHETIC_PERSON');await p.locator('#contact-email').fill(outcome==='validation'?'invalid':'synthetic@example.test');await p.locator('#contact-phone').fill('07400123456');
+ assert.equal(await p.locator('#contactCountryFlagDisplay').getAttribute('aria-label'),'United Kingdom (+44)');
+ assert.equal(await p.locator('#contact-phone-full').inputValue(),'+447400123456');
  assert.equal(await p.evaluate(()=>dataLayer.filter(x=>x[1]==='contact_form_start').length),1);
  // Expected failure handlers log errors; they must still render the normal error UI.
  await p.locator('#contactSubmitBtn').click();
@@ -45,7 +51,7 @@ for(const outcome of ['success','api','network','validation']) {
  else await p.waitForFunction(()=>document.querySelector('#contactSubmitBtn').disabled===false && (document.querySelector('#contactSuccess').style.display==='block'||document.querySelector('#contactError').style.display==='block'));
  assert.equal(requests,outcome==='validation'?0:1);
  assert.equal(await p.evaluate(()=>dataLayer.filter(x=>x[1]==='contact_submit_success').length),outcome==='success'?1:0);
- assert.equal(await p.evaluate(()=>/SYNTHETIC_PERSON|synthetic@|07700900123/.test(JSON.stringify(dataLayer))),false);
+ assert.equal(await p.evaluate(()=>/SYNTHETIC_PERSON|synthetic@|07700900123|07400123456|447400123456/.test(JSON.stringify(dataLayer))),false);
  await p.unroute('**/api/contact');
 }
 // Trusted interaction, not focus or query-prefill, starts booking measurement.

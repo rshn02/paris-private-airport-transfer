@@ -7671,6 +7671,7 @@ textarea {
     .airport-transfer-cta-actions .btn-secondary {
         width: 100%;
         text-align: center;
+        white-space: normal;
     }
 
     .airport-transfer-step {
@@ -7703,6 +7704,7 @@ textarea {
     .disneyland-transfer-cta-actions .btn-secondary {
         width: 100%;
         text-align: center;
+        white-space: normal;
     }
 
     .disneyland-transfer-split,
@@ -7755,6 +7757,7 @@ textarea {
     .long-distance-transfer-cta-actions .btn-secondary {
         width: 100%;
         text-align: center;
+        white-space: normal;
     }
 
     .long-distance-transfer-intro-layout,
