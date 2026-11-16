@@ -147,9 +147,9 @@ function renderBooking(booking) {
           ? `${booking.return_date || "-"} ${booking.return_time || ""}`
           : "-"
       }</div>
-      <div class="booking-item"><span>Vehicle</span>${booking.vehicle_type || "-"}</div>
+      <div class="booking-item"><span>Vehicle</span>${booking.vehicle_type === "Luxury Van 7 seats" ? "Private van (1–8 passengers, excluding the chauffeur)" : (booking.vehicle_type || "-")}</div>
       <div class="booking-item"><span>Passengers</span>${booking.passengers || "0"} adult(s), ${booking.children || "0"} child(ren)</div>
-      <div class="booking-item"><span>Luggage</span>${booking.luggage || "0"}</div>
+      <div class="booking-item"><span>Suitcases</span>${booking.luggage ?? "Not specified"}</div>
       <div class="booking-item"><span>Seats</span>Baby: ${booking.baby_seats || "0"} · Child: ${booking.child_seats || "0"}</div>
       <div class="booking-item"><span>Flight</span>${booking.flight_number || "-"}</div>
       <div class="booking-item"><span>Terminal</span>${booking.terminal || "-"}</div>
@@ -168,6 +168,17 @@ function renderBooking(booking) {
   bookingSection.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+function readManageSuitcases() {
+  const value = getValue("modLuggage");
+  if (value === "more-than-8") return 9;
+  return /^\d+$/.test(value) && Number.isSafeInteger(Number(value)) ? Number(value) : NaN;
+}
+
+function updateManageLuggageHint() {
+  const hint = document.getElementById("manageLuggageContactHint");
+  if (hint) hint.hidden = !(readManageSuitcases() > 8);
+}
+
 // Prefill the editable form with the latest stored booking values.
 function fillModifyForm(booking) {
   setValue("modService", booking.service_type || "");
@@ -184,7 +195,10 @@ function fillModifyForm(booking) {
 
   setValue("modPassengers", booking.passengers || "");
   setValue("modChildren", booking.children || "0");
-  setValue("modLuggage", booking.luggage || "");
+  setValue("modLuggage", Number(booking.luggage) > 8 ? "more-than-8" : (booking.luggage ?? ""));
+  const legacyNote = document.getElementById("legacyLuggageNote");
+  if (legacyNote) legacyNote.hidden = Number(booking.luggage) !== 5;
+  updateManageLuggageHint();
 
   setValue("modBabySeats", booking.baby_seats || "0");
   setValue("modChildSeats", booking.child_seats || "0");
@@ -240,6 +254,8 @@ function autoSelectManageVehicle() {
   const adults = Number(getValue("modPassengers")) || 0;
   const children = Number(getValue("modChildren")) || 0;
   const total = adults + children;
+  const suitcases = readManageSuitcases();
+  updateManageLuggageHint();
   const vehicleEl = document.getElementById("modVehicle");
   const hintEl = document.getElementById("modVehicleHint");
   const hintText = document.getElementById("modVehicleHintText");
@@ -251,12 +267,18 @@ function autoSelectManageVehicle() {
     return;
   }
 
-  if (total <= 2) {
+  if (total > 8) {
+    vehicleEl.value = "";
+    if (hintText) hintText.textContent = "More than 8 passengers require two vehicles. Please contact us.";
+  } else if (suitcases > 8) {
+    vehicleEl.value = "";
+    if (hintText) hintText.textContent = "More than 8 suitcases need a suitable vehicle solution. Please contact us.";
+  } else if (total <= 2 && (!Number.isFinite(suitcases) || suitcases <= 2)) {
     vehicleEl.value = "Premium Sedan";
     if (hintText) hintText.textContent = `${total} passenger${total > 1 ? "s" : ""} — Premium Sedan selected.`;
   } else {
     vehicleEl.value = "Luxury Van 7 seats";
-    if (hintText) hintText.textContent = `${total} passengers — Luxury Van 7 seats selected automatically.`;
+    if (hintText) hintText.textContent = `${total} passengers — Private van selected (up to 8 passengers, excluding the chauffeur).`;
   }
 
   hintEl?.classList.add("show");
@@ -275,19 +297,25 @@ function updateManagePriceSummary() {
   const nightRow = document.getElementById("manageSummaryNightRow");
   const nightVal = document.getElementById("manageSummaryNight");
   const totalPassengers = (Number(getValue("modPassengers")) || 0) + (Number(getValue("modChildren")) || 0);
+  const suitcases = readManageSuitcases();
+  const needsContact = totalPassengers > 8 || suitcases > 8;
+  const suitcaseRow = document.getElementById("manageSummarySuitcasesRow");
+  const suitcaseValue = document.getElementById("manageSummarySuitcases");
+  if (suitcaseRow) suitcaseRow.style.display = Number.isFinite(suitcases) ? "flex" : "none";
+  if (suitcaseValue) suitcaseValue.textContent = suitcases > 8 ? "Contact us" : String(suitcases);
 
-  if (baseEl) baseEl.textContent = formatPrice(manageState.estimatedBase);
-  if (totalEl) totalEl.textContent = formatPrice(manageState.estimatedTotal);
+  if (baseEl) baseEl.textContent = needsContact ? "Contact us" : formatPrice(manageState.estimatedBase);
+  if (totalEl) totalEl.textContent = needsContact ? "Contact us" : formatPrice(manageState.estimatedTotal);
 
   if (passengersRow) passengersRow.style.display = totalPassengers > 0 ? "flex" : "none";
   if (passengersVal && totalPassengers > 0) {
     passengersVal.textContent = `${totalPassengers} passenger${totalPassengers > 1 ? "s" : ""}`;
   }
 
-  if (roundRow) roundRow.style.display = manageState.isRoundTrip ? "flex" : "none";
+  if (roundRow) roundRow.style.display = !needsContact && manageState.isRoundTrip ? "flex" : "none";
   if (roundVal) roundVal.textContent = formatPrice(manageState.estimatedRoundtrip);
 
-  if (nightRow) nightRow.style.display = manageState.isNight ? "flex" : "none";
+  if (nightRow) nightRow.style.display = !needsContact && manageState.isNight ? "flex" : "none";
   if (nightVal) nightVal.textContent = "+" + formatPrice(manageState.estimatedNight);
 }
 
@@ -297,6 +325,30 @@ async function saveModification(e) {
 
   if (!currentBooking) {
     showMessage("Please load a booking first.", "error");
+    return;
+  }
+
+  const people = (Number(getValue("modPassengers")) || 0) + (Number(getValue("modChildren")) || 0);
+  if (people > 8) {
+    showMessage('Travelling with more than 8 passengers? Please contact us to arrange transportation with two vehicles.', "error");
+    return;
+  }
+  if (people > 2 && getValue("modVehicle") === "Premium Sedan") {
+    showMessage("The sedan accommodates up to 2 passengers. Please select a van and check luggage and child-seat suitability.", "error");
+    return;
+  }
+
+  const suitcases = readManageSuitcases();
+  updateManageLuggageHint();
+  if (!Number.isFinite(suitcases) || suitcases > 8) {
+    showMessage(suitcases > 8
+      ? "Travelling with more than 8 suitcases? Please contact us to arrange a suitable vehicle solution for your group."
+      : "Please select the number of suitcases.", "error");
+    document.getElementById("modLuggage")?.focus();
+    return;
+  }
+  if (suitcases > 2 && getValue("modVehicle") === "Premium Sedan") {
+    showMessage("The sedan accommodates up to 2 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.", "error");
     return;
   }
 
@@ -329,7 +381,7 @@ async function saveModification(e) {
 
     passengers: Number(getValue("modPassengers")) || 1,
     children: Number(getValue("modChildren")) || 0,
-    luggage: Number(getValue("modLuggage")) || 0,
+    luggage: suitcases,
 
     baby_seats: Number(getValue("modBabySeats")) || 0,
     child_seats: Number(getValue("modChildSeats")) || 0,
@@ -456,11 +508,11 @@ function initManageEvents() {
     if (!el) return;
 
     el.addEventListener("input", () => {
-      if (id === "modPassengers" || id === "modChildren") autoSelectManageVehicle();
+      if (id === "modPassengers" || id === "modChildren" || id === "modLuggage") autoSelectManageVehicle();
       updateManagePriceSummary();
     });
     el.addEventListener("change", () => {
-      if (id === "modPassengers" || id === "modChildren") autoSelectManageVehicle();
+      if (id === "modPassengers" || id === "modChildren" || id === "modLuggage") autoSelectManageVehicle();
       updateManagePriceSummary();
     });
   });

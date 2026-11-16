@@ -480,16 +480,23 @@
                     </div>
 
                     <div class="form-group">
-                      <label for="modLuggage">Number of bags</label>
+                      <label for="modLuggage">Number of suitcases</label>
                       <select id="modLuggage">
                         <option value="">Select</option>
-                        <option value="0">No bags</option>
-                        <option value="1">1 bag</option>
-                        <option value="2">2 bags</option>
-                        <option value="3">3 bags</option>
-                        <option value="4">4 bags</option>
-                        <option value="5">5+ bags</option>
+                        <option value="0">0 suitcases</option>
+                        <option value="1">1 suitcase</option>
+                        <option value="2">2 suitcases</option>
+                        <option value="3">3 suitcases</option>
+                        <option value="4">4 suitcases</option>
+                        <option value="5">5 suitcases</option>
+                        <option value="6">6 suitcases</option>
+                        <option value="7">7 suitcases</option>
+                        <option value="8">8 suitcases</option>
+                        <option value="more-than-8">More than 8 suitcases — Contact us</option>
                       </select>
+                      <p>Count large suitcases here, excluding hand luggage. Mention hand luggage, strollers and bulky items in Special Requests so we can check the vehicle configuration.</p>
+                      <p id="manageLuggageContactHint" hidden>Travelling with more than 8 suitcases? Please <a href="/contact" style="text-decoration: underline;">contact us</a> to arrange a suitable vehicle solution for your group.</p>
+                      <p id="legacyLuggageNote" hidden>If your original booking used “5+ bags”, please review the exact suitcase count before saving changes.</p>
                     </div>
                   </div>
                 </div>
@@ -505,13 +512,15 @@
 
                   <div class="form-group">
                     <label for="modVehicle">Vehicle Type</label>
+                    <p>Our private van can accommodate up to 8 passengers, excluding the chauffeur, and 8 large suitcases, excluding hand luggage. Capacity depends on the combination of passengers, child seats and luggage. Please <a href="/contact">contact us</a> to arrange two vehicles for more than 8 passengers, or a suitable transportation solution for more than 8 large suitcases.</p>
+
                     <select id="modVehicle">
                       <option value="">Select a vehicle</option>
                       <option value="Premium Sedan">
                         Premium Sedan (1-2 people)
                       </option>
                       <option value="Luxury Van 7 seats">
-                        Luxury Van 7 seats (3-6 people)
+                        Private Van (1–8 passengers, excluding the chauffeur)
                       </option>
                     </select>
                     <div class="vehicle-hint" id="modVehicleHint">
@@ -603,8 +612,7 @@
                   </div>
 
                   <p class="seat-notice">
-                    Maximum 4 per type · Included in your vehicle at no extra
-                    charge
+                    Maximum 4 per type. Baby seats and child seats are available free of charge upon request. Please specify the children's ages and required seats when booking.
                   </p>
                 </div>
 
@@ -656,6 +664,10 @@
                     <span class="value" id="manageSummaryPassengers">—</span>
                   </div>
 
+                  <div class="price-line" id="manageSummarySuitcasesRow" style="display: none">
+                    <span class="label">Suitcases</span>
+                    <span class="value" id="manageSummarySuitcases">—</span>
+                  </div>
                   <div
                     class="price-line"
                     id="manageSummaryRoundtripRow"
@@ -851,7 +863,7 @@
     <script src="js/main.js?v=20260910-1" defer></script>
     <script src="js/pricing.js" defer></script>
     <script src="js/email-operation.js" defer></script>
-    <script src="js/manage-booking.js" defer></script>
+    <script src="js/manage-booking.js?v=20261116-suitcases-1" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>
 </html>

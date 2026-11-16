@@ -291,6 +291,12 @@ function updatePriceSummary() {
     const kids   = parseInt(document.getElementById('child')?.value)      || 0;
     const nbTot  = adults + kids;
 
+    const suitcases = readSuitcaseCount();
+    const suitcaseRow = document.getElementById('summarySuitcases');
+    const suitcaseValue = document.getElementById('summarySuitcasesVal');
+    if (suitcaseRow) suitcaseRow.style.display = Number.isFinite(suitcases) ? 'flex' : 'none';
+    if (suitcaseValue) suitcaseValue.textContent = suitcases > 8 ? 'Contact us' : String(suitcases);
+
     // Base fare.
     const baseEl = document.getElementById('summaryBaseVal');
     if (baseEl) baseEl.textContent = fmt(state.customPrice !== null ? state.customPrice : p.base);
@@ -300,7 +306,7 @@ function updatePriceSummary() {
     const paxVal = document.getElementById('summaryPassengersVal');
     if (paxRow) {
         paxRow.style.display = (nbTot > 0 && state.customPrice === null) ? 'flex' : 'none';
-        if (paxVal && nbTot > 0) paxVal.textContent = `${nbTot} personne${nbTot > 1 ? 's' : ''}`;
+        if (paxVal && nbTot > 0) paxVal.textContent = `${nbTot} passenger${nbTot > 1 ? 's' : ''}`;
     }
 
     // Round-trip uplift.
@@ -346,6 +352,21 @@ function updatePriceSummary() {
         if (subEl) subEl.textContent = state.isRoundTrip ? `Outbound ${base2}€ + Return ${base2}€` : '';
     }
 
+    // Do not present a historical large-group estimate as a single-vehicle offer.
+    if (nbTot > 8) {
+        if (baseEl) baseEl.textContent = 'Contact us';
+        if (totalEl) totalEl.textContent = 'Contact us for two vehicles';
+        if (calculated) calculated.textContent = 'Contact us for two vehicles';
+        [rtRow, nightRow, discRow].forEach(row => { if (row) row.style.display = 'none'; });
+    }
+
+    if (suitcases > 8) {
+        if (baseEl) baseEl.textContent = 'Contact us';
+        if (totalEl) totalEl.textContent = 'Contact us';
+        if (calculated) calculated.textContent = 'Contact us';
+        [rtRow, nightRow, discRow].forEach(row => { if (row) row.style.display = 'none'; });
+    }
+
     // Toggle the informational night warning.
     document.getElementById('nightWarning')?.classList.toggle('show', p.night > 0 && state.customPrice === null);
 }
@@ -378,23 +399,80 @@ function setTripMode(rt) {
 }
 
 
+// Preserve legacy UI values while sending an exact numeric luggage count.
+function readSuitcaseCount(value = document.getElementById('luggage')?.value || '') {
+    const legacy = { 'No bags': 0, '1 bag': 1, '2 bags': 2, '3 bags': 3, '4 bags': 4, '5+ bags': 5 };
+    if (Object.prototype.hasOwnProperty.call(legacy, value)) return legacy[value];
+    if (value === 'more-than-8') return 9; // Contact-only sentinel, never submitted.
+    if (typeof value === 'string' && /^\d+$/.test(value)) {
+        const number = Number(value);
+        if (Number.isSafeInteger(number)) return number;
+    }
+    return NaN;
+}
+
+function validateSuitcaseCapacity() {
+    const suitcases = readSuitcaseCount();
+    if (!Number.isFinite(suitcases)) {
+        showError('fg-luggage', 'Please select the number of suitcases.');
+        return false;
+    }
+    if (suitcases > 8) {
+        showError('fg-luggage', 'This suitcase count needs a tailored arrangement. Please <a href="/contact">contact us</a> before booking.');
+        return false;
+    }
+    if (suitcases > 2 && document.getElementById('vehicle-type')?.value === 'Premium Sedan') {
+        showError('fg-vehicle', 'The sedan accommodates up to 2 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.');
+        return false;
+    }
+    return true;
+}
+
+function updateLuggageSelection() {
+    const hint = document.getElementById('luggageContactHint');
+    if (hint) hint.hidden = !(readSuitcaseCount() > 8);
+    autoSelectVehicle();
+}
+
+// Keep existing API vehicle identifiers and fare tables; this is a frontend capacity guard.
+function validatePassengerCapacity() {
+    const total = (parseInt(document.getElementById('passengers')?.value) || 0)
+        + (parseInt(document.getElementById('child')?.value) || 0);
+    if (total > 8) {
+        showError('fg-passengers', 'Travelling with more than 8 passengers? Please <a href="/contact">contact us</a> to arrange transportation with two vehicles.');
+        return false;
+    }
+    if (total > 2 && document.getElementById('vehicle-type')?.value === 'Premium Sedan') {
+        showError('fg-vehicle', 'The sedan accommodates up to 2 passengers. Please select a van and check luggage and child-seat suitability.');
+        return false;
+    }
+    return true;
+}
+
 // Suggest the suitable vehicle from the total passenger count.
 function autoSelectVehicle() {
     const adults  = parseInt(document.getElementById('passengers')?.value) || 0;
     const kids    = parseInt(document.getElementById('child')?.value)      || 0;
     const total   = adults + kids;
+    const suitcases = readSuitcaseCount();
     const vehEl   = document.getElementById('vehicle-type');
     const hintEl  = document.getElementById('vehicleHint');
     const hintTxt = document.getElementById('vehicleHintText');
 
     if (!vehEl || total === 0) { updatePriceSummary(); return; }
 
-    if (total <= 2) {
+    if (total > 8) {
+        vehEl.value = '';
+        if (hintTxt) hintTxt.textContent = 'More than 8 passengers require two vehicles. Please contact us.';
+    } else if (suitcases > 8) {
+        vehEl.value = '';
+        if (hintTxt) hintTxt.textContent = 'More than 8 suitcases need a suitable vehicle solution. Please contact us.';
+    } else if (total <= 2 && (!Number.isFinite(suitcases) || suitcases <= 2)) {
         vehEl.value = 'Premium Sedan';
         if (hintTxt) hintTxt.textContent = `${total} passenger${total > 1 ? 's' : ''} — Premium Sedan selected.`;
     } else {
         vehEl.value = 'Luxury Van 7 seats';
-        if (hintTxt) hintTxt.textContent = `${total} passengers — Luxury Van 7 seats selected automatically.`;
+        if (hintTxt) hintTxt.textContent = `${total} passengers — Private van selected (up to 8 passengers, excluding the chauffeur).`;
     }
     hintEl?.classList.add('show');
     updatePriceSummary();
@@ -478,6 +556,8 @@ function validateForm() {
     }
     if (!document.getElementById('cgv')?.checked) { showError('fg-cgv'); ok = false; }
 
+    if (!validatePassengerCapacity()) ok = false;
+    if (!validateSuitcaseCapacity()) ok = false;
     if (!ok) document.querySelector('.form-group.has-error')?.scrollIntoView({ behavior:'smooth', block:'center' });
     return ok;
 }
@@ -602,6 +682,7 @@ async function handleFormSubmit(e) {
 
     const btn = document.getElementById('submitBtn');
     if (btn?.disabled) return;
+    const originalButtonHtml = btn?.innerHTML;
 
     if (btn) {
         btn.disabled = true;
@@ -609,6 +690,13 @@ async function handleFormSubmit(e) {
     }
 
     await adminInitialization;
+    // Recheck after the async session lookup in case the passenger selection changed.
+    const passengersValid = validatePassengerCapacity();
+    const suitcasesValid = validateSuitcaseCapacity();
+    if (!passengersValid || !suitcasesValid) {
+        if (btn) { btn.disabled = false; btn.innerHTML = originalButtonHtml; }
+        return;
+    }
     const submittingAsAdmin = state.adminMode;
     const bookingData = {
         customer_name: document.getElementById('name')?.value.trim(),
@@ -631,9 +719,7 @@ async function handleFormSubmit(e) {
         passengers: parseInt(document.getElementById('passengers')?.value) || 1,
         children: parseInt(document.getElementById('child')?.value) || 0,
 
-        luggage: parseInt(
-            (document.getElementById('luggage')?.value || '0').replace(/\D/g, '')
-        ) || 0,
+        luggage: readSuitcaseCount(),
 
         baby_seats: parseInt(document.getElementById('baby-seat-input')?.value) || 0,
         child_seats: parseInt(document.getElementById('child-seat-input')?.value) || 0,
@@ -825,6 +911,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Live validation bindings.
     bindLiveValidation();
+    document.getElementById('luggage')?.addEventListener('change', updateLuggageSelection);
 
     // Booking form submission.
     bookingForm?.addEventListener('submit', handleFormSubmit);
