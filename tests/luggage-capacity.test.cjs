@@ -35,7 +35,7 @@ for(const script of ['js/reservation-phone-v2.js','js/reservation.js']){
  });
  for(const value of ['more-than-8','9','99','8x','-1',''])test(script+': unsupported suitcase value '+value+' cannot post after async guard',async()=>{
   const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true;');f.node('luggage').value=value;f.node('vehicle-type').value='Luxury Van 7 seats';
-  await f.submit();assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);assert.equal(f.node('submitBtn').disabled,false);
+  await f.submit();assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);assert.equal(f.node('submitBtn').disabled,['more-than-8','9','99'].includes(value));
  });
  test(script+': sedan accepts two suitcases and rejects three; hand luggage stays in notes',async()=>{
   const f=fixture({script});await f.initialize();f.node('vehicle-type').value='Premium Sedan';f.node('luggage').value='2 bags';assert.equal(f.evaluate('validateSuitcaseCapacity()'),true);
@@ -48,13 +48,56 @@ test('both forms present 0–8 exact suitcase choices, contact sentinel and excl
  for(const [file,id]of [['reservation.html','luggage'],['manage-booking.html','modLuggage']]){
   const html=fs.readFileSync(path.join(root,file),'utf8');const select=html.match(new RegExp('<select id="'+id+'"[^>]*>([\\s\\S]*?)</select>'))[1];
   for(let bags=0;bags<=8;bags++)assert.ok(select.includes('>'+bags+(bags===1?' suitcase':' suitcases')+'</option>'));
-  assert.match(select,/value="more-than-8">More than 8 suitcases — Contact us/);assert.match(html,/Number of suitcases/);assert.match(html,/excluding hand luggage/);
+  assert.match(select,file==='reservation.html'?/value="more-than-8">More than 8 suitcases<\/option>/:/value="more-than-8">More than 8 suitcases — Contact us<\/option>/);assert.match(html,/Number of suitcases/);assert.match(html,/excluding hand luggage/);
   assert.ok(!/name="(?:hand_luggage|carry_on)"/.test(html),'No invented hand-luggage field');
  }
 });
 
 test('new suitcase controls load their matching cache-versioned scripts',()=>{
  const reservation=fs.readFileSync(path.join(root,'reservation.html'),'utf8');const manage=fs.readFileSync(path.join(root,'manage-booking.html'),'utf8');
- assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261116-suitcases-1"/);
+ assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261118-auto-vehicle-1"/);
  assert.match(manage,/src="js\/manage-booking\.js\?v=20261116-suitcases-1"/);
+});
+
+for(const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
+ for(const [adults,kids,bags,vehicle] of [[1,0,0,'Premium Sedan'],[2,0,2,'Premium Sedan'],[2,0,3,'Luxury Van 7 seats'],[3,0,1,'Luxury Van 7 seats'],[6,0,6,'Luxury Van 7 seats'],[8,0,8,'Luxury Van 7 seats'],[1,1,2,'Premium Sedan']]) {
+  test(`${script}: automatic card for ${adults}+${kids} passengers / ${bags} suitcases`,()=>{
+   const f=fixture({script});f.node('passengers').value=String(adults);f.node('child').value=String(kids);f.node('luggage').value=choices[bags];
+   f.evaluate('autoSelectVehicle()');assert.equal(f.node('vehicle-type').value,vehicle);
+   assert.equal(f.node('vehicleHintText').textContent,vehicle==='Premium Sedan'?'Private Sedan':'Private Van');
+   assert.equal(f.node('passengerContactHint').hidden,true);assert.equal(f.node('luggageContactHint').hidden,true);assert.equal(f.node('submitBtn').disabled,false);
+   if(vehicle==='Luxury Van 7 seats')assert.match(f.node('vehicleCapacityText').textContent,/Configuration to confirm/);
+  });
+ }
+ test(script+': excess and recovery independently synchronize both notices, vehicle and action',async()=>{
+  const f=fixture({script});await f.initialize();f.node('passengers').value='8';f.node('child').value='1';f.node('luggage').value='more-than-8';f.evaluate('autoSelectVehicle()');
+  assert.equal(f.node('passengerContactHint').hidden,false);assert.equal(f.node('luggageContactHint').hidden,false);assert.equal(f.node('vehicle-type').value,'');assert.equal(f.node('submitBtn').disabled,true);
+  await f.submit();assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);
+  f.node('child').value='0';f.evaluate('autoSelectVehicle()');assert.equal(f.node('passengerContactHint').hidden,true);assert.equal(f.node('luggageContactHint').hidden,false);assert.equal(f.node('submitBtn').disabled,true);
+  f.node('luggage').value='8';f.evaluate('updateLuggageSelection()');assert.equal(f.node('luggageContactHint').hidden,true);assert.equal(f.node('submitBtn').disabled,false);assert.equal(f.node('vehicle-type').value,'Luxury Van 7 seats');
+  f.node('passengers').value='2';f.node('luggage').value='2 bags';f.evaluate('autoSelectVehicle()');assert.equal(f.node('vehicle-type').value,'Premium Sedan');
+  f.node('passengers').value='';f.node('child').value='0';f.node('luggage').value='';f.evaluate('autoSelectVehicle()');assert.equal(f.node('vehicle-type').value,'');assert.equal(f.node('vehicleHintText').textContent,'Your private vehicle');
+ });
+ test(script+': capacity changes while awaiting session cannot submit or re-enable unsupported booking',async()=>{
+  const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true; adminInitialization=new Promise(resolve=>{window.releaseAdmin=resolve;});');f.evaluate('autoSelectVehicle()');
+  const pending=f.submit();assert.equal(f.node('submitBtn').disabled,true);
+  f.node('child').value='7';f.evaluate('autoSelectVehicle()');f.evaluate('window.releaseAdmin()');await pending;
+  assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);assert.equal(f.node('submitBtn').disabled,true);
+  f.node('child').value='0';f.evaluate('autoSelectVehicle()');assert.equal(f.node('submitBtn').disabled,false);
+ });
+ test(script+': returning to supported capacity during pending submission does not unlock duplicate sends',async()=>{
+  const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true; adminInitialization=new Promise(resolve=>{window.releaseAdmin=resolve;});');f.evaluate('autoSelectVehicle()');
+  const pending=f.submit();f.node('luggage').value='more-than-8';f.evaluate('autoSelectVehicle()');f.node('luggage').value='2 bags';f.evaluate('autoSelectVehicle()');
+  assert.equal(f.node('submitBtn').disabled,true);await f.submit();assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);
+  f.evaluate('window.releaseAdmin()');await pending;assert.equal(f.requests.filter(x=>x.options.method==='POST').length,1);assert.equal(f.node('submitBtn').disabled,false);
+ });
+}
+test('automatic vehicle control is not customer-selectable and disclosures are optional, complete and compact',()=>{
+ const html=fs.readFileSync(path.join(root,'reservation.html'),'utf8');
+ assert.match(html,/<select id="vehicle-type"[^>]*hidden[^>]*tabindex="-1"/);
+ assert.match(html,/Your vehicle is automatically selected based on your group size\./);
+ assert.match(html,/Large suitcases only\. Hand luggage is not included\./);
+ assert.match(html,/<details class="vehicle-guidance">[\s\S]*up to 8 large suitcases[\s\S]*not every combination will fit[\s\S]*Special Requests/);
+ assert.equal((html.match(/class="capacity-notice"[^>]*hidden/g)||[]).length,2);
+ assert.equal((html.match(/Contact us for a quote/g)||[]).length,2);
 });

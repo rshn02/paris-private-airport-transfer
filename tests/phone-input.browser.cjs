@@ -61,7 +61,7 @@ test('real contact and booking forms: international phones, accessibility, submi
    await input.fill('+14165550123');await page.locator('#contactSubmitBtn').click();
   }else{
    for(const [id,value]of [['name','Test Customer'],['email','client@example.com'],['pickup','CDG'],['destination','Paris'],['date','2027-12-01'],['time','12:00']])await page.locator('#'+id).fill(value);
-   await page.locator('#service').selectOption('cdg-paris');await page.locator('#passengers').selectOption('2');await page.locator('#luggage').selectOption({index:1});await page.locator('#vehicle-type').selectOption({index:1});await page.locator('#cgv').check();
+   await page.locator('#service').selectOption('cdg-paris');await page.locator('#passengers').selectOption('2');await page.locator('#luggage').selectOption({index:1});assert.equal(await page.locator('#vehicle-type').inputValue(),'Premium Sedan');assert.equal(await page.locator('#vehicle-type').isVisible(),false);await page.locator('#cgv').check();
    await input.fill('123');await page.locator('#submitBtn').click();assert.equal(posts.length,0);assert.equal(await page.locator('#name').inputValue(),'Test Customer');
    await input.fill('+14165550123');await page.locator('#submitBtn').click();
   }

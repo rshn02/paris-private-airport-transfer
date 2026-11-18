@@ -512,8 +512,6 @@ function validateSuitcaseCapacity() {
 }
 
 function updateLuggageSelection() {
-    const hint = document.getElementById('luggageContactHint');
-    if (hint) hint.hidden = !(readSuitcaseCount() > 8);
     autoSelectVehicle();
 }
 
@@ -532,32 +530,51 @@ function validatePassengerCapacity() {
     return true;
 }
 
-// Suggest the suitable vehicle from the total passenger count.
-function autoSelectVehicle() {
-    const adults  = parseInt(document.getElementById('passengers')?.value) || 0;
-    const kids    = parseInt(document.getElementById('child')?.value)      || 0;
-    const total   = adults + kids;
+// Match the existing adult/child counting and keep the API vehicle identifiers.
+function reservationCapacity() {
+    const total = (parseInt(document.getElementById('passengers')?.value) || 0)
+        + (parseInt(document.getElementById('child')?.value) || 0);
     const suitcases = readSuitcaseCount();
-    const vehEl   = document.getElementById('vehicle-type');
-    const hintEl  = document.getElementById('vehicleHint');
-    const hintTxt = document.getElementById('vehicleHintText');
+    return { total, suitcases, excessPassengers: total > 8, excessSuitcases: suitcases > 8 };
+}
 
-    if (!vehEl || total === 0) { updatePriceSummary(); return; }
+let bookingSubmissionPending = false;
 
-    if (total > 8) {
-        vehEl.value = '';
-        if (hintTxt) hintTxt.textContent = 'More than 8 passengers require two vehicles. Please contact us.';
-    } else if (suitcases > 8) {
-        vehEl.value = '';
-        if (hintTxt) hintTxt.textContent = 'More than 8 suitcases need a suitable vehicle solution. Please contact us.';
-    } else if (total <= 2 && (!Number.isFinite(suitcases) || suitcases <= 2)) {
-        vehEl.value = 'Premium Sedan';
-        if (hintTxt) hintTxt.textContent = `${total} passenger${total > 1 ? 's' : ''} — Premium Sedan selected.`;
-    } else {
-        vehEl.value = 'Luxury Van 7 seats';
-        if (hintTxt) hintTxt.textContent = `${total} passengers — Private van selected (up to 8 passengers, excluding the chauffeur).`;
+// Keep the visible action and notifications consistent, including during async submission.
+function updateCapacityState() {
+    const { excessPassengers, excessSuitcases } = reservationCapacity();
+    const passengerNotice = document.getElementById('passengerContactHint');
+    const suitcaseNotice = document.getElementById('luggageContactHint');
+    if (passengerNotice) passengerNotice.hidden = !excessPassengers;
+    if (suitcaseNotice) suitcaseNotice.hidden = !excessSuitcases;
+    const button = document.getElementById('submitBtn');
+    if (button) button.disabled = bookingSubmissionPending || excessPassengers || excessSuitcases;
+    return excessPassengers || excessSuitcases;
+}
+
+function autoSelectVehicle() {
+    const { total, suitcases, excessPassengers, excessSuitcases } = reservationCapacity();
+    const vehicle = document.getElementById('vehicle-type');
+    const title = document.getElementById('vehicleHintText');
+    const detail = document.getElementById('vehicleCapacityText');
+    let value = '', name = 'Your private vehicle';
+    let description = 'Add your passengers and suitcases to see your vehicle.';
+
+    if (excessPassengers || excessSuitcases) {
+        name = 'A tailored transfer for your group';
+        description = 'Please contact us for a quote.';
+    } else if (total > 0 && Number.isFinite(suitcases)) {
+        const sedan = total <= 2 && suitcases <= 2;
+        value = sedan ? 'Premium Sedan' : 'Luxury Van 7 seats';
+        name = sedan ? 'Private Sedan' : 'Private Van';
+        description = sedan
+            ? '1–2 passengers · Up to 2 large suitcases'
+            : 'Up to 8 passengers, excluding the chauffeur · Configuration to confirm';
     }
-    hintEl?.classList.add('show');
+    if (vehicle) vehicle.value = value;
+    if (title) title.textContent = name;
+    if (detail) detail.textContent = description;
+    updateCapacityState();
     updatePriceSummary();
 }
 
@@ -773,11 +790,13 @@ async function toggleAdminMode() {
 // Send the booking payload to the backend and reset the UI on success.
 async function handleFormSubmit(e) {
     e.preventDefault();
+    if (updateCapacityState()) return;
     if (!validateForm() || !validateAdminService()) return;
 
     const btn = document.getElementById('submitBtn');
     if (btn?.disabled) return;
     const originalButtonHtml = btn?.innerHTML;
+    bookingSubmissionPending = true;
 
     if (btn) {
         btn.disabled = true;
@@ -789,7 +808,9 @@ async function handleFormSubmit(e) {
     const passengersValid = validatePassengerCapacity();
     const suitcasesValid = validateSuitcaseCapacity();
     if (!passengersValid || !suitcasesValid) {
-        if (btn) { btn.disabled = false; btn.innerHTML = originalButtonHtml; }
+        bookingSubmissionPending = false;
+        updateCapacityState();
+        if (btn) btn.innerHTML = originalButtonHtml;
         return;
     }
     const submittingAsAdmin = state.adminMode;
@@ -910,14 +931,15 @@ async function handleFormSubmit(e) {
         };
 
         setTripMode(false);
-        updatePriceSummary();
+        autoSelectVehicle();
 
     } catch (err) {
         console.error(err);
         alert(err.message || "Error while sending the booking.");
     } finally {
+        bookingSubmissionPending = false;
+        updateCapacityState();
         if (btn) {
-            btn.disabled = false;
             btn.innerHTML = '<span>Send Booking Request</span>';
         }
     }
@@ -1024,12 +1046,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('passengers')?.addEventListener('change', autoSelectVehicle);
     document.getElementById('child')?.addEventListener('change',      autoSelectVehicle);
 
-    // Manual vehicle changes should hide the auto-selection hint.
-    document.getElementById('vehicle-type')?.addEventListener('change', () => {
-        document.getElementById('vehicleHint')?.classList.remove('show');
-        updatePriceSummary();
-    });
-
     // Live validation bindings.
     bindLiveValidation();
     document.getElementById('luggage')?.addEventListener('change', updateLuggageSelection);
@@ -1093,6 +1109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (destinationInput && !destinationInput.value) destinationInput.value = routePrefill.destination;
     }
 
-    // Initial price summary.
-    updatePriceSummary();
+    // Restore automatic selection for initial/prefilled form values.
+    autoSelectVehicle();
 });

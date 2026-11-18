@@ -119,7 +119,7 @@
     />
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/reservation.bundle.min.css" />
+    <link rel="stylesheet" href="css/reservation.bundle.min.css?v=20261118-auto-vehicle-1" />
     <noscript>
       <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
@@ -1236,6 +1236,11 @@
                     <option value="7">7 adults</option>
                     <option value="8">8 adults</option>
                   </select>
+                  <div class="capacity-notice" id="passengerContactHint" role="status" aria-live="polite" hidden>
+                    <strong>A tailored transfer for your group</strong>
+                    <p>For more than 8 passengers or large suitcases, please contact us so we can arrange a suitable vehicle solution.</p>
+                    <a href="/contact">Contact us for a quote <span aria-hidden="true">&rarr;</span></a>
+                  </div>
                   <div class="field-error">
                     <i class="fa-solid fa-circle-exclamation"></i> Please
                     indicate the number of adults
@@ -1268,10 +1273,14 @@
                     <option value="6">6 suitcases</option>
                     <option value="7">7 suitcases</option>
                     <option value="8">8 suitcases</option>
-                    <option value="more-than-8">More than 8 suitcases — Contact us</option>
+                    <option value="more-than-8">More than 8 suitcases</option>
                   </select>
-                  <p>Count large suitcases here, excluding hand luggage. Mention hand luggage, strollers and bulky items in Special Requests so we can check the vehicle configuration.</p>
-                  <p id="luggageContactHint" hidden>Travelling with more than 8 suitcases? Please <a href="/contact" style="text-decoration: underline;">contact us</a> to arrange a suitable vehicle solution for your group.</p>
+                  <p class="suitcase-note">Large suitcases only. Hand luggage is not included.</p>
+                  <div class="capacity-notice" id="luggageContactHint" role="status" aria-live="polite" hidden>
+                    <strong>A tailored transfer for your group</strong>
+                    <p>For more than 8 passengers or large suitcases, please contact us so we can arrange a suitable vehicle solution.</p>
+                    <a href="/contact">Contact us for a quote <span aria-hidden="true">&rarr;</span></a>
+                  </div>
                   <div class="field-error">
                     <i class="fa-solid fa-circle-exclamation"></i> Please
                     select the number of suitcases
@@ -1287,22 +1296,23 @@
                 Vehicle Selection
               </h3>
               <div class="form-group" id="fg-vehicle">
-                <p>Our private van can accommodate up to 8 passengers, excluding the chauffeur, and 8 large suitcases, excluding hand luggage. Capacity depends on the combination of passengers, child seats and luggage. Please <a href="/contact">contact us</a> to arrange two vehicles for more than 8 passengers, or a suitable transportation solution for more than 8 large suitcases.</p>
-
-                <label for="vehicle-type">Vehicle type *</label>
-                <select id="vehicle-type" name="vehicle_type" required>
+                <p class="vehicle-intro">Your vehicle is automatically selected based on your group size.</p>
+                <select id="vehicle-type" name="vehicle_type" class="automatic-vehicle-value" hidden aria-hidden="true" tabindex="-1">
                   <option value="">Select a vehicle</option>
-                  <option value="Premium Sedan">
-                    Premium Sedan (1-2 people)
-                  </option>
-                  <option value="Luxury Van 7 seats">
-                    Private Van (1–8 passengers, excluding the chauffeur)
-                  </option>
+                  <option value="Premium Sedan">Private Sedan (1–2 passengers)</option>
+                  <option value="Luxury Van 7 seats">Private Van (1–8 passengers, excluding the chauffeur)</option>
                 </select>
-                <div class="vehicle-hint" id="vehicleHint">
-                  <i class="fa-solid fa-circle-info"></i>
-                  <span id="vehicleHintText"></span>
+                <div class="vehicle-card" id="vehicleHint" role="status" aria-live="polite" aria-atomic="true">
+                  <i class="fa-solid fa-car" aria-hidden="true"></i>
+                  <div>
+                    <strong id="vehicleHintText">Your private vehicle</strong>
+                    <span id="vehicleCapacityText">Add your passengers and suitcases to see your vehicle.</span>
+                  </div>
                 </div>
+                <details class="vehicle-guidance">
+                  <summary>Vehicle &amp; luggage guidance</summary>
+                  <p>Private Sedan: 1–2 passengers and up to 2 large suitcases. Private Van: up to 8 passengers, excluding the chauffeur, and up to 8 large suitcases, excluding hand luggage. Capacity depends on the combination of passengers, child seats and luggage; not every combination will fit. Mention hand luggage, strollers and bulky items in Special Requests so we can confirm the configuration. For more than 8 passengers, contact us to arrange two vehicles; for more than 8 large suitcases, contact us for a suitable transportation solution.</p>
+                </details>
                 <div class="field-error">
                   <i class="fa-solid fa-circle-exclamation"></i> Please select a
                   vehicle
@@ -1861,7 +1871,7 @@
     <script src="js/libphonenumber-max.js" defer></script>
     <script src="js/phone-validation.js" defer></script>
     <script src="js/phone-input.js?v=20261026-mobile-1" defer></script>
-    <script src="js/reservation-phone-v2.js?v=20261116-suitcases-1" defer></script>
+    <script src="js/reservation-phone-v2.js?v=20261118-auto-vehicle-1" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>
 </html>

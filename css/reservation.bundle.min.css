@@ -4,3 +4,21 @@
 .admin-session-status { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
 
 .admin-session-status, .admin-panel > p { color: rgba(255, 255, 255, 0.85); }
+
+/* Compact automatic vehicle selection and conditional capacity notices. */
+.automatic-vehicle-value[hidden], .capacity-notice[hidden] { display: none !important; }
+.vehicle-intro, .suitcase-note { font-size: 0.85rem; color: var(--text-light); margin: 0 0 0.65rem; }
+.suitcase-note { margin: 0.45rem 0 0; }
+.vehicle-card { display: flex; align-items: center; gap: 0.85rem; padding: 0.85rem 1rem; border: 1px solid rgba(201,169,97,0.45); border-radius: 8px; background: var(--bg-light); }
+.vehicle-card > i { color: var(--accent); font-size: 1.15rem; flex: 0 0 auto; }
+.vehicle-card > div { min-width: 0; }
+.vehicle-card strong { display: block; font-size: 0.95rem; font-weight: 600; color: var(--primary); }
+.vehicle-card span { display: block; font-size: 0.8rem; color: var(--text-light); line-height: 1.5; margin-top: 0.15rem; }
+.vehicle-guidance { margin-top: 0.55rem; font-size: 0.8rem; color: var(--text-light); }
+.vehicle-guidance summary { cursor: pointer; color: var(--accent); width: fit-content; }
+.vehicle-guidance p { margin: 0.5rem 0 0; }
+.capacity-notice { margin-top: 0.65rem; padding: 0.8rem; border: 1px solid rgba(201,169,97,0.5); border-radius: 8px; background: rgba(201,169,97,0.08); color: var(--primary); }
+.capacity-notice strong { display: block; font-size: 0.85rem; line-height: 1.5; }
+.capacity-notice p { margin: 0.35rem 0 0.5rem; font-size: 0.8rem; line-height: 1.5; }
+.capacity-notice a { display: inline-block; font-size: 0.8rem; font-weight: 600; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+#submitBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }

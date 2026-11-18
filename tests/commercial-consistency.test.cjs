@@ -29,17 +29,17 @@ for (const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
    f.node('passengers').value=String(adults);f.node('child').value=String(children);f.evaluate('autoSelectVehicle()');
    assert.equal(f.node('vehicle-type').value,expected);
    assert.equal(f.evaluate('validatePassengerCapacity()'),adults+children<=8);
-   if(adults+children>8)assert.match(f.node('vehicleHintText').textContent,/two vehicles.*contact/i);
+   if(adults+children>8){assert.equal(f.node('passengerContactHint').hidden,false);assert.equal(f.node('submitBtn').disabled,true);}
   }
   f.node('passengers').value='3';f.node('child').value='0';f.node('vehicle-type').value='Premium Sedan';
   assert.equal(f.evaluate('validatePassengerCapacity()'),false);
  });
 }
-test('post-await guard blocks a nine-person payload even if earlier validation succeeded',async()=>{
+test('capacity guard blocks a nine-person payload even if ordinary validation is bypassed',async()=>{
  const f=fixture();await f.initialize();f.evaluate('validateForm=()=>true;');
  f.node('passengers').value='8';f.node('child').value='1';await f.submit();
  assert.equal(f.requests.filter(r=>r.options.method==='POST').length,0);
- assert.equal(f.node('submitBtn').disabled,false);
+ assert.equal(f.node('submitBtn').disabled,true);
 });
 test('eight-person payload preserves vehicle identifier, luggage and free-seat counts',async()=>{
  const f=fixture();await f.initialize();f.evaluate('validateForm=()=>true;setTripMode=()=>{};');

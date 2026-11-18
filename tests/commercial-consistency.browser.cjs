@@ -54,11 +54,12 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
   await p.evaluate(()=>setTripMode(true));await p.locator('#return-date').fill('2027-12-02');await p.locator('#return-time').fill('23:00');
   assert.equal(await p.locator('#summaryRoundtrip').isVisible(),false);assert.equal(await p.locator('#summaryNight').isVisible(),false);
   assert.match(await p.locator('#summaryTotal').textContent(),/Contact us/);
-  await p.locator('#submitBtn').click();assert.equal(posts.length,before);
-  assert.match(await p.locator('#fg-passengers .field-error').innerText(),/two vehicles/);
-  assert.equal(await p.locator('#fg-passengers .field-error a').getAttribute('href'),'/contact');
+  assert.equal(await p.locator('#submitBtn').isDisabled(),true);
+  await p.locator('#bookingForm').evaluate(f=>f.requestSubmit());assert.equal(posts.length,before);
+  assert.equal(await p.locator('#passengerContactHint').isVisible(),true);
+  assert.equal(await p.locator('#passengerContactHint a').getAttribute('href'),'/contact');
  }
- await prepare(3,0);await p.locator('#vehicle-type').selectOption('Premium Sedan');const before=posts.length;
+ await prepare(3,0);await p.locator('#vehicle-type').evaluate(e=>{e.value='Premium Sedan';});const before=posts.length;
  await p.locator('#submitBtn').click();assert.equal(posts.length,before);assert.match(await p.locator('#fg-vehicle .field-error').innerText(),/up to 2/);
  // Exact suitcase counts, contact-only sentinel and manual vehicle override safety.
  for(let bags=0;bags<=8;bags++){
@@ -74,10 +75,10 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
  await prepare(8,0,8);let suitcaseCount=posts.length;await p.locator('#submitBtn').click();await p.waitForFunction(()=>!document.querySelector('#submitBtn').disabled);assert.equal(posts.length,suitcaseCount+1);assert.equal(posts.at(-1).body.luggage,8);
  await prepare(2,0,2);await p.locator('#luggage').selectOption('more-than-8');
  assert.equal(await p.locator('#luggageContactHint').isVisible(),true);assert.equal(await p.locator('#luggageContactHint a').getAttribute('href'),'/contact');
- assert.match(await p.locator('#luggageContactHint').innerText(),/Travelling with more than 8 suitcases.*suitable vehicle solution/s);
- await p.locator('#vehicle-type').selectOption('Luxury Van 7 seats');
- suitcaseCount=posts.length;await p.locator('#submitBtn').click();assert.equal(posts.length,suitcaseCount);assert.equal(await p.locator('#summaryTotal').textContent(),'Contact us');assert.match(await p.locator('#fg-luggage .field-error').innerText(),/contact us/);
- await prepare(2,0,3);await p.locator('#vehicle-type').selectOption('Premium Sedan');await p.locator('#submitBtn').click();assert.equal(posts.length,suitcaseCount);assert.match(await p.locator('#fg-vehicle .field-error').innerText(),/2 large suitcases/);
+ assert.match(await p.locator('#luggageContactHint').innerText(),/A tailored transfer for your group.*more than 8 passengers or large suitcases.*suitable vehicle solution/s);
+ await p.locator('#vehicle-type').evaluate(e=>{e.value='Luxury Van 7 seats';});
+ suitcaseCount=posts.length;assert.equal(await p.locator('#submitBtn').isDisabled(),true);await p.locator('#bookingForm').evaluate(f=>f.requestSubmit());assert.equal(posts.length,suitcaseCount);assert.equal(await p.locator('#summaryTotal').textContent(),'Contact us');assert.equal(await p.locator('#luggageContactHint').isVisible(),true);
+ await prepare(2,0,3);await p.locator('#vehicle-type').evaluate(e=>{e.value='Premium Sedan';});await p.locator('#submitBtn').click();assert.equal(posts.length,suitcaseCount);assert.match(await p.locator('#fg-vehicle .field-error').innerText(),/2 large suitcases/);
  // Existing booking modifications use the same capacity guard and retained API identifier.
  await p.goto(base+'/manage-booking');await p.locator('#refInput').fill('SYNTHETIC');await p.locator('#emailInput').fill('synthetic@example.test');
  await p.locator('#searchForm').evaluate(f=>f.requestSubmit());await p.waitForFunction(()=>currentBooking!==null);await p.locator('#modifyBtn').click();
