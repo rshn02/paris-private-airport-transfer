@@ -29,7 +29,7 @@ test('markup hides admin controls and loads shared Supabase client before reserv
  assert.match(html,/<div class="admin-panel" id="adminPanel" hidden>/);
  for(const id of ['adminToggleBtn','adminBar','adminCalculatedPrice'])assert.ok(html.includes('id="'+id+'"'));
  assert.ok(html.indexOf('supabase-js@2')<html.indexOf('src="js/supabase.js"'));
- assert.ok(html.indexOf('src="js/supabase.js"')<html.indexOf('src="js/reservation-phone-v2.js?v=20261119-van-fee-1"'));
+ assert.ok(html.indexOf('src="js/supabase.js"')<html.indexOf('src="js/reservation-phone-v2.js?v=20261120-van-threshold4-1"'));
 });
 test('public: hidden panel, public endpoint, no admin fields',async()=>{
  const f=fixture();await f.initialize();assert.equal(f.node('adminPanel').hidden,true);prepareSubmit(f);await f.submit();

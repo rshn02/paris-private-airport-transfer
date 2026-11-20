@@ -43,7 +43,7 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
  for(const [adults,kids,suitcases] of [[8,0,5],[6,2,5],[2,0,2],[2,0,5]]){
   await prepare(adults,kids,suitcases);const before=posts.length;
   if(kids){await p.evaluate(()=>{changeSeat('baby',1);changeSeat('child-seat',1);});}
-  assert.equal(await p.locator('#vehicle-type').inputValue(),adults+kids>2||suitcases>2?'Luxury Van 7 seats':'Premium Sedan');
+  assert.equal(await p.locator('#vehicle-type').inputValue(),adults+kids>2||suitcases>3?'Luxury Van 7 seats':'Premium Sedan');
   await p.locator('#submitBtn').click();await p.waitForFunction(()=>!document.querySelector('#submitBtn').disabled);
   assert.equal(posts.length,before+1);const data=posts.at(-1).body;
   assert.equal(data.passengers+data.children,adults+kids);assert.equal(data.luggage,suitcases);
@@ -64,7 +64,7 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
  // Exact suitcase counts, contact-only sentinel and manual vehicle override safety.
  for(let bags=0;bags<=8;bags++){
   await prepare(1,0,bags);const count=posts.length;
-  assert.equal(await p.locator('#vehicle-type').inputValue(),bags<=2?'Premium Sedan':'Luxury Van 7 seats');
+  assert.equal(await p.locator('#vehicle-type').inputValue(),bags<=3?'Premium Sedan':'Luxury Van 7 seats');
   assert.equal(await p.locator('#summarySuitcasesVal').textContent(),String(bags));
   assert.match(await p.locator('#summaryTotal').textContent(),bags>=4?/85/:/80/);
   await p.locator('#notes').fill('Two cabin bags and a stroller; please check configuration.');
@@ -78,7 +78,7 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
  assert.match(await p.locator('#luggageContactHint').innerText(),/A tailored transfer for your group.*more than 8 passengers or large suitcases.*suitable vehicle solution/s);
  await p.locator('#vehicle-type').evaluate(e=>{e.value='Luxury Van 7 seats';});
  suitcaseCount=posts.length;assert.equal(await p.locator('#submitBtn').isDisabled(),true);await p.locator('#bookingForm').evaluate(f=>f.requestSubmit());assert.equal(posts.length,suitcaseCount);assert.equal(await p.locator('#summaryTotal').textContent(),'Contact us');assert.equal(await p.locator('#luggageContactHint').isVisible(),true);
- await prepare(2,0,3);await p.locator('#vehicle-type').evaluate(e=>{e.value='Premium Sedan';});await p.locator('#submitBtn').click();assert.equal(posts.length,suitcaseCount);assert.match(await p.locator('#fg-vehicle .field-error').innerText(),/2 large suitcases/);
+ await prepare(2,0,4);await p.locator('#vehicle-type').evaluate(e=>{e.value='Premium Sedan';});await p.locator('#submitBtn').click();assert.equal(posts.length,suitcaseCount);assert.match(await p.locator('#fg-vehicle .field-error').innerText(),/3 large suitcases/);
  // Existing booking modifications use the same capacity guard and retained API identifier.
  await p.goto(base+'/manage-booking');await p.locator('#refInput').fill('SYNTHETIC');await p.locator('#emailInput').fill('synthetic@example.test');
  await p.locator('#searchForm').evaluate(f=>f.requestSubmit());await p.waitForFunction(()=>currentBooking!==null);await p.locator('#modifyBtn').click();

@@ -516,8 +516,8 @@ function validateSuitcaseCapacity() {
         showError('fg-luggage', 'This suitcase count needs a tailored arrangement. Please <a href="/contact">contact us</a> before booking.');
         return false;
     }
-    if (suitcases > 2 && document.getElementById('vehicle-type')?.value === 'Premium Sedan') {
-        showError('fg-vehicle', 'The sedan accommodates up to 2 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.');
+    if (suitcases > 3 && document.getElementById('vehicle-type')?.value === 'Premium Sedan') {
+        showError('fg-vehicle', 'The sedan accommodates up to 3 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.');
         return false;
     }
     return true;
@@ -576,11 +576,11 @@ function autoSelectVehicle() {
         name = 'A tailored transfer for your group';
         description = 'Please contact us for a quote.';
     } else if (total > 0 && Number.isFinite(suitcases)) {
-        const sedan = total <= 2 && suitcases <= 2;
+        const sedan = total <= 2 && suitcases <= 3;
         value = sedan ? 'Premium Sedan' : 'Luxury Van 7 seats';
         name = sedan ? 'Private Sedan' : 'Private Van';
         description = sedan
-            ? '1–2 passengers · Up to 2 large suitcases'
+            ? '1–2 passengers · Up to 3 large suitcases'
             : 'Up to 8 passengers, excluding the chauffeur · Configuration to confirm';
     }
     if (vehicle) vehicle.value = value;

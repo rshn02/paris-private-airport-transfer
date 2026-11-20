@@ -294,7 +294,7 @@ function autoSelectManageVehicle() {
   } else if (suitcases > 8) {
     vehicleEl.value = "";
     if (hintText) hintText.textContent = "More than 8 suitcases need a suitable vehicle solution. Please contact us.";
-  } else if (total <= 2 && (!Number.isFinite(suitcases) || suitcases <= 2)) {
+  } else if (total <= 2 && (!Number.isFinite(suitcases) || suitcases <= 3)) {
     vehicleEl.value = "Premium Sedan";
     if (hintText) hintText.textContent = `${total} passenger${total > 1 ? "s" : ""} — Premium Sedan selected.`;
   } else {
@@ -371,8 +371,8 @@ async function saveModification(e) {
     document.getElementById("modLuggage")?.focus();
     return;
   }
-  if (suitcases > 2 && getValue("modVehicle") === "Premium Sedan") {
-    showMessage("The sedan accommodates up to 2 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.", "error");
+  if (suitcases > 3 && getValue("modVehicle") === "Premium Sedan") {
+    showMessage("The sedan accommodates up to 3 large suitcases. Please select a van and check passenger, child-seat and luggage suitability.", "error");
     return;
   }
 

@@ -29,7 +29,7 @@ for(const script of ['js/reservation-phone-v2.js','js/reservation.js']){
   const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true;setTripMode=()=>{};');
   f.node('luggage').value=choices[bags];f.evaluate('autoSelectVehicle()');
   assert.equal(f.evaluate('readSuitcaseCount()'),bags);assert.equal(f.evaluate('validateSuitcaseCapacity()'),true);
-  assert.equal(f.node('vehicle-type').value,bags<=2?'Premium Sedan':'Luxury Van 7 seats');
+  assert.equal(f.node('vehicle-type').value,bags<=3?'Premium Sedan':'Luxury Van 7 seats');
   assert.equal(f.evaluate('getTotalPrice().total'),bags>=4?85:80);assert.equal(f.node('summarySuitcasesVal').textContent,String(bags));
   await f.submit();const data=JSON.parse(f.requests.find(x=>x.options.method==='POST').options.body);assert.equal(data.luggage,bags);
  });
@@ -37,9 +37,10 @@ for(const script of ['js/reservation-phone-v2.js','js/reservation.js']){
   const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true;');f.node('luggage').value=value;f.node('vehicle-type').value='Luxury Van 7 seats';
   await f.submit();assert.equal(f.requests.filter(x=>x.options.method==='POST').length,0);assert.equal(f.node('submitBtn').disabled,['more-than-8','9','99'].includes(value));
  });
- test(script+': sedan accepts two suitcases and rejects three; hand luggage stays in notes',async()=>{
+ test(script+': sedan accepts three suitcases and rejects four; hand luggage stays in notes',async()=>{
   const f=fixture({script});await f.initialize();f.node('vehicle-type').value='Premium Sedan';f.node('luggage').value='2 bags';assert.equal(f.evaluate('validateSuitcaseCapacity()'),true);
-  f.node('luggage').value='3 bags';assert.equal(f.evaluate('validateSuitcaseCapacity()'),false);
+  f.node('luggage').value='3 bags';assert.equal(f.evaluate('validateSuitcaseCapacity()'),true);
+  f.node('luggage').value='4 bags';assert.equal(f.evaluate('validateSuitcaseCapacity()'),false);f.node('luggage').value='3 bags';
   f.node('vehicle-type').value='Luxury Van 7 seats';f.node('notes').value='Two cabin bags and a stroller; please check space.';f.evaluate('validateForm=()=>true;setTripMode=()=>{};');await f.submit();
   const data=JSON.parse(f.requests.find(x=>x.options.method==='POST').options.body);assert.equal(data.luggage,3);assert.equal(data.notes,'Two cabin bags and a stroller; please check space.');
  });
@@ -55,12 +56,12 @@ test('both forms present 0–8 exact suitcase choices, contact sentinel and excl
 
 test('new suitcase controls load their matching cache-versioned scripts',()=>{
  const reservation=fs.readFileSync(path.join(root,'reservation.html'),'utf8');const manage=fs.readFileSync(path.join(root,'manage-booking.html'),'utf8');
- assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261119-van-fee-1"/);
- assert.match(manage,/src="js\/manage-booking\.js\?v=20261119-van-fee-1"/);
+ assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261120-van-threshold4-1"/);
+ assert.match(manage,/src="js\/manage-booking\.js\?v=20261120-van-threshold4-1"/);
 });
 
 for(const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
- for(const [adults,kids,bags,vehicle] of [[1,0,0,'Premium Sedan'],[2,0,2,'Premium Sedan'],[2,0,3,'Luxury Van 7 seats'],[3,0,1,'Luxury Van 7 seats'],[6,0,6,'Luxury Van 7 seats'],[8,0,8,'Luxury Van 7 seats'],[1,1,2,'Premium Sedan']]) {
+ for(const [adults,kids,bags,vehicle] of [[1,0,0,'Premium Sedan'],[2,0,2,'Premium Sedan'],[2,0,3,'Premium Sedan'],[3,0,1,'Luxury Van 7 seats'],[6,0,6,'Luxury Van 7 seats'],[8,0,8,'Luxury Van 7 seats'],[1,1,2,'Premium Sedan']]) {
   test(`${script}: automatic card for ${adults}+${kids} passengers / ${bags} suitcases`,()=>{
    const f=fixture({script});f.node('passengers').value=String(adults);f.node('child').value=String(kids);f.node('luggage').value=choices[bags];
    f.evaluate('autoSelectVehicle()');assert.equal(f.node('vehicle-type').value,vehicle);
@@ -103,7 +104,7 @@ test('automatic vehicle control is not customer-selectable and disclosures are o
 });
 
 for(const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
- for(const [people,bags,fee,vehicle] of [[1,0,0,'Premium Sedan'],[1,2,0,'Premium Sedan'],[1,3,0,'Luxury Van 7 seats'],[1,4,5,'Luxury Van 7 seats'],[1,8,5,'Luxury Van 7 seats'],[2,2,0,'Premium Sedan'],[2,3,0,'Luxury Van 7 seats'],[2,4,5,'Luxury Van 7 seats'],[2,5,5,'Luxury Van 7 seats'],[2,8,5,'Luxury Van 7 seats'],[3,4,0,'Luxury Van 7 seats'],[6,6,0,'Luxury Van 7 seats'],[8,8,0,'Luxury Van 7 seats']])test(`${script}: fee/card/breakdown ${people}/${bags}`,()=>{
+ for(const [people,bags,fee,vehicle] of [[1,0,0,'Premium Sedan'],[1,2,0,'Premium Sedan'],[1,3,0,'Premium Sedan'],[1,4,5,'Luxury Van 7 seats'],[1,8,5,'Luxury Van 7 seats'],[2,2,0,'Premium Sedan'],[2,3,0,'Premium Sedan'],[2,4,5,'Luxury Van 7 seats'],[2,5,5,'Luxury Van 7 seats'],[2,8,5,'Luxury Van 7 seats'],[3,4,0,'Luxury Van 7 seats'],[6,6,0,'Luxury Van 7 seats'],[8,8,0,'Luxury Van 7 seats']])test(`${script}: fee/card/breakdown ${people}/${bags}`,()=>{
   const f=fixture({script});f.node('passengers').value=String(people);f.node('luggage').value=choices[bags];f.evaluate('autoSelectVehicle()');const result=f.evaluate('getTotalPrice()');assert.equal(result.vehicleSurcharge,fee);assert.equal(f.node('vehicle-type').value,vehicle);assert.equal(f.node('summaryLuggageVehicleFee').style.display,fee?'flex':'none');assert.equal(result.total,result.base+(fee||0));
  });
  test(script+': live transitions remove, add and never duplicate the booking fee',()=>{
