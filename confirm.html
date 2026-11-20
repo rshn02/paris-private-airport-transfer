@@ -397,6 +397,8 @@
             shortly with all the details.
           </p>
 
+          <div class="booking-summary-mini" id="confirmedPriceSummary"></div>
+
           <ul class="check-items">
             <li>
               <i class="fa-solid fa-circle-check"></i> Your confirmation has
@@ -519,6 +521,20 @@
             throw new Error(data.message || "Confirmation failed");
           }
 
+          if (data.pricing && Number.isFinite(data.pricing.total)) {
+            const summary = document.getElementById("confirmedPriceSummary");
+            if (summary) {
+              summary.replaceChildren();
+              const addPriceRow = (label, value) => {
+                const row = document.createElement("div"); row.className = "summary-row";
+                const key = document.createElement("span"); key.className = "key"; key.textContent = label;
+                const amount = document.createElement("span"); amount.className = "val"; amount.textContent = `${value}€`;
+                row.append(key, amount); summary.append(row);
+              };
+              if (data.pricing.vehicleSurcharge > 0) addPriceRow("Extra luggage vehicle surcharge (included)", data.pricing.vehicleSurcharge);
+              addPriceRow("Confirmed total", data.pricing.total);
+            }
+          }
           showState("stateSuccess");
         } catch (err) {
           console.error(err);

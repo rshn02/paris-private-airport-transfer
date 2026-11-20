@@ -241,19 +241,26 @@ function showAdminNotice(text) {
 }
 
 
+// One vehicle charge per booking, independent of return legs and seat requests.
+function getLuggageVehicleSurcharge() {
+    const { total, suitcases } = reservationCapacity();
+    return total >= 1 && total <= 2 && suitcases >= 4 && suitcases <= 8 ? 5 : 0;
+}
+
 // Compute the live reservation total, including round-trip and night rules.
 function getTotalPrice() {
     if (state.customPrice !== null) {
         const discount = calcDiscount(state.customPrice);
-        return { base: state.customPrice, night: 0, discount, total: Math.max(0, state.customPrice - discount) };
+        return { base: state.customPrice, night: 0, vehicleSurcharge: 0, discount, total: Math.max(0, state.customPrice - discount) };
     }
     if (document.getElementById('service')?.value === 'other') return { base: 0, night: 0, discount: 0, total: 0 };
     const base     = getBasePrice('form');
     const afterRT  = state.isRoundTrip ? base * 2 : base;
     const night    = getNightSurchargeTotal();
-    const subtotal = afterRT + night;
+    const vehicleSurcharge = getLuggageVehicleSurcharge();
+    const subtotal = afterRT + night + vehicleSurcharge;
     const discount = calcDiscount(subtotal);
-    return { base, roundtrip: state.isRoundTrip ? afterRT : null, night, discount, total: Math.max(0, subtotal - discount) };
+    return { base, roundtrip: state.isRoundTrip ? afterRT : null, night, vehicleSurcharge, discount, total: Math.max(0, subtotal - discount) };
 }
 
 function calcDiscount(sub) {
@@ -282,7 +289,7 @@ function getNightSurchargeTotal() {
 function updatePriceSummary() {
     const calculated = document.getElementById('adminCalculatedPrice');
     const isOther = document.getElementById('service')?.value === 'other';
-    if (calculated) calculated.textContent = isOther ? 'No automatic fare — enter a custom price' : (getBasePrice('form') * (state.isRoundTrip ? 2 : 1) + getNightSurchargeTotal()) + '€';
+    if (calculated) calculated.textContent = isOther ? 'No automatic fare — enter a custom price' : (getBasePrice('form') * (state.isRoundTrip ? 2 : 1) + getNightSurchargeTotal() + getLuggageVehicleSurcharge()) + '€';
     const priceError = document.getElementById('adminServicePriceError');
     if (priceError && (!isOther || state.customPrice > 0)) priceError.hidden = true;
     const p      = getTotalPrice();
@@ -324,6 +331,11 @@ function updatePriceSummary() {
     if (nightRow) nightRow.style.display = (p.night > 0 && state.customPrice === null) ? 'flex' : 'none';
     if (nightVal) nightVal.textContent = `+${fmt(p.night)}`;
 
+    const luggageFeeRow = document.getElementById('summaryLuggageVehicleFee');
+    if (luggageFeeRow) luggageFeeRow.style.display = p.vehicleSurcharge > 0 ? 'flex' : 'none';
+    const luggageFeeValue = document.getElementById('summaryLuggageVehicleFeeVal');
+    if (luggageFeeValue) luggageFeeValue.textContent = '+5€';
+
     // Discount.
     const discRow   = document.getElementById('summaryDiscount');
     const discVal   = document.getElementById('summaryDiscountVal');
@@ -357,14 +369,14 @@ function updatePriceSummary() {
         if (baseEl) baseEl.textContent = 'Contact us';
         if (totalEl) totalEl.textContent = 'Contact us for two vehicles';
         if (calculated) calculated.textContent = 'Contact us for two vehicles';
-        [rtRow, nightRow, discRow].forEach(row => { if (row) row.style.display = 'none'; });
+        [rtRow, nightRow, discRow, luggageFeeRow].forEach(row => { if (row) row.style.display = 'none'; });
     }
 
     if (suitcases > 8) {
         if (baseEl) baseEl.textContent = 'Contact us';
         if (totalEl) totalEl.textContent = 'Contact us';
         if (calculated) calculated.textContent = 'Contact us';
-        [rtRow, nightRow, discRow].forEach(row => { if (row) row.style.display = 'none'; });
+        [rtRow, nightRow, discRow, luggageFeeRow].forEach(row => { if (row) row.style.display = 'none'; });
     }
 
     // Toggle the informational night warning.
@@ -720,6 +732,7 @@ async function handleFormSubmit(e) {
     }
     const submittingAsAdmin = state.adminMode;
     const bookingData = {
+        pricing_version: 'van-luggage-v1',
         customer_name: document.getElementById('name')?.value.trim(),
         customer_email: document.getElementById('email')?.value.trim(),
         customer_phone: document.getElementById('phone-full')?.value,

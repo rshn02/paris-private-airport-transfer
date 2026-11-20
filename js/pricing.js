@@ -41,6 +41,7 @@ function calculatePrice({
   service,
   passengers = 1,
   children = 0,
+  luggage = 0,
   trip_type = "one_way",
   time = "",
   return_time = ""
@@ -64,7 +65,9 @@ function calculatePrice({
   const returnNight = roundtrip && isNightTime(return_time) ? NIGHT_SURCHARGE : 0;
 
   const night = outboundNight + returnNight;
-  const total = (roundtrip ? base * 2 : base) + night;
+  const suitcases = Number(luggage);
+  const vehicleSurcharge = totalPeople >= 1 && totalPeople <= 2 && Number.isInteger(suitcases) && suitcases >= 4 && suitcases <= 8 ? 5 : 0;
+  const total = (roundtrip ? base * 2 : base) + night + vehicleSurcharge;
 
   return {
     base,
@@ -72,6 +75,7 @@ function calculatePrice({
     outboundNight,
     returnNight,
     night,
+    vehicleSurcharge,
     total
   };
 }

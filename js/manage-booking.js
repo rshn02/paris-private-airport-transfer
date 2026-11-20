@@ -153,6 +153,7 @@ function renderBooking(booking) {
       <div class="booking-item"><span>Seats</span>Baby: ${booking.baby_seats || "0"} · Child: ${booking.child_seats || "0"}</div>
       <div class="booking-item"><span>Flight</span>${booking.flight_number || "-"}</div>
       <div class="booking-item"><span>Terminal</span>${booking.terminal || "-"}</div>
+      ${Number(booking.luggage_vehicle_surcharge) === 5 ? '<div class="booking-item"><span>Extra luggage vehicle surcharge (included)</span>5€</div>' : ''}
       <div class="booking-item"><span>Total</span>${booking.price ? formatPrice(booking.price) : "-"}</div>
     </div>
   `;
@@ -237,13 +238,33 @@ function calculateManagePrice() {
     service: getValue("modService"),
     passengers: Number(getValue("modPassengers")) || 1,
     children: Number(getValue("modChildren")) || 0,
+    luggage: readManageSuitcases(),
     trip_type: manageState.isRoundTrip ? "round_trip" : "one_way",
     time: getValue("modTime"),
     return_time: getValue("modReturnTime")
   });
 
+  const fareFields = {
+    service_type: getValue("modService"), trip_type: manageState.isRoundTrip ? "round_trip" : "one_way",
+    booking_time: getValue("modTime"), return_time: manageState.isRoundTrip ? getValue("modReturnTime") : null,
+    passengers: Number(getValue("modPassengers")) || 1, children: Number(getValue("modChildren")) || 0,
+    luggage: readManageSuitcases()
+  };
+  const fareChanged = currentBooking && Object.entries(fareFields).some(([key, value]) => {
+    const normalize = input => ["booking_time", "return_time"].includes(key)
+      ? String(input || "").slice(0, 5) : String(input ?? "");
+    return normalize(value) !== normalize(currentBooking[key]);
+  });
+  if (currentBooking && (currentBooking.has_agreed_total || currentBooking.service_type === "other" || !fareChanged)) {
+    result.base = Number(currentBooking.original_price || 0);
+    result.total = Number(currentBooking.price || 0);
+    result.vehicleSurcharge = Number(currentBooking.luggage_vehicle_surcharge) === 5 ? 5 : 0;
+    result.night = Number(currentBooking.night_surcharge || 0);
+  }
+
   manageState.estimatedBase = result.base;
   manageState.estimatedNight = result.night;
+  manageState.estimatedVehicleSurcharge = result.vehicleSurcharge;
   manageState.estimatedTotal = result.total;
   manageState.estimatedRoundtrip = result.roundtrip ? result.base * 2 : 0;
   manageState.isNight = result.night > 0;
@@ -296,6 +317,8 @@ function updateManagePriceSummary() {
   const roundVal = document.getElementById("manageSummaryRoundtrip");
   const nightRow = document.getElementById("manageSummaryNightRow");
   const nightVal = document.getElementById("manageSummaryNight");
+  const feeRow = document.getElementById("manageSummaryLuggageFeeRow");
+  if (feeRow) feeRow.style.display = manageState.estimatedVehicleSurcharge > 0 ? "flex" : "none";
   const totalPassengers = (Number(getValue("modPassengers")) || 0) + (Number(getValue("modChildren")) || 0);
   const suitcases = readManageSuitcases();
   const needsContact = totalPassengers > 8 || suitcases > 8;
@@ -304,6 +327,7 @@ function updateManagePriceSummary() {
   if (suitcaseRow) suitcaseRow.style.display = Number.isFinite(suitcases) ? "flex" : "none";
   if (suitcaseValue) suitcaseValue.textContent = suitcases > 8 ? "Contact us" : String(suitcases);
 
+  if (feeRow && needsContact) feeRow.style.display = "none";
   if (baseEl) baseEl.textContent = needsContact ? "Contact us" : formatPrice(manageState.estimatedBase);
   if (totalEl) totalEl.textContent = needsContact ? "Contact us" : formatPrice(manageState.estimatedTotal);
 
@@ -382,6 +406,7 @@ async function saveModification(e) {
     passengers: Number(getValue("modPassengers")) || 1,
     children: Number(getValue("modChildren")) || 0,
     luggage: suitcases,
+    pricing_version: "van-luggage-v1",
 
     baby_seats: Number(getValue("modBabySeats")) || 0,
     child_seats: Number(getValue("modChildSeats")) || 0,

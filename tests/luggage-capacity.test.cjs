@@ -30,7 +30,7 @@ for(const script of ['js/reservation-phone-v2.js','js/reservation.js']){
   f.node('luggage').value=choices[bags];f.evaluate('autoSelectVehicle()');
   assert.equal(f.evaluate('readSuitcaseCount()'),bags);assert.equal(f.evaluate('validateSuitcaseCapacity()'),true);
   assert.equal(f.node('vehicle-type').value,bags<=2?'Premium Sedan':'Luxury Van 7 seats');
-  assert.equal(f.evaluate('getTotalPrice().total'),80);assert.equal(f.node('summarySuitcasesVal').textContent,String(bags));
+  assert.equal(f.evaluate('getTotalPrice().total'),bags>=4?85:80);assert.equal(f.node('summarySuitcasesVal').textContent,String(bags));
   await f.submit();const data=JSON.parse(f.requests.find(x=>x.options.method==='POST').options.body);assert.equal(data.luggage,bags);
  });
  for(const value of ['more-than-8','9','99','8x','-1',''])test(script+': unsupported suitcase value '+value+' cannot post after async guard',async()=>{
@@ -55,8 +55,8 @@ test('both forms present 0–8 exact suitcase choices, contact sentinel and excl
 
 test('new suitcase controls load their matching cache-versioned scripts',()=>{
  const reservation=fs.readFileSync(path.join(root,'reservation.html'),'utf8');const manage=fs.readFileSync(path.join(root,'manage-booking.html'),'utf8');
- assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261118-auto-vehicle-1"/);
- assert.match(manage,/src="js\/manage-booking\.js\?v=20261116-suitcases-1"/);
+ assert.match(reservation,/src="js\/reservation-phone-v2\.js\?v=20261119-van-fee-1"/);
+ assert.match(manage,/src="js\/manage-booking\.js\?v=20261119-van-fee-1"/);
 });
 
 for(const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
@@ -100,4 +100,19 @@ test('automatic vehicle control is not customer-selectable and disclosures are o
  assert.match(html,/<details class="vehicle-guidance">[\s\S]*up to 8 large suitcases[\s\S]*not every combination will fit[\s\S]*Special Requests/);
  assert.equal((html.match(/class="capacity-notice"[^>]*hidden/g)||[]).length,2);
  assert.equal((html.match(/Contact us for a quote/g)||[]).length,2);
+});
+
+for(const script of ['js/reservation-phone-v2.js','js/reservation.js']) {
+ for(const [people,bags,fee,vehicle] of [[1,0,0,'Premium Sedan'],[1,2,0,'Premium Sedan'],[1,3,0,'Luxury Van 7 seats'],[1,4,5,'Luxury Van 7 seats'],[1,8,5,'Luxury Van 7 seats'],[2,2,0,'Premium Sedan'],[2,3,0,'Luxury Van 7 seats'],[2,4,5,'Luxury Van 7 seats'],[2,5,5,'Luxury Van 7 seats'],[2,8,5,'Luxury Van 7 seats'],[3,4,0,'Luxury Van 7 seats'],[6,6,0,'Luxury Van 7 seats'],[8,8,0,'Luxury Van 7 seats']])test(`${script}: fee/card/breakdown ${people}/${bags}`,()=>{
+  const f=fixture({script});f.node('passengers').value=String(people);f.node('luggage').value=choices[bags];f.evaluate('autoSelectVehicle()');const result=f.evaluate('getTotalPrice()');assert.equal(result.vehicleSurcharge,fee);assert.equal(f.node('vehicle-type').value,vehicle);assert.equal(f.node('summaryLuggageVehicleFee').style.display,fee?'flex':'none');assert.equal(result.total,result.base+(fee||0));
+ });
+ test(script+': live transitions remove, add and never duplicate the booking fee',()=>{
+  const f=fixture({script});for(const [people,bags,fee,total]of [[2,4,5,85],[2,3,0,80],[2,4,5,85],[3,4,0,90],[2,4,5,85]]){f.node('passengers').value=String(people);f.node('luggage').value=choices[bags];f.evaluate('autoSelectVehicle()');assert.equal(f.evaluate('getTotalPrice().vehicleSurcharge'),fee);assert.equal(f.evaluate('getTotalPrice().total'),total);}
+ });
+ test(script+': new requests acknowledge the current server pricing contract',async()=>{const f=fixture({script});await f.initialize();f.evaluate('validateForm=()=>true;setTripMode=()=>{};');f.node('luggage').value=choices[4];f.evaluate('autoSelectVehicle()');await f.submit();const payload=JSON.parse(f.requests.find(x=>x.options.method==='POST').options.body);assert.equal(payload.pricing_version,'van-luggage-v1');assert.equal(f.evaluate('getTotalPrice().total'),85);});
+}
+
+for(const script of ['js/reservation-phone-v2.js','js/reservation.js'])test(script+': custom total stays all-inclusive and night/return fee stays once per booking',()=>{
+ const f=fixture({script});f.node('luggage').value=choices[4];f.node('time').value='23:00';f.node('return-time').value='05:00';f.evaluate('state.isRoundTrip=true;autoSelectVehicle();');assert.equal(f.evaluate('getTotalPrice().total'),185);assert.equal(f.evaluate('getTotalPrice().vehicleSurcharge'),5);
+ f.evaluate('state.adminMode=true;state.customPrice=150;updatePriceSummary();');assert.equal(f.evaluate('getTotalPrice().total'),150);assert.equal(f.evaluate('getTotalPrice().vehicleSurcharge'),0);assert.equal(f.node('summaryLuggageVehicleFee').style.display,'none');
 });

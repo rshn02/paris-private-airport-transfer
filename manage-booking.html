@@ -318,6 +318,7 @@
                   <div class="form-group">
                     <label for="modService">Service Type</label>
                     <select id="modService">
+                      <option value="other" hidden disabled>Other (agreed total)</option>
                       <option value="">Select a service</option>
 
                       <optgroup label="Airports → Paris">
@@ -688,6 +689,10 @@
                     <span class="value" id="manageSummaryNight">+10€</span>
                   </div>
 
+                  <div class="price-line" id="manageSummaryLuggageFeeRow" style="display: none">
+                    <span class="label">Extra luggage vehicle surcharge (once per booking)</span>
+                    <span class="value">+5€</span>
+                  </div>
                   <div class="price-line total">
                     <span class="label">New total</span>
                     <span class="value" id="manageSummaryTotal">—</span>
@@ -861,9 +866,9 @@
     </footer>
 
     <script src="js/main.js?v=20260910-1" defer></script>
-    <script src="js/pricing.js" defer></script>
+    <script src="js/pricing.js?v=20261119-van-fee-1" defer></script>
     <script src="js/email-operation.js" defer></script>
-    <script src="js/manage-booking.js?v=20261116-suitcases-1" defer></script>
+    <script src="js/manage-booking.js?v=20261119-van-fee-1" defer></script>
     <script src="js/marketing-attribution.js"></script>
   </body>
 </html>

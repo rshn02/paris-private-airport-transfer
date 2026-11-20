@@ -17,7 +17,7 @@ test('new HTML uses distinct phone entry points, ordered dependencies and refres
   const html=fs.readFileSync(path.join(root,`${name}.html`),'utf8').replace(/<!--[\s\S]*?-->/g,'');
   const scripts=[...html.matchAll(/<script\b[^>]*src="([^"]+)"/g)].map(m=>m[1]);
   let previous=-1;
-  for(const script of ['js/libphonenumber-max.js','js/phone-validation.js','js/phone-input.js?v=20261026-mobile-1',`js/${name}-phone-v2.js${name==='reservation'?'?v=20261118-auto-vehicle-1':''}`]){
+  for(const script of ['js/libphonenumber-max.js','js/phone-validation.js','js/phone-input.js?v=20261026-mobile-1',`js/${name}-phone-v2.js${name==='reservation'?'?v=20261119-van-fee-1':''}`]){
    const index=scripts.indexOf(script);assert.ok(index>previous,script+' must load after its dependencies');previous=index;
   }
   assert.ok(scripts.includes('js/main.js?v=20261025-phone-v2'));assert.ok(!scripts.includes(`js/${name}.js`));

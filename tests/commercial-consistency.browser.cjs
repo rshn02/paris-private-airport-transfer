@@ -66,7 +66,7 @@ test('commercial capacity, form payloads, prefills and all public pages at six w
   await prepare(1,0,bags);const count=posts.length;
   assert.equal(await p.locator('#vehicle-type').inputValue(),bags<=2?'Premium Sedan':'Luxury Van 7 seats');
   assert.equal(await p.locator('#summarySuitcasesVal').textContent(),String(bags));
-  assert.match(await p.locator('#summaryTotal').textContent(),/80/);
+  assert.match(await p.locator('#summaryTotal').textContent(),bags>=4?/85/:/80/);
   await p.locator('#notes').fill('Two cabin bags and a stroller; please check configuration.');
   await p.locator('#submitBtn').click();await p.waitForFunction(()=>!document.querySelector('#submitBtn').disabled);
   assert.equal(posts.length,count+1);assert.equal(posts.at(-1).body.luggage,bags);
