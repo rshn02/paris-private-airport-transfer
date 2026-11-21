@@ -51,7 +51,7 @@ test('eight-person payload preserves vehicle identifier, luggage and free-seat c
 });
 test('free-seat policy, van seating and luggage caveat remain visible',()=>{
  for(const file of ['index.html','flotte.html','reservation.html','manage-booking.html','pages/cgv.html','cdg-to-paris.html','cdg-to-disneyland.html','orly-to-disneyland.html','beauvais-to-disneyland.html','paris-to-disneyland.html','beauvais-to-paris.html','disneyland-transfer.html']){
-  assert.match(fs.readFileSync(path.join(root,file),'utf8'),/Baby seats and child seats are available free of charge upon request/);
+  assert.match(fs.readFileSync(path.join(root,file),'utf8'),file==='index.html' ? /Free baby and child seats on request/ : /Baby seats and child seats are available free of charge upon request/);
  }
  for(const file of ['reservation.html','manage-booking.html'])assert.match(fs.readFileSync(path.join(root,file),'utf8'),/value="Luxury Van 7 seats">\s*Private Van \(1–8 passengers, excluding the chauffeur\)/);
  const fleet=fs.readFileSync(path.join(root,'flotte.html'),'utf8');assert.match(fleet,/8 large suitcases/);assert.match(fleet,/depends on passenger numbers and child-seat configuration/);
